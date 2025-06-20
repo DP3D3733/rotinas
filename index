@@ -869,6 +869,7 @@
     <ul id="options-list">
         </div>
         <script>
+console.log('github');
             // Configuração Firebase
             const firebaseConfig = {
                 apiKey: "AIzaSyBag5uPzTK0sXx3nBzjGhmlmSCySO3u3_U",
