@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rotinas / Chamadas</title>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;charset=UTF-8,%3Csvg%20version%3D%221.0%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512.000000pt%22%20height%3D%22512.000000pt%22%20viewBox%3D%220%200%20512.000000%20512.000000%22%20preserveAspectRatio%3D%22xMidYMid%20meet%22%3E%3Cg%20transform%3D%22translate(0.000000%2C512.000000)%20scale(0.100000%2C-0.100000)%22%20fill%3D%22white%22%20stroke%3D%22none%22%3E%3Cpath%20d%3D%22M825%205106%20c-41%20-18%20-83%20-69%20-90%20-109%20-3%20-18%20-4%20-1126%20-3%20-2464%20l3%20-2432%2021%20-27%20c11%20-15%2033%20-37%2048%20-48%20l27%20-21%201729%200%201729%200%2027%2021%20c15%2011%2037%2033%2048%2048%20l21%2027%200%202459%200%202459%20-21%2027%20c-11%2015%20-33%2037%20-48%2048%20-26%2020%20-41%2021%20-416%2024%20l-389%203%20-3%20-468%20c-3%20-450%20-4%20-469%20-23%20-495%20-46%20-62%2013%20-58%20-968%20-58%20l-894%200%20-34%2023%20c-70%2046%20-69%2040%20-69%20545%20l0%20452%20-332%200%20c-254%20-1%20-340%20-4%20-363%20-14z%20m1163%20-1785%20c49%20-26%2078%20-103%2061%20-165%20-9%20-33%20-42%20-72%20-177%20-208%20-91%20-92%20-180%20-174%20-198%20-183%20-80%20-38%20-134%20-13%20-270%20127%20-80%2081%20-104%20112%20-114%20146%20-20%2076%2018%20148%2094%20177%2060%2023%20113%208%20177%20-52%20l49%20-46%20109%20106%20c68%2066%20119%20108%20137%20112%2016%204%2034%208%2039%209%2015%204%2067%20-9%2093%20-23z%20m1718%20-287%20c54%20-26%2079%20-69%2079%20-136%200%20-66%20-22%20-103%20-76%20-130%20-31%20-17%20-81%20-18%20-597%20-18%20-616%200%20-604%20-1%20-655%2059%20-23%2027%20-27%2042%20-27%2091%200%2049%204%2064%2027%2091%2025%2059%2036%2058%20651%2059%20500%200%20568%20-2%20568%20-16z%20m-1719%20-544%20c61%20-37%2085%20-130%2050%20-195%20-8%20-16%20-91%20-105%20-184%20-197%20-181%20-179%20-197%20-189%20-280%20-173%20-54%2010%20-267%20221%20-282%20281%20-26%2098%2042%20186%20145%20186%2050%200%2091%20-22%20144%20-77%20l34%20-35%20106%20104%20c58%2057%20114%20108%20125%20114%2033%2018%20107%2014%20142%20-8z%20m1723%20-292%20c57%20-30%2083%20-76%2077%20-141%20-5%20-57%20-30%20-95%20-78%20-120%20-31%20-16%20-77%20-17%20-614%20-15%20-562%203%20-581%204%20-607%2023%20-45%2033%20-61%2074%20-56%20139%205%2064%2039%20110%2093%20125%2016%205%20280%2010%20585%2010%20l556%201%2044%20-22z%20m-1735%20-534%20c60%20-28%2092%20-101%2074%20-168%20-9%20-33%20-42%20-73%20-177%20-209%20-92%20-93%20-179%20-175%20-194%20-183%20-35%20-18%20-101%20-18%20-136%200%20-15%208%20-75%2063%20-133%20123%20-117%20118%20-138%20157%20-119%20222%2023%2082%2073%20116%20157%20109%2049%20-4%2059%20-9%20109%20-59%20l54%20-53%20108%20106%20c59%2058%20116%20110%20127%20116%2029%2016%2092%2014%20130%20-4z%20m1743%20-299%20c40%20-24%2072%20-81%2072%20-127%200%20-46%20-29%20-99%20-69%20-125%20l-34%20-23%20-574%200%20c-638%200%20-622%20-2%20-664%2066%20-26%2043%20-27%20113%20-2%20157%2010%2018%2038%2042%2055%2063%2055%20l45%2023%20565%20-3%20c545%20-3%205566%20-4%20598%20-23z%22%2F%3E%3Cpath%20d%3D%22M1820%204760%20l0%20-360%20695%200%20695%200%200%20360%200%20360%20-695%200%20-695%200%200%20-360z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+
+
+
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        /* Botões superiores */
+        div>button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            margin-right: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        div>button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Filtros */
+        #filtro,
+        #filtro_chamadas,
+        #filtro_setores {
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #filtro table td,
+        #filtro_chamadas table td,
+        #filtro_setores table td {
+            padding: 10px;
+        }
+
+        #filtro input[type="date"],
+        #filtro_chamadas input[type="date"],
+        #filtro button,
+        #filtro_chamadas button {
+            padding: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #filtro button,
+        #filtro_chamadas button {
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.32;
+            color: black;
+        }
+
+        #filtro button:hover,
+        #filtro_chamadas button:hover {
+            background-color: #ffffff;
+        }
+
+        #filtro input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        /* Tabela de rotinas */
+        #rotinas_table,
+        #chamadas_table,
+        #setores_table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body:not(.dark-mode) #rotinas_table,
+        body:not(.dark-mode) #chamadas_table,
+        body:not(.dark-mode) #setores_table {
+            background: white;
+        }
+
+        body:not(.dark-mode) #rotinas_table tr:nth-child(even),
+        body:not(.dark-mode) #chamadas_table tr:nth-child(even),
+        body:not(.dark-mode) #setores_table tr:nth-child(even) {
+            background-color: #fffafa;
+        }
+
+        body:not(.dark-mode) #rotinas_table tr:hover,
+        body:not(.dark-mode) #chamadas_table tr:hover,
+        body:not(.dark-mode) #setores_table tr:hover {
+            background-color: #eceaea;
+        }
+
+        body:not(.dark-mode) #rotinas_table tr:hover,
+        body:not(.dark-mode) #chamadas_table tr:hover,
+        body:not(.dark-mode) #setores_table tr:hover {
+            background-color: #eceaea;
+        }
+
+        #rotinas_table th,
+        #rotinas_table td,
+        #chamadas_table th,
+        #chamadas_table td,
+        #setores_table th,
+        #setores_table td {
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+        }
+
+        body:not(.dark-mode) #rotinas_table th,
+        body:not(.dark-mode) #chamadas_table th,
+        body:not(.dark-mode) #setores_table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        body:not(.dark-mode) #rotinas_table td[contenteditable="true"]:focus,
+        body:not(.dark-mode) #chamadas_table td[contenteditable="true"]:focus,
+        body:not(.dark-mode) #setores_table td[contenteditable="true"]:focus {
+            background-color: #ffffcc;
+            outline: 2px solid #ffc107;
+        }
+
+        th.sortable {
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        th.sortable::after {
+            content: '⇅';
+            font-size: 0.8em;
+            position: absolute;
+            right: 8px;
+            color: #999;
+        }
+
+        th.sortable:hover::after {
+            color: #333;
+        }
+
+        th.sorted-asc::after {
+            content: '↑';
+            color: #000;
+        }
+
+        th.sorted-desc::after {
+            content: '↓';
+            color: #000;
+        }
+
+        th.sortable:hover::after {
+            color: #d4d4d4;
+        }
+
+        th.sorted-asc::after {
+            content: '↑';
+            color: #d4d4d4;
+        }
+
+        th.sorted-desc::after {
+            content: '↓';
+            color: #d4d4d4;
+        }
+
+        ul {
+            display: none;
+            position: absolute;
+            border: 1px solid #ccc;
+            background: #fff;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 150px;
+            overflow-y: auto
+        }
+
+        body.dark-mode ul {
+            border: 1px solid #ccc;
+            background: #000;
+        }
+
+        .selecionado {
+            background-color: rgb(224, 223, 223);
+        }
+
+        body.dark-mode .selecionado {
+            background-color: rgb(43, 42, 42);
+        }
+
+        li:hover {
+            background-color: rgb(194, 194, 194);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .tab-button {
+            background-color: #f4f4f4;
+            border: none;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            padding: 10px 16px;
+            margin-right: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            transition: background-color 0.3s, color 0.3s;
+            color: black;
+        }
+
+        .tab-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .tab-button.ativo {
+            background-color: white;
+            color: #007bff;
+            border-bottom: 2px solid white;
+        }
+
+        svg:hover {
+            cursor: pointer;
+        }
+
+        body.dark-mode svg.copiar {
+            stroke: white;
+        }
+
+        .copiar:hover path,
+        .copiar:hover rect,
+        .copiar_clicado:hover path,
+        .copiar_clicado:hover rect {
+            fill: #ffc107;
+        }
+
+        .copiar_clicado path,
+        .copiar_clicado rect {
+            fill: #21e232;
+        }
+
+        body.dark-mode .copiar_clicado path,
+        body.dark-mode .copiar_clicado rect {
+            fill: #21e232;
+            stroke: white
+        }
+
+        .borracha:hover path,
+        body.dark-mode .borracha:hover path {
+            fill: red;
+        }
+
+        body.dark-mode .borracha path {
+            fill: white;
+        }
+
+        body.dark-mode .empenhar path {
+            fill: rgb(248, 248, 248);
+        }
+
+        .empenhar:hover path {
+            fill: rgb(33, 16, 133) !important;
+        }
+
+        .copiado-msg {
+            position: absolute;
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            animation: fadeOut 2s forwards;
+            top: -30px;
+            left: 90%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+        }
+
+        /* Esconde o checkbox nativo */
+        .custom-checkbox {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Container */
+        .checkbox-wrapper {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Caixa customizada */
+        .checkmark {
+            margin-top: 2px;
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            border: 2px solid #4d4c4c;
+            /* ← Aqui você controla a grossura */
+            border-radius: 3px;
+            box-sizing: border-box;
+            position: relative;
+            background-color: white;
+        }
+
+        /* Check (✓) mais grosso */
+        .custom-checkbox:checked+.checkmark::after {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: -1px;
+            width: 3px;
+            height: 7px;
+            border: solid #ffffff;
+            border-width: 0 2px 2px 0;
+            /* ← Traço do check */
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox:checked+.checkmark {
+            background-color: #007bff;
+            /* azul */
+            border-color: #007bff;
+        }
+
+        .div_tabela_registros {
+            max-height: 70vh;
+            overflow: auto;
+        }
+
+        body.dark-mode {
+            background-color: #181818;
+            color: #e0e0e0;
+        }
+
+        /* Botões superiores */
+        body.dark-mode div>button {
+            background-color: #1f6feb;
+            color: white;
+        }
+
+        body.dark-mode div>button:hover {
+            background-color: #104bb3;
+        }
+
+        /* Filtros */
+        body.dark-mode #filtro,
+        body.dark-mode #filtro_chamadas,
+        body.dark-mode #filtro_setores {
+            background: #2c2c2c;
+            box-shadow: none;
+        }
+
+        body.dark-mode #filtro input[type="date"],
+        body.dark-mode #filtro_chamadas input[type="date"],
+        body.dark-mode #filtro button,
+        body.dark-mode #filtro_chamadas button {
+            background-color: #1e1e1e;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        body.dark-mode #filtro button:hover,
+        body.dark-mode #filtro_chamadas button:hover {
+            background-color: #333;
+        }
+
+        /* Tabelas */
+        body.dark-mode table {
+            background: #252525;
+            color: #ddd;
+            border-color: #444;
+        }
+
+        body.dark-mode table td,
+        body.dark-mode table th {
+            border-color: #444;
+        }
+
+        body.dark-mode tr:nth-child(even) {
+            background-color: #1f1f1f;
+        }
+
+        body.dark-mode tr:hover {
+            background-color: #333;
+        }
+
+        body.dark-mode th {
+            background-color: #2c2c2c;
+            color: #fff;
+        }
+
+        /* Tabs */
+        body.dark-mode .tab-button {
+            background-color: #222;
+            color: #ccc;
+            border-color: #444;
+        }
+
+        body.dark-mode .tab-button:hover {
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .tab-button.ativo {
+            background-color: #333;
+            color: #4ea5ff;
+            border-color: #444;
+        }
+
+        /* Inputs */
+        body.dark-mode input[type="text"] {
+            background-color: #1e1e1e;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        body.dark-mode input[type="text"]:focus {
+            border-color: #4ea5ff;
+            box-shadow: 0 0 0 3px rgba(78, 165, 255, 0.3);
+        }
+
+        /* Checkbox customizado */
+        body.dark-mode .checkmark {
+            border-color: #888;
+            background-color: #1a1a1a;
+        }
+
+        body.dark-mode .custom-checkbox:checked+.checkmark {
+            background-color: #4ea5ff;
+            border-color: #4ea5ff;
+        }
+
+        /* Copiado msg */
+        body.dark-mode .copiado-msg {
+            background-color: #4ea5ff;
+        }
+
+        /* SVGs (ícones) */
+        body.dark-mode svg:hover path,
+        body.dark-mode svg:hover rect {
+            fill: #ffc107;
+        }
+
+        /* Selecao e hover */
+        body.dark-mode .selecionado {
+            background-color: #303030;
+        }
+
+        body.dark-mode li:hover {
+            background-color: #3a3a3a;
+        }
+
+        #toggle-dark-mode {
+            background-color: #00000000;
+            position: fixed;
+            right: 15px;
+            border: 0;
+            font-size: 20px;
+        }
+
+        #toggle-dark-mode:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body onload="baixa_banco()">
+    <button id="toggle-dark-mode">🌙</button>
+    <div class="tabs">
+        <button class="tab-button ativo" onclick="selecionarAba(this)">Rotinas</button>
+        <button class="tab-button" onclick="selecionarAba(this)">Chamadas</button>
+        <button class="tab-button" onclick="selecionarAba(this)">Setores</button>
+    </div>
+    <br><br>
+    <div id="rotinas">
+        <div id="filtro">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button onclick="turno_atual(this)">Turno Atual</button>
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="date" name="rotina_data_inicial"
+                                id="rotina_data_inicial">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="date" name="rotina_data_final"
+                                id="rotina_data_final">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="checkbox" name="rotina_checkbox_norte"
+                                id="rotina_checkbox_norte">
+                            <label for="rotina_checkbox_norte">NORTE</label>
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="checkbox" name="rotina_checkbox_sul"
+                                id="rotina_checkbox_sul">
+                            <label for="rotina_checkbox_sul">SUL</label>
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="checkbox" name="rotina_checkbox_centro"
+                                id="rotina_checkbox_centro">
+                            <label for="rotina_checkbox_centro">CENTRO</label>
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="checkbox" name="rotina_checkbox_especializadas"
+                                id="rotina_checkbox_especializadas">
+                            <label for="rotina_checkbox_especializadas">OUTRAS</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="div_tabela_registros">
+            <table id="rotinas_table">
+                <thead>
+                    <tr>
+                        <th class="no-sort">
+                            <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" class="custom-checkbox" onchange="selecionar_tudo(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <svg class="copiar" onclick="copiar_selecionados()" xmlns="http://www.w3.org/2000/svg"
+                                    height="15px" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
+                                <svg class="borracha" onclick="excluir_selecionados()"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                    <g>
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                    </g>
+                                </svg>
+                            </span>
+                        </th>
+                        <th class="sortable">QRA</th>
+                        <th class="sortable">QRU</th>
+                        <th class="sortable">QTH</th>
+                        <th class="sortable">ENDEREÇO</th>
+                        <th class="sortable">QTR INICIAL</th>
+                        <th class="sortable">QTR FINAL</th>
+                        <th class="sortable">OBS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 10px; white-space: nowrap;">
+                            <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" class="custom-checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <svg class="copiar" onclick="copiar_dados(this,false)"
+                                    xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24" fill="none"
+                                    stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
+                                <svg class="borracha" onclick="excluir_linha(this,false)"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                    <g>
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                    </g>
+                                </svg>
+                            </span>
+                        </td>
+
+                        <td oninput="filterOptions(this,0)" onfocus="showOptions(this,0)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,1)" onfocus="showOptions(this,1)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,2)" onfocus="showOptions(this,2)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="chamadas" style="display: none;">
+        <div id="filtro_chamadas">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button onclick="turno_atual(this)">Turno Atual</button>
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="date" name="chamadas_data_inicial"
+                                id="chamadas_data_inicial">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="date" name="chamadas_data_final"
+                                id="chamadas_data_final">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="div_tabela_registros">
+            <table id="chamadas_table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="sortable">NOME</th>
+                        <th class="sortable">TELEFONE</th>
+                        <th class="sortable">NARRATIVA</th>
+                        <th class="sortable">NATUREZA</th>
+                        <th class="sortable">ENDEREÇO</th>
+                        <th class="sortable">ATENDENTE</th>
+                        <th class="sortable">ÁREA</th>
+                        <th class="sortable">MEIO</th>
+                        <th class="sortable">QTR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 10px;">
+                            <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                <svg class="copiar" onclick="copiar_dados(this,false)"
+                                    xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 0 24 24"
+                                    fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
+
+                                <svg class="empenhar" onclick="empenhar_gu(this)" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                    viewBox="0 0 20 20" version="1.1">
+                                    <g id="surface1">
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 4.765625 1.308594 C 4.167969 1.441406 3.535156 1.882812 3.210938 2.394531 C 3.003906 2.71875 2.96875 2.832031 2.1875 5.4375 L 1.511719 7.691406 L 1.253906 7.839844 C 0.738281 8.136719 0.289062 8.699219 0.105469 9.277344 C 0.0195312 9.550781 0.0195312 9.5625 0.0195312 12.441406 L 0.0195312 15.332031 L 0.109375 15.507812 C 0.15625 15.605469 0.246094 15.75 0.308594 15.824219 C 0.453125 15.996094 0.820312 16.195312 1.0625 16.230469 L 1.242188 16.257812 L 1.257812 17.046875 C 1.269531 17.761719 1.277344 17.847656 1.359375 18.007812 C 1.496094 18.285156 1.652344 18.453125 1.921875 18.597656 L 2.167969 18.730469 L 4.082031 18.730469 L 4.328125 18.597656 C 4.601562 18.449219 4.71875 18.328125 4.875 18.03125 C 4.976562 17.835938 4.980469 17.808594 4.992188 17.039062 L 5.007812 16.25 L 15 16.25 L 15 16.96875 C 15 17.523438 15.015625 17.730469 15.0625 17.882812 C 15.160156 18.179688 15.371094 18.429688 15.664062 18.589844 L 15.917969 18.730469 L 17.832031 18.730469 L 18.078125 18.597656 C 18.351562 18.449219 18.46875 18.328125 18.625 18.03125 C 18.726562 17.835938 18.730469 17.808594 18.742188 17.046875 L 18.757812 16.257812 L 18.9375 16.230469 C 19.167969 16.195312 19.542969 16 19.671875 15.847656 C 19.726562 15.785156 19.816406 15.640625 19.875 15.53125 L 19.980469 15.332031 L 19.980469 12.441406 C 19.980469 9.5625 19.980469 9.550781 19.894531 9.277344 C 19.710938 8.699219 19.261719 8.136719 18.746094 7.839844 L 18.488281 7.691406 L 17.8125 5.4375 C 17.441406 4.199219 17.09375 3.058594 17.039062 2.910156 C 16.785156 2.191406 16.222656 1.640625 15.484375 1.378906 L 15.175781 1.269531 L 10.097656 1.261719 C 5.859375 1.257812 4.976562 1.265625 4.765625 1.308594 Z M 15.257812 5.625 C 15.566406 6.644531 15.816406 7.484375 15.820312 7.488281 C 15.820312 7.496094 13.199219 7.5 9.996094 7.5 C 5.199219 7.5 4.175781 7.492188 4.191406 7.449219 C 4.203125 7.421875 4.453125 6.589844 4.746094 5.601562 C 5.042969 4.617188 5.292969 3.796875 5.300781 3.777344 C 5.308594 3.761719 7.429688 3.753906 10.007812 3.757812 L 14.699219 3.769531 Z M 5.511719 10.738281 C 5.78125 10.867188 5.949219 11.027344 6.097656 11.296875 C 6.21875 11.523438 6.230469 11.570312 6.230469 11.875 C 6.230469 12.179688 6.21875 12.226562 6.097656 12.453125 C 5.949219 12.726562 5.824219 12.84375 5.53125 13 C 5.363281 13.085938 5.28125 13.101562 5 13.101562 C 4.695312 13.105469 4.648438 13.09375 4.421875 12.972656 C 4.152344 12.828125 3.996094 12.660156 3.859375 12.382812 C 3.734375 12.125 3.738281 11.617188 3.867188 11.347656 C 4.03125 11.011719 4.347656 10.753906 4.707031 10.660156 C 4.898438 10.609375 5.324219 10.652344 5.511719 10.738281 Z M 15.511719 10.738281 C 15.78125 10.867188 15.949219 11.027344 16.097656 11.296875 C 16.21875 11.523438 16.230469 11.570312 16.230469 11.875 C 16.230469 12.179688 16.21875 12.226562 16.097656 12.453125 C 15.949219 12.726562 15.824219 12.84375 15.53125 13 C 15.363281 13.085938 15.28125 13.101562 15 13.101562 C 14.695312 13.105469 14.648438 13.09375 14.421875 12.972656 C 14.152344 12.828125 13.996094 12.660156 13.859375 12.382812 C 13.734375 12.125 13.738281 11.617188 13.867188 11.347656 C 14.03125 11.011719 14.347656 10.753906 14.707031 10.660156 C 14.898438 10.609375 15.324219 10.652344 15.511719 10.738281 Z M 15.511719 10.738281 " />
+                                    </g>
+                                </svg>
+                                <svg class="borracha" onclick="excluir_linha(this,false)"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                    <g id="surface1">
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                    </g>
+                                </svg>
+                            </span>
+
+
+
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,4)" onfocus="showOptions(this,4)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,2)" onfocus="showOptions(this,2)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,5)" onfocus="showOptions(this,5)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,6)" onfocus="showOptions(this,6)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,7)" onfocus="showOptions(this,7)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            onblur="enviar_dados(this)">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="setores" style="display: none;">
+        <div id="filtro_setores">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input oninput="filtrar_dados()" type="text" placeholder="QTH..." name="setores_qth"
+                                id="setores_qth">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="text" placeholder="Endereço..."
+                                name="setores_endereco" id="setores_endereco">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="text" placeholder="Tipo de Local..."
+                                name="setores_tipo_local" id="setores_tipo_local">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="text" placeholder="Natureza Inicial..."
+                                name="setores_natureza" id="setores_natureza">
+                        </td>
+                        <td>
+                            <input oninput="filtrar_dados()" type="text" placeholder="Narrativa..."
+                                name="setores_narrativa" id="setores_narrativa">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="div_tabela_registros">
+            <table id="setores_table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="sortable">QTH</th>
+                        <th class="sortable">ENDEREÇO</th>
+                        <th class="sortable">TIPO DE LOCAL</th>
+                        <th class="sortable">NATUREZA INICIAL</th>
+                        <th class="sortable">NARRATIVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 10px;">
+                            <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                <svg class="borracha" onclick="excluir_linha(this,false)"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                    <g id="surface1">
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                    </g>
+                                </svg>
+                            </span>
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                        <td oninput="filterOptions(this,8)" onfocus="showOptions(this,4)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,4)" onfocus="showOptions(this,2)"
+                            onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                            onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <ul id="options-list">
+        </div>
+        <script>
+            // Configuração Firebase
+            const firebaseConfig = {
+                apiKey: "AIzaSyBag5uPzTK0sXx3nBzjGhmlmSCySO3u3_U",
+                authDomain: "rotinas-8498d.firebaseapp.com",
+                projectId: "rotinas-8498d",
+                storageBucket: "rotinas-8498d.firebasestorage.app",
+                messagingSenderId: "1053551077085",
+                appId: "1:1053551077085:web:4b2dcbbeb60f9f7fee1d34"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            function baixa_banco() {
+                //baixar os dados de qths, gus, qru
+                db.collection("dados_fixos").onSnapshot((snapshot) => {
+                    snapshot.forEach((doc) => {
+                        // Armazenar os dados do documento no localStorage
+                        localStorage.setItem(doc.id, JSON.stringify(doc.data()));
+                    });
+                }), (error) => {
+                    console.log("Erro ao buscar documentos: ", error);
+                }
+            }
+
+            function criar_linha(dados) {
+                let aba = document.querySelector('button[class="tab-button ativo"]').innerText;
+                let linha;
+                let copiado;
+                if (localStorage.getItem('copiados')?.includes(dados[0])) {
+                    copiado = 'copiar_clicado';
+                } else {
+                    copiado = 'copiar';
+                }
+                if (aba == 'Rotinas') {
+                    linha = `<tr id=${dados[0]} >
+                <td style="width: 10px;" dados='${dados[1]}-()-${dados[2]}-()-${dados[3]}-()-${dados[4]}-()-${dados[5]}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${dados[10]}-()-${dados[11]}' >
+                    <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                        <label class="checkbox-wrapper">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        <svg class="${copiado}" onclick="copiar_dados(this,false)" xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        <svg class="borracha" onclick="excluir_linha(this,false)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                            <g id="surface1">
+                                <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 "/>
+                                <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 "/>
+                            </g>
+                        </svg>
+                    </span>
+                </td>
+                <td oninput="filterOptions(this,0)" onfocus="showOptions(this,0)" onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                    ${dados[6]}
+                </td>
+                <td oninput="filterOptions(this,1)" onfocus="showOptions(this,1)" onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                    onkeydown="teclas_atalho(this,event.key)">
+                    ${dados[8]}
+                </td>
+                <td oninput="filterOptions(this,2)" onfocus="showOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                    onkeydown="teclas_atalho(this,event.key)">
+                    ${dados[1]}
+                </td>
+                <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                    ${dados[4]}
+                </td>
+                <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                    ${dados[7]}
+                </td>
+                <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                    ${dados[9]}
+                </td>
+                <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                    ${dados[12] || ''}
+                </td>
+            </tr>`;
+                } else if (aba == 'Chamadas') {
+
+                    linha = `<tr id=${dados[0]}>
+                    <td style="width: 10px;">
+                        <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                            <svg class="${copiado}" onclick="copiar_dados(this,false)" xmlns="http://www.w3.org/2000/svg" height="18px"
+                                width="18px" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+
+                            <svg class="empenhar" onclick="empenhar_gu(this)" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                viewBox="0 0 20 20" version="1.1">
+                                <g id="surface1">
+                                    <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                        d="M 4.765625 1.308594 C 4.167969 1.441406 3.535156 1.882812 3.210938 2.394531 C 3.003906 2.71875 2.96875 2.832031 2.1875 5.4375 L 1.511719 7.691406 L 1.253906 7.839844 C 0.738281 8.136719 0.289062 8.699219 0.105469 9.277344 C 0.0195312 9.550781 0.0195312 9.5625 0.0195312 12.441406 L 0.0195312 15.332031 L 0.109375 15.507812 C 0.15625 15.605469 0.246094 15.75 0.308594 15.824219 C 0.453125 15.996094 0.820312 16.195312 1.0625 16.230469 L 1.242188 16.257812 L 1.257812 17.046875 C 1.269531 17.761719 1.277344 17.847656 1.359375 18.007812 C 1.496094 18.285156 1.652344 18.453125 1.921875 18.597656 L 2.167969 18.730469 L 4.082031 18.730469 L 4.328125 18.597656 C 4.601562 18.449219 4.71875 18.328125 4.875 18.03125 C 4.976562 17.835938 4.980469 17.808594 4.992188 17.039062 L 5.007812 16.25 L 15 16.25 L 15 16.96875 C 15 17.523438 15.015625 17.730469 15.0625 17.882812 C 15.160156 18.179688 15.371094 18.429688 15.664062 18.589844 L 15.917969 18.730469 L 17.832031 18.730469 L 18.078125 18.597656 C 18.351562 18.449219 18.46875 18.328125 18.625 18.03125 C 18.726562 17.835938 18.730469 17.808594 18.742188 17.046875 L 18.757812 16.257812 L 18.9375 16.230469 C 19.167969 16.195312 19.542969 16 19.671875 15.847656 C 19.726562 15.785156 19.816406 15.640625 19.875 15.53125 L 19.980469 15.332031 L 19.980469 12.441406 C 19.980469 9.5625 19.980469 9.550781 19.894531 9.277344 C 19.710938 8.699219 19.261719 8.136719 18.746094 7.839844 L 18.488281 7.691406 L 17.8125 5.4375 C 17.441406 4.199219 17.09375 3.058594 17.039062 2.910156 C 16.785156 2.191406 16.222656 1.640625 15.484375 1.378906 L 15.175781 1.269531 L 10.097656 1.261719 C 5.859375 1.257812 4.976562 1.265625 4.765625 1.308594 Z M 15.257812 5.625 C 15.566406 6.644531 15.816406 7.484375 15.820312 7.488281 C 15.820312 7.496094 13.199219 7.5 9.996094 7.5 C 5.199219 7.5 4.175781 7.492188 4.191406 7.449219 C 4.203125 7.421875 4.453125 6.589844 4.746094 5.601562 C 5.042969 4.617188 5.292969 3.796875 5.300781 3.777344 C 5.308594 3.761719 7.429688 3.753906 10.007812 3.757812 L 14.699219 3.769531 Z M 5.511719 10.738281 C 5.78125 10.867188 5.949219 11.027344 6.097656 11.296875 C 6.21875 11.523438 6.230469 11.570312 6.230469 11.875 C 6.230469 12.179688 6.21875 12.226562 6.097656 12.453125 C 5.949219 12.726562 5.824219 12.84375 5.53125 13 C 5.363281 13.085938 5.28125 13.101562 5 13.101562 C 4.695312 13.105469 4.648438 13.09375 4.421875 12.972656 C 4.152344 12.828125 3.996094 12.660156 3.859375 12.382812 C 3.734375 12.125 3.738281 11.617188 3.867188 11.347656 C 4.03125 11.011719 4.347656 10.753906 4.707031 10.660156 C 4.898438 10.609375 5.324219 10.652344 5.511719 10.738281 Z M 15.511719 10.738281 C 15.78125 10.867188 15.949219 11.027344 16.097656 11.296875 C 16.21875 11.523438 16.230469 11.570312 16.230469 11.875 C 16.230469 12.179688 16.21875 12.226562 16.097656 12.453125 C 15.949219 12.726562 15.824219 12.84375 15.53125 13 C 15.363281 13.085938 15.28125 13.101562 15 13.101562 C 14.695312 13.105469 14.648438 13.09375 14.421875 12.972656 C 14.152344 12.828125 13.996094 12.660156 13.859375 12.382812 C 13.734375 12.125 13.738281 11.617188 13.867188 11.347656 C 14.03125 11.011719 14.347656 10.753906 14.707031 10.660156 C 14.898438 10.609375 15.324219 10.652344 15.511719 10.738281 Z M 15.511719 10.738281 " />
+                                </g>
+                            </svg>
+                            <svg class="borracha" onclick="excluir_linha(this,false)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                            <g id="surface1">
+                                <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 "/>
+                                <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 "/>
+                            </g>
+                        </svg>
+                        </span>
+                    </td>
+                    <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                        ${dados[1]}
+                    </td>
+                    <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                        ${dados[2]}
+                    </td>
+                    <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                        ${dados[3]}
+                    </td>
+                    <td oninput="filterOptions(this,4)" onfocus="showOptions(this,4)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[4]}
+                    </td>
+                   <td oninput="filterOptions(this,2)" onfocus="showOptions(this,2)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[5]}
+                    </td>
+                    <td oninput="filterOptions(this,5)" onfocus="showOptions(this,5)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[6]}
+                    </td>
+                    <td oninput="filterOptions(this,6)" onfocus="showOptions(this,6)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[7]}
+                    </td>
+                    <td oninput="filterOptions(this,7)" onfocus="showOptions(this,7)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[8]}
+                    </td>
+                    <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                        onblur="enviar_dados(this)">
+                        ${dados[9]}
+                    </td>
+                </tr>`
+                } else {
+                    linha = `<tr id=${dados[0]}>
+                    <td style="width: 10px;">
+                        <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                            <svg class="borracha" onclick="excluir_linha(this,false)" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px"
+                                viewBox="0 0 15 15" version="1.1">
+                                <g id="surface1">
+                                    <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                        d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                    <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                        d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                </g>
+                            </svg>
+                        </span>
+                    </td>
+                    <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                        ${dados[1]}
+                    </td>
+                    <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                        ${dados[4]}
+                    </td>
+                    <td oninput="filterOptions(this,8)" onfocus="showOptions(this,4)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[2]}
+                    </td>
+                    <td oninput="filterOptions(this,4)" onfocus="showOptions(this,2)"
+                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="true"
+                        onkeydown="teclas_atalho(this,event.key)">
+                        ${dados[5]}
+                    </td>
+                    <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                        ${dados[3] || ''}
+                    </td>
+                </tr>`;
+                }
+                return linha;
+            }
+            function filtrar_dados() {
+                let aba = document.querySelector('button[class="tab-button ativo"]').innerText;
+                let partes_inicial, data_inicial, partes_final, cad_norte, cad_sul, cad_centro, cad_especializadas;
+                if (aba == 'Rotinas') {
+                    document.querySelectorAll('#rotinas_table tbody tr').forEach(linha => {
+                        if (linha.querySelectorAll('td')[5].innerText != '') {
+                            linha.remove();
+                        }
+                    })
+                    partes_inicial = document.querySelector('#rotina_data_inicial').value.split("-");
+                    data_inicial = new Date(partes_inicial[0], partes_inicial[1] - 1, partes_inicial[2]);
+                    partes_final = document.querySelector('#rotina_data_final').value.split("-");
+                    data_final = new Date(partes_final[0], partes_final[1] - 1, partes_final[2]);
+                    cad_norte = document.querySelector('#rotina_checkbox_norte');
+                    cad_sul = document.querySelector('#rotina_checkbox_sul');
+                    cad_centro = document.querySelector('#rotina_checkbox_centro');
+                    cad_especializadas = document.querySelector('#rotina_checkbox_especializadas');
+                    if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || (cad_norte.checked == false && cad_sul.checked == false && cad_centro.checked == false && cad_especializadas.checked == false)) {
+                        return;
+                    }
+                    localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${cad_norte.checked}-()-${cad_sul.checked}-()-${cad_centro.checked}-()-${cad_especializadas.checked}`);
+                } else if (aba == 'Chamadas') {
+                    document.querySelectorAll('#chamadas_table tbody tr').forEach(linha => {
+                        if (linha.querySelectorAll('td')[5].innerText != '') {
+                            linha.remove();
+                        }
+                    })
+                    partes_inicial = document.querySelector('#chamadas_data_inicial').value.split("-");
+                    data_inicial = new Date(partes_inicial[0], partes_inicial[1] - 1, partes_inicial[2]);
+                    partes_final = document.querySelector('#chamadas_data_final').value.split("-");
+                    data_final = new Date(partes_final[0], partes_final[1] - 1, partes_final[2]);
+                    if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
+                        return;
+                    }
+                    localStorage.setItem('filtro_chamadas', `${document.querySelector('#chamadas_data_inicial').value}-()-${document.querySelector('#chamadas_data_final').value}`);
+                } else if (aba == 'Setores') {
+                    document.querySelectorAll('#setores_table tbody tr').forEach(linha => {
+                        if (linha.querySelectorAll('td')[5].innerText != '') {
+                            linha.remove();
+                        }
+                    })
+                    //QTH	ENDEREÇO	TIPO DE LOCAL	NATUREZA INICIAL	NARRATIVA
+                    //"1749671651188-()-001 CGGM COMANDO GERAL GUARDA MUNICIPAL -()-Repartição pública-()--()-Rua João Neves Da Fontoura , 91-()-Patrulhamento Preventivo
+                    let qths = JSON.parse(localStorage.getItem('qth')).qth;
+                    let filtros = document.querySelectorAll('#filtro_setores input');
+                    let linha = '';
+                    if (qths) {
+                        // Loop através de todos os QTHs
+                        qths.split('-++-').forEach(qth => {
+                            const qthParts = qth.split('-()-');
+                            // Verifique se cada parte do QTH corresponde ao valor do filtro
+                            if (qthParts.length == 6 &&
+                                qthParts[1].toLowerCase().includes(filtros[0].value.toLowerCase()) &&
+                                qthParts[4].toLowerCase().includes(filtros[1].value.toLowerCase()) &&
+                                qthParts[2].toLowerCase().includes(filtros[2].value.toLowerCase()) &&
+                                qthParts[5].toLowerCase().includes(filtros[3].value.toLowerCase()) &&
+                                qthParts[3].toLowerCase().includes(filtros[4].value.toLowerCase())
+                            ) {
+                                // Criação da linha apenas se o QTH passar nos filtros
+                                linha += criar_linha(qthParts);
+                            }
+                        });
+                    }
+                    linha += criar_linha([new Date().getTime(), '', '', '', '', '']);
+                    document.querySelector('#setores_table tbody').insertAdjacentHTML('afterbegin', linha);
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: "smooth"
+                    });
+
+
+                }
+
+                let data = data_inicial;
+                if (data && data_final) {
+                    while (data <= data_final) {
+                        db.collection(aba.toLowerCase()).doc(data.toISOString()).onSnapshot((doc) => {
+                            if (doc.exists) {
+                                const dados = doc.data();
+                                console.log("🔄 Documento atualizado:", dados);
+                                let linhas = '';
+                                if (aba == 'Rotinas') {
+                                    document.querySelectorAll('#rotinas_table tbody tr').forEach(linha => {
+                                        if (!JSON.stringify(dados).includes(linha.id) && linha.querySelectorAll('td')[5].innerText != '') {
+                                            linha.remove();
+                                        }
+                                    })
+                                    if (cad_norte.checked == true) {
+                                        dados.norte.split('-++-').forEach(linha => {
+                                            if (linha != '') {
+                                                let celulas = linha.split('-()-');
+                                                let l = criar_linha(celulas);
+                                                if (document.getElementById(celulas[0])) {
+                                                    document.getElementById(celulas[0]).outerHTML = l;
+                                                } else {
+                                                    if (!document.querySelector('#rotinas_table tbody').innerHTML.includes(l)) {
+                                                        linhas += l;
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                    if (cad_sul.checked == true) {
+                                        dados.sul.split('-++-').forEach(linha => {
+                                            if (linha != '') {
+                                                let celulas = linha.split('-()-');
+                                                let l = criar_linha(celulas);
+                                                if (document.getElementById(celulas[0])) {
+                                                    document.getElementById(celulas[0]).outerHTML = l;
+                                                } else {
+                                                    if (!document.querySelector('#rotinas_table tbody').innerHTML.includes(l)) {
+                                                        linhas += l;
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                    if (cad_centro.checked == true) {
+                                        dados.centro.split('-++-').forEach(linha => {
+                                            if (linha != '') {
+                                                let celulas = linha.split('-()-');
+                                                let l = criar_linha(celulas);
+                                                if (document.getElementById(celulas[0])) {
+                                                    document.getElementById(celulas[0]).outerHTML = l;
+                                                } else {
+                                                    if (!document.querySelector('#rotinas_table tbody').innerHTML.includes(l)) {
+                                                        linhas += l;
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                    if (cad_especializadas.checked == true) {
+                                        dados.especializadas.split('-++-').forEach(linha => {
+                                            if (linha != '') {
+                                                let celulas = linha.split('-()-');
+                                                let l = criar_linha(celulas);
+                                                if (document.getElementById(celulas[0])) {
+                                                    document.getElementById(celulas[0]).outerHTML = l;
+                                                } else {
+                                                    if (!document.querySelector('#rotinas_table tbody').innerHTML.includes(l)) {
+                                                        linhas += l;
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                    document.querySelector('#rotinas_table tbody tr:last-child').insertAdjacentHTML('beforebegin', linhas);
+                                    window.scrollTo({
+                                        top: document.body.scrollHeight,
+                                        behavior: "smooth"
+                                    });
+                                } else if (aba == 'Chamadas') {
+                                    document.querySelectorAll('#chamadas_table tbody tr').forEach(linha => {
+                                        if (!JSON.stringify(dados).includes(linha.id) && linha.querySelectorAll('td')[5].innerText != '') {
+                                            linha.remove();
+                                        }
+                                    })
+                                    dados.chamadas.split('-++-').forEach(linha => {
+                                        if (linha != '') {
+                                            let celulas = linha.split('-()-');
+                                            let l = criar_linha(celulas);
+                                            if (Array.from(document.querySelectorAll('#chamadas_table tbody tr')).filter(linha => linha.outerHTML.includes(celulas[0]))[0]) {
+                                                Array.from(document.querySelectorAll('#chamadas_table tbody tr')).filter(linha => linha.outerHTML.includes(celulas[0]))[0].outerHTML = l;
+                                            } else {
+                                                if (!document.querySelector('#chamadas_table tbody').innerHTML.includes(l)) {
+                                                    linhas += l;
+                                                }
+                                            }
+                                        }
+                                    });
+                                    document.querySelector('#chamadas_table tbody tr:last-child').insertAdjacentHTML('beforebegin', linhas);
+                                    window.scrollTo({
+                                        top: document.body.scrollHeight,
+                                        behavior: "smooth"
+                                    });
+                                }
+                            } else {
+                                console.log(`❌ Documento ${doc.id} não existe ou foi excluído.`);
+                            }
+                        });
+
+                        data.setDate(data.getDate() + 1);
+                    }
+                }
+                return true;
+            }
+
+            const optionsList = document.querySelector('#options-list');
+
+            function showOptions(td, list) {
+                updateOptions(td, td.innerText, list);
+
+                const rect = td.getBoundingClientRect();
+                const menuHeight = 200; // Altura estimada ou real do menu
+                const buffer = 10; // Espaço adicional para não colar
+
+                let top;
+                if (rect.bottom + menuHeight + buffer > window.innerHeight) {
+                    // Pouco espaço abaixo — mostra acima
+                    top = rect.top + window.scrollY - menuHeight - buffer;
+                } else {
+                    // Espaço suficiente — mostra abaixo
+                    top = rect.bottom + window.scrollY + buffer;
+                }
+
+                optionsList.style.top = `${top}px`;
+                optionsList.style.left = `${rect.left + window.scrollX}px`;
+                optionsList.style.width = `${rect.width}px`;
+                optionsList.style.display = "block";
+                optionsList.dataset.targetId = td.dataset.id;
+                optionsList.targetTd = td;
+            }
+
+
+            function hideOptions(event, td) {
+                let options = optionsList.innerHTML;
+                setTimeout(() => { // delay para permitir clique
+                    if (optionsList.innerHTML == options) {
+                        optionsList.style.display = "none";
+                    }
+                }, 200);
+                let celulas = td.parentNode.querySelectorAll('td');
+                let celulas_vazias = 'sim';
+                celulas.forEach(l => {
+                    if (l.innerText != '' && l.innerHTML != '<br>') {
+                        celulas_vazias = 'nao';
+                    }
+                })
+
+                if (celulas_vazias == 'sim' && td.parentNode.parentNode.querySelectorAll('tr').length > 1 && td.parentNode != td.parentNode.parentNode.querySelectorAll('tr')[td.parentNode.parentNode.querySelectorAll('tr').length - 1]) {
+                    td.parentNode.remove();
+                }
+                if (td == td.parentNode.querySelectorAll('td')[3]) {
+                    td.parentNode.nextElementSibling?.querySelectorAll('td')[1]?.focus();
+                }
+            }
+
+            function filterOptions(td, list) {
+                let celulas = td.parentNode.querySelectorAll('td');
+
+                let vazia = '';
+                td.parentNode.parentNode.querySelectorAll('tr')[td.parentNode.parentNode.querySelectorAll('tr').length - 1].querySelectorAll('td').forEach(function (item) {
+                    if (item.innerText != '') {
+                        vazia = 'nao';
+                    }
+                });
+
+                celulas.forEach(function (cel) {
+                    if (cel.innerText != '' && vazia == 'nao') {
+                        document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`).insertAdjacentHTML('beforeend', criar_linha([new Date().getTime(), '', '', '', '', '', '', '', '', '', '', '']));
+                        td.focus();
+                        vazia = '';
+                    }
+
+                });
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth"
+                });
+
+                const text = td.innerText.trim().toLowerCase();
+                updateOptions(td, text, list);
+
+            }
+
+            function updateOptions(td, filter, list) {
+                let options = [];
+                if (list == 0) {
+                    JSON.parse(localStorage.getItem('gus')).gus.split('-').forEach(function (item) {
+                        options.push(item + ' - Dia');
+                        options.push(item + ' - Noite');
+                    });
+                } else if (list == 1) {
+                    options = JSON.parse(localStorage.getItem('qru')).qru.split('-').sort();
+                } else if (list == 2) {
+                    JSON.parse(localStorage.getItem('qth')).qth.split('-++-').forEach(function (item) {
+                        if (item != '' && item.split('-()-')[1].replaceAll('"', '').trim() != '') {
+                            options.push(item.split('-()-')[1].replaceAll('"', '').trim());
+                            if (item.split('-()-')[1].replaceAll('"', '').trim().toLowerCase() == filter && document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas') {
+                                td.nextElementSibling.innerText = item.split('-()-')[4].replaceAll('"', '').trim();
+                                td.parentNode.querySelector('td').setAttribute('dados', item.replace(item.substring(0, item.indexOf('-()-') + 4), '').replaceAll('"', '').trim());
+                            }
+                        }
+                    });
+                } else if (list == 4) {
+                    options = JSON.parse(localStorage.getItem('naturezas')).naturezas.split('-').sort();
+                } else if (list == 5) {
+                    options = JSON.parse(localStorage.getItem('gms')).gms.split('-').sort();
+                } else if (list == 6) {
+                    options = JSON.parse(localStorage.getItem('area')).area.split('-').sort();
+                } else if (list == 7) {
+                    options = JSON.parse(localStorage.getItem('meio')).meio.split('-').sort();
+                } else if (list == 8) {
+                    options = JSON.parse(localStorage.getItem('tipo')).tipo.split('-').sort();
+                }
+                options = options.sort();
+                optionsList.innerHTML = "";
+                options.filter(opt => opt.toLowerCase().includes(filter)).forEach(opt => {
+                    const li = document.createElement("li");
+                    li.textContent = opt;
+                    li.style.padding = "5px";
+                    li.style.cursor = "pointer";
+                    li.onclick = () => {
+                        optionsList.targetTd.innerText = opt;
+                        optionsList.targetTd.dispatchEvent(new Event('input', { bubbles: true }));
+                        optionsList.targetTd.focus();
+                        optionsList.style.display = "none";
+                    };
+                    optionsList.appendChild(li);
+                });
+                optionsList.querySelector('li')?.classList.add('selecionado');
+            }
+
+            function horario_final(celula) {
+                console.log(celula.innerText);
+                if (celula.innerText == '' || celula.innerText == '\n') {
+                    celula.innerText = new Date().toLocaleString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false, // usa o formato 24h
+                    });
+                }
+            }
+
+
+            function copiar_dados(celula, todos) {
+                const celulas = celula.closest('tr').querySelectorAll('td');
+                let texto = '';
+                const aba = document.querySelector('button[class="tab-button ativo"]').innerText;
+                if (aba == 'Rotinas' && celulas[0].getAttribute('dados')) {
+                    if (celulas[0].getAttribute('dados').includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
+                        let qth = celulas[0].getAttribute('dados').split('-()-')[0];
+                        let qth_certo = qth.replace('DEM ', '');
+                        if (!localStorage.getItem('qth').includes(qth_certo)) {
+                            qth_certo = '';
+                        }
+                        texto = celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim().replace(',', '')).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim().replace(',', '')).replace(qth, qth_certo);
+                    } else {
+                        texto = `${celulas[0].getAttribute('dados')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()-`;
+                    }
+                    if (!texto.includes('-++-')) {
+                        texto += '-++-';
+                    }
+                } else if (aba == 'Chamadas') {
+                    texto = `*Demanda via ${celulas[8].innerText}*
+                    
+*🚨ATIVAR AS CÂMERAS CORPORAIS🚨*
+                    
+*Data-hora:* ${celulas[9].innerText}
+                    
+*Natureza:* ${celulas[4].innerText}
+                    
+*Situação:* ${celulas[3].innerText} 
+                    
+*Endereço:*
+${celulas[5].innerText}
+                    
+*Contato denunciante:*
+*Nome:* ${celulas[1].innerText}
+*Número:* ${celulas[2].innerText}
+                    
+*Área de atendimento:* ${celulas[7].innerText}`;
+                }
+                if (todos == true) {
+                    return texto;
+                } else {
+                    navigator.clipboard.writeText(texto);
+                    const msg = document.createElement('div');
+                    msg.className = 'copiado-msg';
+                    msg.innerText = 'Copiado!';
+
+                    // Garante que o SVG possa conter o elemento
+                    const wrapper = celula.parentElement;
+                    wrapper.style.position = 'relative';
+                    wrapper.appendChild(msg);
+
+                    setTimeout(() => msg.remove(), 1000);
+                }
+
+
+                celula.setAttribute('class', 'copiar_clicado');
+                let copiados = localStorage.getItem('copiados') || '';
+                copiados += celula.closest('tr').id
+                localStorage.setItem('copiados', copiados);
+            }
+
+            function teclas_atalho(celula, tecla) {
+                let options = document.querySelectorAll('#options-list li');
+                if (document.querySelector('ul').style.display == "block") {
+                    let selecionado = document.querySelector('li.selecionado');
+                    if (tecla == "ArrowDown" && options.length > 1 && Array.from(options).indexOf(document.querySelector('li.selecionado')) < options.length - 1) {
+                        selecionado.classList.remove('selecionado');
+                        selecionado.nextElementSibling?.classList.add('selecionado');
+                        selecionado.nextElementSibling?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    if (tecla == "ArrowUp" && options.length > 1 && Array.from(options).indexOf(document.querySelector('li.selecionado')) > 0) {
+                        selecionado.classList.remove('selecionado');
+                        selecionado.previousElementSibling?.classList.add('selecionado');
+                        selecionado.previousElementSibling?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    if (tecla == 'Tab' || tecla == 'Enter') {
+                        event.preventDefault();
+                        selecionado?.click();
+                        celula.nextElementSibling?.click();
+                        celula.nextElementSibling?.focus();
+                    }
+                    if (tecla == 'Escape') {
+                        event.preventDefault();
+                        document.querySelector('ul').style.display = "none";
+                    }
+                }
+
+            }
+
+            function selecionarAba(botao) {
+                document.querySelector('#rotinas').style.display = 'none';
+                document.querySelector('#chamadas').style.display = 'none';
+                document.querySelector('#setores').style.display = 'none';
+
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('ativo');
+                });
+                botao.classList.add('ativo');
+                if (botao.innerText == 'Rotinas') {
+                    document.querySelector('#rotinas').style.display = 'block';
+                } else if (botao.innerText == 'Chamadas') {
+                    document.querySelector('#chamadas').style.display = 'block';
+                    document.querySelector('#chamadas_data_inicial').dispatchEvent(new Event('input', { bubbles: true }));
+                } else {
+                    document.querySelector('#setores').style.display = 'block';
+                    document.querySelector('#setores_qth').dispatchEvent(new Event('input', { bubbles: true }));
+                }
+
+            }
+
+            function enviar_dados(td) {
+                const aba = document.querySelector('button[class="tab-button ativo"]').innerText;
+                let celulas = td.parentNode.querySelectorAll('td');
+                let hora = new Date().toLocaleString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false, // usa o formato 24h
+                });
+                if (
+                    celulas[1].innerText != '' &&
+                    celulas[2].innerText != '' &&
+                    celulas[5].innerText == '' &&
+                    (celulas[3].innerText != '' || celulas[4].innerText != '') &&
+                    document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas'
+                ) {
+                    // Preenche a célula 5 com a hora atual
+                    const hora = new Date().toLocaleString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false, // usa o formato 24h
+                    });
+                    celulas[5].innerText = hora;
+
+
+                }
+
+                if (aba == 'Rotinas' && (celulas[1].innerText == '' || celulas[2].innerText == '')) {
+                    return;
+                } else if (aba == 'Chamadas' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
+                    return;
+                } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
+                    return;
+                }
+                let data = '';
+                let newData = '';
+                let interval_envio = setInterval(() => {
+                    if (celulas[1].innerText != '' && celulas[2].innerText != '' && (celulas[3].innerText != '' || celulas[4].innerText != '') && celulas[5].innerText != '') {
+                        clearInterval(interval_envio);
+                        const cads_gu = ['6734', '2958', 'C', 'PAR'];
+                        const cads_tipo = ['norte', 'sul', 'centro', 'especializadas'];
+                        let cad = '';
+                        for (let index = 0; index < cads_gu.length; index++) {
+                            if (cads_gu[index].includes(celulas[1].innerText.substring(0, 1))) {
+                                cad = cads_tipo[index];
+                            }
+                        }
+
+
+
+                        if (aba == 'Rotinas') {
+                            data = new Date(celulas[5].innerText.split(',')[0].split('/')[2], parseInt(celulas[5].innerText.split('/')[1]) - 1, celulas[5].innerText.split('/')[0]);
+
+                            if (celulas[0].getAttribute('dados')?.includes('-()--()--()--()--()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()--()-')) {
+                                newData = `${celulas[0].parentNode.getAttribute('id')}-()-${celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-'}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
+                            } else if (celulas[0].getAttribute('dados')?.includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
+                                newData = celulas[0].parentNode.getAttribute('id') + '-()-' + celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim()).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim()) + '-()-' + celulas[7].innerText.trim() + '-++-';
+                            } else {
+                                newData = `${celulas[0].parentNode.getAttribute('id')}-()-${celulas[0].getAttribute('dados') || (celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
+                            }
+                        } else if (aba == 'Chamadas') {
+                            data = new Date(new Date(parseInt(td.parentNode.getAttribute('id'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('id'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('id'))).getDate());
+                            newData = `${td.parentNode.getAttribute('id')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
+                        } else if (aba == 'Setores') {
+                            data = new Date(new Date(parseInt(td.parentNode.getAttribute('id'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('id'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('id'))).getDate());
+                            newData = `${td.parentNode.getAttribute('id')}-()-${celulas[1].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[4].innerText.trim() || ''}-++-`;
+                        }
+                        let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
+                        if (!ja_enviado.includes(newData)) {
+                            let docRef = '';
+                            if (aba == 'Rotinas' || aba == 'Chamadas') {
+                                docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
+                            } else {
+                                docRef = db.collection('dados_fixos').doc('qth');
+                            }
+                            docRef.get().then((docSnapshot) => {
+
+                                if (docSnapshot.exists) {
+                                    // Documento existe, vamos pegar os dados antigos
+                                    let existingData = docSnapshot.data();
+                                    if (!JSON.stringify(existingData).includes(td.parentNode.getAttribute('id'))) {
+                                        if (aba == 'Rotinas') {
+                                            existingData[cad] += newData;
+                                        } else if (aba == 'Chamadas') {
+                                            existingData['chamadas'] += newData;
+                                        } else if (aba == 'Setores') {
+                                            existingData['qth'] += newData;
+                                        }
+                                        sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(existingData));
+                                    } else {
+                                        let dado_antigo = JSON.stringify(existingData).substring(JSON.stringify(existingData).indexOf(td.parentNode.getAttribute('id'),)).substring(0, JSON.stringify(existingData).substring(JSON.stringify(existingData).indexOf(td.parentNode.getAttribute('id'),)).indexOf('-++-') + 4);
+                                        existingData = JSON.parse(JSON.stringify(existingData).replaceAll(dado_antigo, ''));
+                                        if (aba == 'Rotinas') {
+                                            existingData[cad] += newData;
+                                        } else if (aba == 'Chamadas') {
+                                            existingData['chamadas'] += newData;
+                                        } else if (aba == 'Setores') {
+                                            existingData['qth'] += newData;
+                                        }
+                                        sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(existingData));
+
+                                    }
+                                    docRef.set({ ...existingData })
+                                        .then(() => {
+                                            console.log("Documento atualizado com sucesso.");
+                                            clearInterval(interval_envio);
+                                            if (aba == 'Rotinas') {
+                                                fecha_ultimo_horario(celulas);
+                                            }
+                                        })
+                                        .catch((error) => { console.error("Erro ao atualizar o documento:", error); clearInterval(interval_envio) });
+
+                                } else {
+                                    let dados = '';
+                                    if (aba == 'Rotinas') {
+                                        dados = {
+                                            'norte': '',
+                                            'sul': '',
+                                            'centro': '',
+                                            'especializadas': ''
+                                        }
+                                        dados[cad] = newData;
+                                    } else if (aba == 'Chamadas') {
+                                        dados = { 'chamadas': newData };
+                                    }
+                                    sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dados));
+                                    // Documento não existe, apenas cria com os novos dados
+                                    docRef.set(dados)
+                                        .then(() => { console.log("Documento criado com sucesso."); clearInterval(interval_envio); fecha_ultimo_horario(celulas) })
+                                        .catch((error) => { console.error("Erro ao criar o documento:", error); clearInterval(interval_envio) });
+                                }
+                            });
+                        }
+                    }
+                }, 100);
+
+            }
+
+            function fecha_ultimo_horario(celulas) {
+                let hora = new Date().toLocaleString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false, // usa o formato 24h
+                });
+                // Filtra as rotinas da GU que ainda não têm um horário final (td[6] vazio)
+                let rotinas_da_gu = Array.from(document.querySelectorAll('tr')).filter(linha => {
+                    return linha.innerText.includes(celulas[1].innerText) && linha.querySelectorAll('td')[6].innerText == '';
+                });
+
+                // Certifique-se de que temos pelo menos duas rotinas
+                if (rotinas_da_gu.length >= 2) {
+                    const penultima_rotina = rotinas_da_gu[rotinas_da_gu.length - 2];
+
+                    if (penultima_rotina) {
+                        const tdFinal = penultima_rotina.querySelectorAll('td')[6];
+
+                        // Verifica se o td[6] está vazio antes de atribuir a hora
+                        if (tdFinal && tdFinal.innerText.trim() === '') {
+                            tdFinal.innerText = hora;
+
+                            // Chama a função de envio de dados, se necessário
+                            enviar_dados(tdFinal);
+                        } else {
+                            console.error("Erro: Não foi possível atualizar o horário final.");
+                        }
+                    }
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const toggle = document.getElementById("toggle-dark-mode");
+
+                if (localStorage.getItem("modo-escuro") === "ativado") {
+                    document.body.classList.add("dark-mode");
+                    toggle.textContent = "☀️";
+                }
+
+                toggle.addEventListener("click", () => {
+                    document.body.classList.toggle("dark-mode");
+                    const modoEscuroAtivo = document.body.classList.contains("dark-mode");
+                    localStorage.setItem("modo-escuro", modoEscuroAtivo ? "ativado" : "desativado");
+                    toggle.textContent = modoEscuroAtivo ? "☀️" : "🌙";
+                });
+
+                document.querySelectorAll("#rotinas_table tr,#chamadas_table tr").forEach(tr => gerar_id(tr));
+                const filtro_rotinas = localStorage.getItem('filtro_rotinas');
+                if (filtro_rotinas) {
+                    document.querySelector('#rotina_data_inicial').value = filtro_rotinas.split('-()-')[0];
+                    document.querySelector('#rotina_data_final').value = filtro_rotinas.split('-()-')[1];
+                    document.querySelector('#rotina_checkbox_norte').checked = filtro_rotinas.split('-()-')[2] === 'true';
+                    document.querySelector('#rotina_checkbox_sul').checked = filtro_rotinas.split('-()-')[3] === 'true';
+                    document.querySelector('#rotina_checkbox_centro').checked = filtro_rotinas.split('-()-')[4] === 'true';
+                    document.querySelector('#rotina_checkbox_especializadas').checked = filtro_rotinas.split('-()-')[5] === 'true';
+                    filtrar_dados();
+                }
+                const filtro_chamadas = localStorage.getItem('filtro_chamadas');
+                if (filtro_chamadas) {
+                    document.querySelector('#chamadas_data_inicial').value = filtro_chamadas.split('-()-')[0];
+                    document.querySelector('#chamadas_data_final').value = filtro_chamadas.split('-()-')[1];
+                }
+                document.querySelectorAll('th.sortable').forEach(th => {
+                    th.addEventListener('click', () => {
+                        // Remove classes anteriores
+                        th.closest('table').querySelectorAll('th').forEach(header => {
+                            header.classList.remove('sorted-asc', 'sorted-desc');
+                        });
+                        const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
+                        let linhas = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
+                        linhas.pop();
+                        if (!th.getAttribute('asc')) {
+                            th.closest('table').querySelectorAll('th').forEach(header => {
+                                header.classList.remove('sorted-asc', 'sorted-desc');
+                                header.removeAttribute('desc');
+                                header.removeAttribute('asc');
+                            });
+                            th.classList.add('sorted-asc');
+                            th.setAttribute('asc', 'a');
+                            linhas.sort().reverse();
+                        } else {
+                            th.closest('table').querySelectorAll('th').forEach(header => {
+                                header.classList.remove('sorted-asc', 'sorted-desc');
+                                header.removeAttribute('desc');
+                                header.removeAttribute('asc');
+                            });
+                            th.classList.add('sorted-desc');
+                            th.setAttribute('desc', 'a');
+                            linhas.sort();
+                        }
+                        th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
+                        linhas = linhas.map((l) => l.split('-&&-')[1]).forEach(l => {
+                            th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+                        });
+
+                    });
+                });
+
+            });
+
+
+            function gerar_id(tr) {
+                if (!document.getElementById(new Date().getTime())) {
+                    tr.setAttribute('id', new Date().getTime());
+                } else {
+                    tr.setAttribute('id', new Date().getTime() + 1);
+                }
+            }
+            function empenhar_gu(demanda) {
+                let dados = demanda.closest('tr').querySelectorAll('td');
+                let id = new Date().getTime();
+                let endereco = dados[5].innerText;
+                let qths = localStorage.getItem('qth').split('-++-')
+                let qth = 'DEM ';
+                let tipo_local = 'Residência';
+                qths.forEach(item => {
+                    if (endereco == item.split('-()-')[1]) {
+                        qth += item.split('-()-')[1];
+                        endereco = item.split('-()-')[4];
+                        tipo_local = item.split('-()-')[2];
+                    }
+                });
+                let narrativa = dados[3].innerText;
+                let natureza = dados[4].innerText;
+                let telefone = dados[2].innerText;
+                let solicitante = dados[1].innerText;
+                if (qth == 'DEM ') {
+                    qth += natureza;
+                }
+                let dados_demanda = `${qth}-()-${tipo_local}-()-${narrativa}-()-${endereco}-()-${natureza}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${telefone}-()-${solicitante}-++-`;
+                document.querySelector('button').click();
+                let linha = criar_linha([id, qth, tipo_local, narrativa, endereco, natureza, '', new Date().toLocaleString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false, // usa o formato 24h
+                }), '', '', telefone, solicitante]);
+                document.querySelector('#rotinas_table tbody tr:last-child').insertAdjacentHTML('beforeBegin', linha);
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth"
+                });
+                document.querySelector('#rotinas_table tbody tr:last-child').previousElementSibling.querySelectorAll('td')[1].focus();
+            }
+
+
+            function turno_atual(button) {
+                const hora = new Date().getHours();
+                let seletores_data = button.parentNode.parentNode.querySelectorAll('input[type=date]');
+                if (hora > 18 || hora < 6) {
+                    seletores_data[0].value = new Date().toISOString().slice(0, 10);
+                    seletores_data[0].dispatchEvent(new Event('input', { bubbles: true }));
+                    seletores_data[1].value = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+                    seletores_data[1].dispatchEvent(new Event('input', { bubbles: true }));
+                } else {
+                    seletores_data[0].value = new Date().toISOString().slice(0, 10);
+                    seletores_data[0].dispatchEvent(new Event('input', { bubbles: true }));
+                    seletores_data[1].value = new Date().toISOString().slice(0, 10);
+                    seletores_data[1].dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+
+            async function excluir_linha(button, todos) {
+                const row = button.closest('tr');
+                const celulas = row.querySelectorAll('td');
+                const aba = document.querySelector('button.tab-button.ativo').innerText;
+                const id = row.getAttribute('id');
+
+                let confirmacao = todos || confirm(`Você realmente deseja excluir o registro:\n${celulas[1]?.innerText} - ${celulas[2]?.innerText} - ${celulas[3]?.innerText} - ${celulas[4]?.innerText}?`);
+                if (!confirmacao) return;
+
+                const removerLinhaVisual = () => row.remove();
+
+                const atualizarFirestore = async (colecao, docId) => {
+                    const docRef = db.collection(colecao).doc(docId);
+                    const snapshot = await docRef.get();
+
+                    if (!snapshot.exists) return removerLinhaVisual();
+
+                    const dados = snapshot.data();
+                    const dadosStr = JSON.stringify(dados);
+
+                    if (!dadosStr.includes(id)) return removerLinhaVisual();
+
+                    const inicio = dadosStr.indexOf(id);
+                    const fim = dadosStr.indexOf('-++-', inicio);
+                    const dadoAntigo = dadosStr.substring(inicio, fim + 4);
+                    const novoStr = dadosStr.replace(dadoAntigo, '');
+
+                    try {
+                        const dadosAtualizados = JSON.parse(novoStr);
+                        await docRef.set(dadosAtualizados);
+                        sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dadosAtualizados));
+                        removerLinhaVisual();
+                    } catch (e) {
+                        console.error("Erro ao atualizar Firestore:", e);
+                    }
+                };
+
+                if (aba === 'Rotinas' && celulas[5]?.innerText.includes('/')) {
+                    const [dia, mes, anoRaw] = celulas[5].innerText.split('/');
+                    const ano = anoRaw.split(',')[0];
+                    const data = new Date(ano, parseInt(mes) - 1, parseInt(dia));
+                    await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+                } else if (aba === 'Chamadas') {
+                    const timestamp = parseInt(id);
+                    const data = new Date(new Date(timestamp).toDateString()); // normaliza para YYYY-MM-DD
+                    await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+                } else {
+                    celulas[1]?.focus();
+                    celulas[1]?.blur();
+                    removerLinhaVisual();
+                }
+            }
+
+            function selecionar_tudo(checkbox) {
+                checkbox.closest('table').querySelectorAll('input[type="checkbox"]:not([onchange])').forEach(check => {
+                    check.checked = checkbox.checked;
+                });
+            }
+            function copiar_selecionados() {
+                let texto = '';
+                document.querySelectorAll('#rotinas_table tbody tr').forEach(tr => {
+                    if (tr.querySelector('input[type=checkbox]').checked == true) {
+                        texto += copiar_dados(tr.querySelector('svg'), true);
+                    }
+                })
+                navigator.clipboard.writeText(texto);
+                const msg = document.createElement('div');
+                msg.textContent = 'Copiado';
+                msg.style.position = 'absolute';
+                msg.style.top = '0';
+                msg.style.left = '100%'; // ou ajuste como preferir
+                msg.style.background = '#007bff';
+                msg.style.color = '#fff';
+                msg.style.padding = '4px 8px';
+                msg.style.borderRadius = '10px';
+                msg.style.zIndex = '9999'; // ← garante que fique por cima
+
+                // Garante que o SVG possa conter o elemento
+                const wrapper = document.querySelector('#rotinas_table thead span');
+                wrapper.style.position = 'relative';
+                wrapper.appendChild(msg);
+
+                setTimeout(() => msg.remove(), 1000);
+            }
+
+            async function excluir_selecionados() {
+                const confirmar = confirm('Deseja realmente excluir todos esses registros?');
+                if (!confirmar) return;
+
+                const aba = document.querySelector('button.tab-button.ativo').innerText.toLowerCase();
+                const tabela = document.querySelector(`#${aba}_table`);
+                if (!tabela) return;
+
+                const linhasSelecionadas = Array.from(tabela.querySelectorAll('tbody tr')).filter(tr => {
+                    const checkbox = tr.querySelector('input[type=checkbox]');
+                    if (aba === 'rotinas') {
+                        const data_inicial = tr.querySelectorAll('td')[5].innerText;
+                        return checkbox && checkbox.checked && data_inicial != '';
+                    } else if (aba === 'chamadas') {
+                        const qtr = tr.querySelectorAll('td')[9].innerText;
+                        return checkbox && checkbox.checked && qtr != '';
+                    }
+
+
+                });
+
+                if (!linhasSelecionadas.length) return;
+
+                // Agrupar por docId
+                const grupos = {};
+
+                for (const tr of linhasSelecionadas) {
+                    const id = tr.getAttribute('id');
+                    const celulas = tr.querySelectorAll('td');
+                    let docId = '';
+
+                    if (aba === 'rotinas' && celulas[5]?.innerText.includes('/')) {
+                        const [d, m, yRaw] = celulas[5].innerText.split('/');
+                        const y = yRaw.split(',')[0];
+                        docId = new Date(y, parseInt(m) - 1, parseInt(d)).toISOString();
+                    } else if (aba === 'chamadas') {
+                        const timestamp = parseInt(id);
+                        docId = new Date(new Date(timestamp).toDateString()).toISOString();
+                    } else {
+                        tr.remove(); // Para 'setores' ou outros
+                        continue;
+                    }
+
+                    if (!grupos[docId]) grupos[docId] = [];
+                    grupos[docId].push({ id, tr });
+                }
+
+                // Para cada docId, fazer exclusão consolidada
+                const promises = Object.entries(grupos).map(async ([docId, registros]) => {
+                    const docRef = db.collection(aba).doc(docId);
+                    const snapshot = await docRef.get();
+
+                    if (!snapshot.exists) {
+                        registros.forEach(r => r.tr.remove());
+                        return;
+                    }
+
+                    let dados = JSON.stringify(snapshot.data());
+
+                    registros.forEach(({ id }) => {
+                        const inicio = dados.indexOf(id);
+                        const fim = dados.indexOf('-++-', inicio);
+                        if (inicio >= 0 && fim > inicio) {
+                            const dadoAntigo = dados.substring(inicio, fim + 4);
+                            dados = dados.replace(dadoAntigo, '');
+                        }
+                    });
+
+                    try {
+                        const atualizado = JSON.parse(dados);
+                        await docRef.set(atualizado);
+                        registros.forEach(r => r.tr.remove());
+                    } catch (err) {
+                        console.error(`Erro ao excluir no doc ${docId}:`, err);
+                    }
+                });
+
+                await Promise.all(promises);
+                console.log("Exclusão em lote finalizada.");
+                document.querySelector(`#${aba}_table label[class="checkbox-wrapper"]`).click();
+            }
+
+
+        </script>
+</body>
+
+</html>
