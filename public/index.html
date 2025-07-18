@@ -1810,7 +1810,8 @@
             let celulas = td.parentNode.querySelectorAll('td');
 
             let vazia = '';
-            td.parentNode.parentNode.querySelectorAll('tr')[td.parentNode.parentNode.querySelectorAll('tr').length - 1].querySelectorAll('td').forEach(function (item) {
+            const table = document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`);
+            table.querySelectorAll('tr')[table.querySelectorAll('tr').length - 1].querySelectorAll('td').forEach(function (item) {
                 if (item.innerText != '') {
                     vazia = 'nao';
                 }
@@ -1819,9 +1820,9 @@
             celulas.forEach(function (cel) {
                 if (cel.innerText != '' && vazia == 'nao') {
                     if (aba != 'usuários') {
-                        document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`).insertAdjacentHTML('beforeend', criar_linha(aba, [JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime(), '', '', '', '', '', '', '', '', '', '', '']));
+                        table.insertAdjacentHTML('beforeend', criar_linha(aba, [JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime(), '', '', '', '', '', '', '', '', '', '', '']));
                     } else {
-                        document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`).insertAdjacentHTML('beforeend', criar_linha(aba, ['', '', '', '', '']));
+                        table.insertAdjacentHTML('beforeend', criar_linha(aba, ['', '', '', '', '']));
                     }
 
                     td.focus();
@@ -1885,8 +1886,9 @@
                 li.style.cursor = "pointer";
                 li.onclick = () => {
                     optionsList.targetTd.innerText = opt;
-                    optionsList.targetTd.dispatchEvent(new Event('input', { bubbles: true }));
                     optionsList.targetTd.focus();
+                    optionsList.targetTd.dispatchEvent(new Event('input', { bubbles: true }));
+                    
                     optionsList.style.display = "none";
                 };
                 optionsList.appendChild(li);
@@ -2297,7 +2299,7 @@ ${samu}`
                     filtrar_dados('chamadas');
                     baixa_banco();
                     if (localStorage.getItem('config_abas')) {
-                        Array.from(document.querySelectorAll('button[class="tab-button"]')).filter(button => button.innerText == localStorage.getItem('config_abas'))[0].click();
+                        Array.from(document.querySelectorAll('button[class*="tab-button"]')).filter(button => button.innerText == localStorage.getItem('config_abas'))[0].click();
                     }
                 }
             }, 100);
