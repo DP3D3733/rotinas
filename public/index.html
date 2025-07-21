@@ -1333,6 +1333,15 @@
             }
         }
 
+        function escaparHTML(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
         function criar_linha(aba, dados) {
             let linha;
             let copiado;
@@ -1354,7 +1363,7 @@
             }
             if (aba == 'rotinas') {
                 linha = `<tr name="${dados[0]}" >
-                <td style="width: 10px;" dados="${dados[1]}-()-${dados[2]}-()-${dados[3]}-()-${dados[4]}-()-${dados[5]}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${dados[10]}-()-${dados[11]}" >
+                <td style="width: 10px;" dados="${escaparHTML(dados[1])}-()-${escaparHTML(dados[2])}-()-${escaparHTML(dados[3])}-()-${escaparHTML(dados[4])}-()-${escaparHTML(dados[5])}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${escaparHTML(dados[10])}-()-${escaparHTML(dados[11])}" >
                     <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
                         <label class="checkbox-wrapper">
                                 <input type="checkbox" class="custom-checkbox">
@@ -1889,7 +1898,7 @@
                     optionsList.targetTd.innerText = opt;
                     optionsList.targetTd.focus();
                     optionsList.targetTd.dispatchEvent(new Event('input', { bubbles: true }));
-                    
+
                     optionsList.style.display = "none";
                 };
                 optionsList.appendChild(li);
