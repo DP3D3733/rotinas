@@ -1354,7 +1354,7 @@
             }
             if (aba == 'rotinas') {
                 linha = `<tr name="${dados[0]}" >
-                <td style="width: 10px;" dados='${dados[1]}-()-${dados[2]}-()-${dados[3]}-()-${dados[4]}-()-${dados[5]}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${dados[10]}-()-${dados[11]}' >
+                <td style="width: 10px;" dados="${dados[1]}-()-${dados[2]}-()-${dados[3]}-()-${dados[4]}-()-${dados[5]}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${dados[10]}-()-${dados[11]}" >
                     <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
                         <label class="checkbox-wrapper">
                                 <input type="checkbox" class="custom-checkbox">
@@ -1783,6 +1783,7 @@
 
 
         function hideOptions(event, td) {
+            const aba = document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase();
             let options = optionsList.innerHTML;
             setTimeout(() => { // delay para permitir clique
                 if (optionsList.innerHTML == options) {
@@ -1800,7 +1801,7 @@
             if (celulas_vazias == 'sim' && td.parentNode.parentNode.querySelectorAll('tr').length > 1 && td.parentNode != td.parentNode.parentNode.querySelectorAll('tr')[td.parentNode.parentNode.querySelectorAll('tr').length - 1]) {
                 td.parentNode.remove();
             }
-            if (td == td.parentNode.querySelectorAll('td')[3] && optionsList.style.display == "none") {
+            if (td == td.parentNode.querySelectorAll('td')[3] && optionsList.style.display == "none" && aba == 'rotinas') {
                 td.parentNode.nextElementSibling?.querySelectorAll('td')[1]?.focus();
             }
         }
