@@ -129,9 +129,51 @@
             padding: 10px;
         }
 
+        #seleciona_periodo_absoluto,
+        #seleciona_periodo_relativo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #fafafa;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
 
-        #filtro input[type="date"],
-        #filtro_chamadas input[type="date"],
+        #seleciona_periodo_absoluto:hover,
+        #seleciona_periodo_relativo:hover {
+            background-color: #f0f0f0;
+        }
+
+        #seleciona_periodo_absoluto input[type="radio"],
+        #seleciona_periodo_relativo input[type="radio"] {
+            cursor: pointer;
+        }
+
+        #seleciona_periodo_absoluto div,
+        #seleciona_periodo_relativo div {
+            display: flex;
+            gap: 10px;
+        }
+
+        #seleciona_periodo_absoluto input[type="datetime-local"],
+        #seleciona_periodo_relativo input,
+        #seleciona_periodo_relativo select {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #num_periodo_relativo {
+            width: 35px;
+        }
+
+        #filtro input[type*="date"],
+        #filtro_chamadas input[type*="date"],
         #filtro button,
         #filtro_chamadas button {
             padding: 6px;
@@ -154,6 +196,15 @@
 
         #filtro input[type="checkbox"] {
             margin-right: 5px;
+        }
+
+        #filtro input[readonly],
+        #filtro select[readonly] {
+            background-color: #ebe9e9;
+            /* cor de fundo típica de disabled */
+            color: #b4b4b4;
+            /* cursor padrão de disabled */
+            pointer-events: none;
         }
 
         /* Tabela de rotinas */
@@ -525,8 +576,8 @@
             box-shadow: none;
         }
 
-        body.dark-mode #filtro input[type="date"],
-        body.dark-mode #filtro_chamadas input[type="date"],
+        body.dark-mode #filtro input[type*="date"],
+        body.dark-mode #filtro_chamadas input[type*="date"],
         body.dark-mode #filtro button,
         body.dark-mode #filtro_chamadas button {
             background-color: #1e1e1e;
@@ -780,12 +831,31 @@
                                 <button onclick="turno_atual(this)">Turno Atual</button>
                             </td>
                             <td>
-                                <input oninput="filtrar_dados('rotinas')" type="date" name="rotina_data_inicial"
-                                    id="rotina_data_inicial">
+                                <div id="seleciona_periodo_absoluto" onclick="this.querySelector('input').click()">
+                                    <input type="radio" name="seleciona_tipo_periodo" checked
+                                        oninput="seleciona_periodo(this)">
+                                    <div>
+                                        <input oninput="filtrar_dados('rotinas')" type="datetime-local"
+                                            name="rotina_data_inicial" id="rotina_data_inicial">
+                                        <input oninput="filtrar_dados('rotinas')" type="datetime-local"
+                                            name="rotina_data_final" id="rotina_data_final">
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                <input oninput="filtrar_dados('rotinas')" type="date" name="rotina_data_final"
-                                    id="rotina_data_final">
+                                <div id="seleciona_periodo_relativo" onclick="this.querySelector('input').click()">
+                                    <input type="radio" name="seleciona_tipo_periodo" oninput="seleciona_periodo(this)">
+                                    <div>
+                                        <input type="number" id="num_periodo_relativo"
+                                            oninput="filtrar_dados('rotinas')" readonly value="1">
+                                        <select readonly name="select_tipo_periodo" onchange="filtrar_dados('rotinas')"
+                                            id="select_tipo_periodo">
+                                            <option value="1">Último(s) Minuto(s)</option>
+                                            <option selected value="60">Última(s) Hora(s)</option>
+                                            <option value="1440">Último(s) Dia(s)</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <input oninput="filtrar_dados('rotinas')" type="checkbox" name="rotina_checkbox_norte"
@@ -909,17 +979,18 @@
             <div id="filtro_chamadas">
                 <table>
                     <tbody>
+
                         <tr>
                             <td>
                                 <button onclick="turno_atual(this)">Turno Atual</button>
                             </td>
                             <td>
-                                <input oninput="filtrar_dados('chamadas')" type="date" name="chamadas_data_inicial"
-                                    id="chamadas_data_inicial">
+                                <input oninput="filtrar_dados('chamadas')" type="datetime-local"
+                                    name="chamadas_data_inicial" id="chamadas_data_inicial">
                             </td>
                             <td>
-                                <input oninput="filtrar_dados('chamadas')" type="date" name="chamadas_data_final"
-                                    id="chamadas_data_final">
+                                <input oninput="filtrar_dados('chamadas')" type="datetime-local"
+                                    name="chamadas_data_final" id="chamadas_data_final">
                             </td>
                         </tr>
                     </tbody>
@@ -1518,15 +1589,25 @@
             let partes_inicial, data_inicial, partes_final, cad_norte, cad_sul, cad_centro, cad_especializadas, th;
 
             if (aba == 'rotinas') {
+                const select_tipo_periodo = parseInt(document.querySelector('#select_tipo_periodo').value);
+                const num_periodo_relativo = parseInt(document.querySelector('#num_periodo_relativo').value);
                 let l_rotinas = document.querySelectorAll('#rotinas_table tbody tr');
                 for (let index = 0; index < l_rotinas.length - 1; index++) {
                     l_rotinas[index].remove();
 
                 }
-                partes_inicial = document.querySelector('#rotina_data_inicial').value.split("-");
-                data_inicial = new Date(partes_inicial[0], partes_inicial[1] - 1, partes_inicial[2]);
-                partes_final = document.querySelector('#rotina_data_final').value.split("-");
-                data_final = new Date(partes_final[0], partes_final[1] - 1, partes_final[2]);
+                if (!document.querySelector('#rotina_data_inicial').getAttribute('readonly')) {
+                    data_inicial = new Date(document.querySelector('#rotina_data_inicial').value);
+                    data_inicial.setHours(0, 0, 0, 0);
+                    data_final = new Date(document.querySelector('#rotina_data_final').value);
+                    data_final.setHours(0, 0, 0, 0);
+                } else {
+                    data_inicial = new Date();
+                    data_inicial.setMinutes(data_inicial.getMinutes() - (num_periodo_relativo * select_tipo_periodo));
+                    data_inicial.setHours(0, 0, 0, 0);
+                    data_final = new Date();
+                    data_final.setHours(0, 0, 0, 0);
+                }
                 cad_norte = document.querySelector('#rotina_checkbox_norte');
                 cad_sul = document.querySelector('#rotina_checkbox_sul');
                 cad_centro = document.querySelector('#rotina_checkbox_centro');
@@ -1534,7 +1615,7 @@
                 if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || (cad_norte.checked == false && cad_sul.checked == false && cad_centro.checked == false && cad_especializadas.checked == false)) {
                     return;
                 }
-                localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${cad_norte.checked}-()-${cad_sul.checked}-()-${cad_centro.checked}-()-${cad_especializadas.checked}`);
+                localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${document.querySelector('#num_periodo_relativo').value}-()-${document.querySelector('#select_tipo_periodo').value}-()-${cad_norte.checked}-()-${cad_sul.checked}-()-${cad_centro.checked}-()-${cad_especializadas.checked}-()-${document.querySelector('#filtro input:not([type=radio]):not([readonly])').parentNode.parentNode.getAttribute('id')}`);
 
                 unsubscribeRotinasList.forEach(unsub => unsub());
                 unsubscribeRotinasList = [];
@@ -1566,11 +1647,25 @@
                                 dados[setor].split('-++-').forEach(linha => {
                                     if (!linha) return;
                                     const celulas = linha.split('-()-');
-                                    const l = criar_linha('rotinas', celulas);
-                                    if (document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`)) {
-                                        document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                    let datahorafinal_filtro, data_inicial_filtro, datahora_linha;
+                                    const partes_datahora = celulas[7].split(/\/|, |:/);
+                                    datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
+                                    if (!document.querySelector('#rotina_data_inicial').getAttribute('readonly')) {
+                                        data_inicial_filtro = new Date(document.querySelector('#rotina_data_inicial').value);
+                                        datahorafinal_filtro = new Date(document.querySelector('#rotina_data_final').value);
                                     } else {
-                                        linhas += l;
+                                        datahorafinal_filtro = new Date();
+                                        data_inicial_filtro = new Date();
+                                        data_inicial_filtro.setMinutes(data_inicial_filtro.getMinutes() - (num_periodo_relativo * select_tipo_periodo));
+
+                                    }
+                                    if (data_inicial_filtro <= datahora_linha && datahora_linha <= datahorafinal_filtro) {
+                                        const l = criar_linha('rotinas', celulas);
+                                        if (document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`)) {
+                                            document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                        } else {
+                                            linhas += l;
+                                        }
                                     }
                                 });
                             }
@@ -1606,10 +1701,10 @@
                     l_chamadas[index].remove();
 
                 }
-                partes_inicial = document.querySelector('#chamadas_data_inicial').value.split("-");
-                data_inicial = new Date(partes_inicial[0], partes_inicial[1] - 1, partes_inicial[2]);
-                partes_final = document.querySelector('#chamadas_data_final').value.split("-");
-                data_final = new Date(partes_final[0], partes_final[1] - 1, partes_final[2]);
+                data_inicial = new Date(document.querySelector('#rotina_data_inicial').value);
+                data_inicial.setHours(0, 0, 0, 0);
+                data_final = new Date(document.querySelector('#rotina_data_final').value);
+                data_final.setHours(0, 0, 0, 0);
                 if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
                     return;
                 }
@@ -2284,11 +2379,12 @@ ${samu}`
             if (filtro_rotinas) {
                 document.querySelector('#rotina_data_inicial').value = filtro_rotinas.split('-()-')[0];
                 document.querySelector('#rotina_data_final').value = filtro_rotinas.split('-()-')[1];
-                document.querySelector('#rotina_checkbox_norte').checked = filtro_rotinas.split('-()-')[2] === 'true';
-                document.querySelector('#rotina_checkbox_sul').checked = filtro_rotinas.split('-()-')[3] === 'true';
-                document.querySelector('#rotina_checkbox_centro').checked = filtro_rotinas.split('-()-')[4] === 'true';
-                document.querySelector('#rotina_checkbox_especializadas').checked = filtro_rotinas.split('-()-')[5] === 'true';
-
+                document.querySelector('#num_periodo_relativo').value = filtro_rotinas.split('-()-')[2];
+                document.querySelector('#select_tipo_periodo').value = filtro_rotinas.split('-()-')[3];
+                document.querySelector('#rotina_checkbox_norte').checked = filtro_rotinas.split('-()-')[4] === 'true';
+                document.querySelector('#rotina_checkbox_sul').checked = filtro_rotinas.split('-()-')[5] === 'true';
+                document.querySelector('#rotina_checkbox_centro').checked = filtro_rotinas.split('-()-')[6] === 'true';
+                document.querySelector('#rotina_checkbox_especializadas').checked = filtro_rotinas.split('-()-')[7] === 'true';
             }
             const filtro_chamadas = localStorage.getItem('filtro_chamadas');
             if (filtro_chamadas) {
@@ -2305,6 +2401,10 @@ ${samu}`
                         tr.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
                     });
                     clearInterval(interval_logado);
+                    //clicar no tipo de período armazenado banco
+                    if (filtro_rotinas && filtro_rotinas.split('-()-')[8]) {
+                        document.querySelector(`#${filtro_rotinas.split('-()-')[8]}`).click();
+                    }
                     filtrar_dados('rotinas');
                     filtrar_dados('chamadas');
                     baixa_banco();
@@ -2354,7 +2454,45 @@ ${samu}`
                 document.querySelector('#programa').style.display = '';
             }
 
+            document.querySelectorAll('#seleciona_periodo_absoluto input:not([type=radio]),#seleciona_periodo_relativo input:not([type=radio]),#seleciona_periodo_relativo select').forEach(input => {
+                input.addEventListener('click', function () {
+                    input.parentNode.parentNode.querySelector('input[type=radio]').click();
+                })
+            })
+
         });
+
+        function blockEvent(e) {
+            e.preventDefault();
+        }
+
+        function setInputsDisabled(element, disabled) {
+
+            if (disabled) {
+                // Para input number, usamos readonly que bloqueia edição mas permite foco e clique
+                element.setAttribute('readonly', 'readonly');
+
+                // Para select, não existe readonly, então bloqueamos via evento
+                element.disabled = false; // para poder ouvir eventos
+                element.addEventListener('mousedown', blockEvent);
+                element.addEventListener('keydown', blockEvent);
+            } else {
+                element.removeAttribute('readonly');
+                element.disabled = false;
+                element.removeEventListener('mousedown', blockEvent);
+                element.removeEventListener('keydown', blockEvent);
+            }
+        }
+
+        function seleciona_periodo(tipo_periodo) {
+            document.querySelectorAll('#seleciona_periodo_absoluto input:not([type=radio]),#seleciona_periodo_relativo input:not([type=radio]),#seleciona_periodo_relativo select').forEach(input => {
+                setInputsDisabled(input, true);
+            });
+            tipo_periodo.parentNode.querySelectorAll('input:not([type=radio]),select').forEach(input => {
+                setInputsDisabled(input, false);
+            });
+            tipo_periodo.parentNode.querySelector('input:not([type=radio])').dispatchEvent(new Event('input', { bubbles: true }));
+        }
 
         function empenhar_gu(demanda) {
             let dados = demanda.closest('tr').querySelectorAll('td');
@@ -2398,16 +2536,20 @@ ${samu}`
 
         function turno_atual(button) {
             const hora = new Date().getHours();
-            let seletores_data = button.parentNode.parentNode.querySelectorAll('input[type=date]');
+            let seletores_data = button.parentNode.parentNode.querySelectorAll('input[type*=date]');
             if (hora > 18 || hora < 6) {
-                seletores_data[0].value = new Date().toISOString().slice(0, 10);
+
+                seletores_data[0].value = new Date(new Date().setHours(15, 30, 0)).toISOString().slice(0, -5);
                 seletores_data[0].dispatchEvent(new Event('input', { bubbles: true }));
-                seletores_data[1].value = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+
+                const data_final = new Date();
+                data_final.setDate(data_final.getDate() + 1);
+                seletores_data[1].value = new Date(data_final.setHours(3, 30, 0)).toISOString().slice(0, -5);
                 seletores_data[1].dispatchEvent(new Event('input', { bubbles: true }));
             } else {
-                seletores_data[0].value = new Date().toISOString().slice(0, 10);
+                seletores_data[0].value = new Date(new Date().setHours(3, 30, 0)).toISOString().slice(0, -5);
                 seletores_data[0].dispatchEvent(new Event('input', { bubbles: true }));
-                seletores_data[1].value = new Date().toISOString().slice(0, 10);
+                seletores_data[1].value = new Date(new Date().setHours(15, 30, 0)).toISOString().slice(0, -5);
                 seletores_data[1].dispatchEvent(new Event('input', { bubbles: true }));
             }
         }
