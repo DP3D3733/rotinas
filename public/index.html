@@ -579,10 +579,23 @@
         body.dark-mode #filtro input[type*="date"],
         body.dark-mode #filtro_chamadas input[type*="date"],
         body.dark-mode #filtro button,
-        body.dark-mode #filtro_chamadas button {
+        body.dark-mode #filtro_chamadas button,
+        body.dark-mode #seleciona_periodo_absoluto,
+        body.dark-mode #seleciona_periodo_relativo,
+        body.dark-mode #seleciona_periodo_relativo input,
+        body.dark-mode #seleciona_periodo_relativo select {
             background-color: #1e1e1e;
             color: #fff;
             border: 1px solid #555;
+        }
+
+        body.dark-mode #filtro input[readonly],
+        body.dark-mode #filtro select[readonly] {
+            background-color: #363636;
+            /* cor de fundo típica de disabled */
+            color: #504f4f;
+            /* cursor padrão de disabled */
+            pointer-events: none;
         }
 
         body.dark-mode #filtro button:hover,
@@ -2376,7 +2389,7 @@ ${samu}`
 
 
             const filtro_rotinas = localStorage.getItem('filtro_rotinas');
-            if (filtro_rotinas) {
+            if (filtro_rotinas && filtro_rotinas.split('-()-')[7]) {
                 document.querySelector('#rotina_data_inicial').value = filtro_rotinas.split('-()-')[0];
                 document.querySelector('#rotina_data_final').value = filtro_rotinas.split('-()-')[1];
                 document.querySelector('#num_periodo_relativo').value = filtro_rotinas.split('-()-')[2];
