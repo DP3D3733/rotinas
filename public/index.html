@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -88,7 +88,6 @@
 
         /* Botões superiores */
         div>button {
-            background-color: #007bff;
             color: white;
             border: none;
             padding: 10px 16px;
@@ -96,10 +95,6 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s;
-        }
-
-        div>button:hover {
-            background-color: #0056b3;
         }
 
         /* Filtros */
@@ -128,6 +123,7 @@
         #filtro_setores table td {
             padding: 10px;
         }
+        
 
         #seleciona_periodo_absoluto,
         #seleciona_periodo_relativo {
@@ -194,6 +190,14 @@
             background-color: #ffffff;
         }
 
+        #filtro_chamadas div {
+            display: flex;
+            flex-direction: row;
+            margin-left: auto;
+            align-items: center;
+            text-align: center;
+        }
+
         #filtro input[type="checkbox"] {
             margin-right: 5px;
         }
@@ -218,23 +222,154 @@
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
         }
 
-        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar {
+        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar,
+        body:not(.dark-mode).modal-content::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
 
-        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-track {
+        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-track,
+        body:not(.dark-mode).modal-content::-webkit-scrollbar-track {
             background: #b1b1b146;
         }
 
-        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-thumb {
+        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-thumb,
+        body:not(.dark-mode).modal-content::-webkit-scrollbar-thumb {
             background-color: #f0f0f0;
             border-radius: 10px;
             border: 2px solid #f0f0f0;
         }
 
-        body:not(.dark-mode)e .div_tabela_registros::-webkit-scrollbar-thumb:hover {
+        body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-thumb:hover,
+        body:not(.dark-mode).modal-content::-webkit-scrollbar-thumb:hover {
             background-color: #666;
+        }
+
+        /* Fundo escuro semi-transparente */
+        .modal {
+            display: none;
+            /* Escondido por padrão */
+            position: fixed;
+            /* Fica sobre toda a tela */
+            z-index: 1000;
+            /* Sobre outros elementos */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+           
+            /* Scroll se o conteúdo for grande */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Fundo semi-transparente */
+        }
+
+        /* Caixa do conteúdo */
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            /* 10% do topo, centralizado horizontalmente */
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            /* Largura do modal */
+            max-width: 80%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: auto;
+            max-height: 60%;
+        }
+
+        /* Botão de fechar (X) */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        /* Container de botões no rodapé */
+        .botoes_rodape {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Botão Cancelar */
+        .botoes_rodape_cancelar {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .botoes_rodape_cancelar:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Botão Confirmar */
+        .botoes_rodape_confirmar {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .botoes_rodape_confirmar:hover {
+            background-color: #0056b3;
+        }
+
+        details {
+            background: #fff;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        details[open] {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        summary {
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+            padding-left: 28px;
+            user-select: none;
+            list-style: none;
+        }
+
+        /* Custom arrow */
+        summary::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            color: #0078d4;
+        }
+
+        details[open]>summary::before {
+            transform: translateY(-50%) rotate(90deg);
         }
 
         body:not(.dark-mode) #rotinas_table,
@@ -348,7 +483,7 @@
             color: #d4d4d4;
         }
 
-        ul {
+        #options-list {
             display: none;
             position: absolute;
             border: 1px solid #ccc;
@@ -361,7 +496,7 @@
         }
 
 
-        body.dark-mode ul {
+        body.dark-mode #options-list {
             border: 1px solid #ccc;
             background: #000;
         }
@@ -374,7 +509,7 @@
             background-color: rgb(43, 42, 42);
         }
 
-        li:hover {
+        #options-list li:hover {
             background-color: rgb(194, 194, 194);
         }
 
@@ -628,24 +763,30 @@
             color: #fff;
         }
 
-        body.dark-mode .div_tabela_registros::-webkit-scrollbar {
+        body.dark-mode .div_tabela_registros::-webkit-scrollbar,
+        body.dark-mode .modal-content::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
 
-        body.dark-mode .div_tabela_registros::-webkit-scrollbar-track {
+        body.dark-mode .div_tabela_registros::-webkit-scrollbar-track,
+        body.dark-mode .modal-content::-webkit-scrollbar-track {
             background: #1a1a1a;
         }
 
-        body.dark-mode .div_tabela_registros::-webkit-scrollbar-thumb {
+        body.dark-mode .div_tabela_registros::-webkit-scrollbar-thumb,
+        body.dark-mode .modal-content::-webkit-scrollbar-thumb {
             background-color: #444;
             border-radius: 10px;
             border: 2px solid #1a1a1a;
         }
 
-        body.dark-mode .div_tabela_registros::-webkit-scrollbar-thumb:hover {
+        body.dark-mode .div_tabela_registros::-webkit-scrollbar-thumb:hover,
+        body.dark-mode .modal-content::-webkit-scrollbar-thumb:hover {
             background-color: #666;
         }
+
+        
 
         /* Tabs */
         body.dark-mode .tab-button {
@@ -703,7 +844,7 @@
             background-color: #303030;
         }
 
-        body.dark-mode li:hover {
+        body.dark-mode #options-list li:hover {
             background-color: #3a3a3a;
         }
 
@@ -784,6 +925,23 @@
         #logout:hover {
             cursor: pointer;
             background-color: #6e6e6e7e;
+        }
+
+        
+
+        /* Caixa do conteúdo */
+        body.dark-mode .modal-content {
+            background-color: #252525;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode details {
+            background: #1e1e1e;
+            border: 1,5px solid #555;
+        }
+
+        details[open] {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -989,7 +1147,7 @@
             </div>
         </div>
         <div id="chamadas" style="display: none;">
-            <div id="filtro_chamadas">
+            <div id="filtro_chamadas" style="display: flex;">
                 <table>
                     <tbody>
 
@@ -1008,6 +1166,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div>
+                    <button id="legislacao_button" onclick="abrir_legislacao_modal()">Legislação Aplicada</button>
+                </div>
             </div>
             <div id="resumo_chamadas">
                 <table>
@@ -1237,6 +1398,561 @@
         <ul id="options-list"></ul>
     </div>
     </div>
+    <!-- Estrutura do modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fechar_modal()">&times;</span>
+            <h2>LEGISLAÇÃO APLICADA</h2>
+
+            <details>
+                <summary>😴 PERTURBAÇÃO DO SOSSEGO</summary>
+
+                <h4>LEI COMPLEMENTAR Nº 12, DE 07 DE JANEIRO DE 1975</h4>
+                <p>Art. 29-D São deveres dos estabelecimentos, sem prejuízo às demais disposições legais:</p>
+                <ul>
+                    <li>I - apresentar, sempre que solicitado, o Alvará de Localização e Funcionamento, nos casos
+                        exigidos
+                        em lei;</li>
+                    <li>II - abster-se de depositar ou expor à venda mercadorias sobre os passeios ou utilizando paredes
+                        ou
+                        vãos, ou
+                        sobre marquises ou toldos;</li>
+                    <li>III - atender às exigências legais para o exercício da atividade;</li>
+                    <li>IV - não exercer atividade em horário vedado por norma municipal;</li>
+                    <li>V - não utilizar equipamentos sonoros em infração à legislação vigente;</li>
+                </ul>
+
+                <h4>LEI COMPLEMENTAR Nº 983, DE 21 DE JULHO DE 2023</h4>
+                <p>Art. 83 É vedado perturbar o bem-estar e o sossego público, ou de vizinhanças, com ruídos, barulhos,
+                    sons
+                    excessivos
+                    ou incômodos de qualquer natureza, produzidos por qualquer forma e que ultrapassem ou não os níveis
+                    máximos de
+                    intensidade fixados nesta Lei. (Redação dada pela Lei Complementar nº 392/1996)</p>
+
+                <p>Art. 85 Não poderão funcionar aos domingos e feriados e no horário compreendido entre 22h e 6h,
+                    máquinas,
+                    motores e
+                    equipamentos eletro-acústicos em geral, de uso eventual, que, embora utilizando dispositivos para
+                    amortecer os
+                    efeitos de som, não apresentem diminuição sensível das perturbações ou ruídos.</p>
+                <ul>
+                    <li>Parágrafo Único - O funcionamento nos demais dias e horários dependerá de autorização prévia do
+                        setor competente
+                        do Município. A infração do disposto neste artigo acarretará pena de multa de um a cinco
+                        salários
+                        mínimos.</li>
+                </ul>
+
+                <p>Art. 86 Fica proibido:</p>
+                <ul>
+                    <li>IV - A utilização de anúncios de propaganda produzidos por alto-falantes, amplificadores, bandas
+                        de
+                        música e
+                        tambores;</li>
+                    <li>V - A utilização de alto-falantes, fonógrafos, rádios e outros aparelhos sonoros usados como
+                        meio de
+                        propaganda,
+                        mesmo em casas de negócios, ou para outros fins, desde que se façam ouvir fora do recinto onde
+                        funcionam; Pena:
+                        multa de um a três salários mínimos.</li>
+                    <li>VIII - Emitir sinal sonoro por alarmes de segurança residenciais, comerciais ou veiculares por
+                        período superior
+                        a 5 (cinco) minutos.</li>
+                </ul>
+
+                <p>Art. 89 Casas de comércio ou locais de diversões públicas como parques, bares, cafés, restaurantes,
+                    cantinas e
+                    boates, nas quais haja execução ou reprodução de números musicais por orquestras, instrumentos
+                    isolados
+                    ou aparelhos
+                    de som, deverão adotar instalações adequadas a reduzir sensivelmente a intensidade de suas execuções
+                    ou
+                    reproduções,
+                    de modo a não perturbar o sossego da vizinhança.</p>
+
+                <h4>DECRETO Nº 8185, DE 07 DE MARÇO DE 1983 (SMAMUS)</h4>
+                <p>Art. 7º Fica proibido o uso ou a operação, inclusive comercial, de instrumentos ou equipamentos, de
+                    modo
+                    que o som
+                    emitido provoque distúrbio sonoro.</p>
+                <ul>
+                    <li>III - Utilizar alto-falantes, fonógrafos, rádios e outros aparelhos sonoros usados como meio de
+                        propaganda,
+                        mesmo em casas de negócios ou para outros fins, desde que causem distúrbio sonoro.</li>
+                    <li>VII - Operar, executar ou permitir a operação ou execução de qualquer instrumento musical,
+                        amplificado
+                        eletronicamente ou não, rádio, fonógrafo, aparelho de televisão ou dispositivo similar que
+                        produza,
+                        reproduza ou
+                        amplifique som em qualquer lugar de entretenimento público, sem autorização da SMAM.</li>
+                </ul>
+                <h3>RECOMENDAÇÃO DE RITO AO FISCALIZAR COMÉRCIO</h3>
+
+                <h4>LEI COMPLEMENTAR Nº 12, DE 07 DE JANEIRO DE 1975</h4>
+
+                <p>Art. 18 É proibido nos logradouros públicos:</p>
+                <ul>
+                    <li>IX - Embaraçar ou impedir, por qualquer meio, o livre trânsito de pedestres ou veículos nos
+                        logradouros
+                        públicos, bem como usar correntes ou artefatos de proteção nos canteiros centrais das vias
+                        públicas
+                        e nos
+                        equipamentos públicos.</li>
+                    <li>XIII - Colocar mesas, cadeiras, bancas ou quaisquer outros objetos ou mercadorias, qualquer que
+                        seja
+                        a
+                        finalidade, excetuando-se os casos regulados por legislação específica, desde que previamente
+                        autorizados pelo
+                        Município.</li>
+                </ul>
+
+                <h4>LEI COMPLEMENTAR Nº 972, DE 2 DE MAIO DE 2023</h4>
+
+                <p>Art. 2º A colocação de equipamentos móveis nos locais referidos no caput do art. 1º desta Lei
+                    Complementar deverá
+                    respeitar as seguintes distâncias:</p>
+                <ul>
+                    <li>I - 1,5m (um vírgula cinco metros) de largura para o livre trânsito de pedestres,
+                        compatibilizado
+                        com o
+                        mobiliário urbano, quando houver;</li>
+                    <li>II - 1m (um metro) de largura, em cada lado dos acessos de garagens;</li>
+                    <li>III - 5m (cinco metros), a partir do perímetro de abrigos e paradas de ônibus, pontos de táxi e
+                        de
+                        lotação,
+                        terminais de ônibus ou outro mobiliário de grande porte; e</li>
+                    <li>IV - 7m (sete metros) da esquina, definida pelo encontro dos alinhamentos dos lotes das faces de
+                        quadra que a
+                        compõem, para estabelecimentos que nela estejam localizados, preservando a acessibilidade nos
+                        cruzamentos
+                        viários.</li>
+                </ul>
+
+                <h4>LEI COMPLEMENTAR Nº 12, DE 07 DE JANEIRO DE 1975</h4>
+
+                <p>Art. 18 É proibido nos logradouros públicos:</p>
+                <ul>
+                    <li>XIV - Colocar marquises ou toldos sobre os passeios, qualquer que seja o material empregado, sem
+                        prévia
+                        autorização do Município;</li>
+                    <li>XVI - Estacionar, por mais de vinte e quatro (24) horas seguidas, veículos equipados para
+                        atividade
+                        comercial;
+                    </li>
+                </ul>
+
+                <p>Art. 29-C A ausência do Alvará de Localização e Funcionamento para a atividade econômica ou
+                    associativa
+                    que exija ato
+                    público de liberação é considerada infração e, respeitada a ampla defesa e o contraditório,
+                    aplicar-se-á
+                    ao infrator
+                    responsável pela atividade, mediante processo administrativo na forma da lei.</p>
+
+                <p>Art. 29-D São deveres dos estabelecimentos, sem prejuízo às demais disposições legais:</p>
+                <ul>
+                    <li>I - Apresentar, sempre que solicitado, o Alvará de Localização e Funcionamento, nos casos
+                        exigidos
+                        em lei;</li>
+                    <li>II - Abster-se de depositar ou expor à venda mercadorias sobre os passeios ou utilizando paredes
+                        ou
+                        vãos, ou
+                        sobre marquises ou toldos;</li>
+                    <li>III - Atender às exigências legais para o exercício da atividade;</li>
+                    <li>IV - Não exercer atividade em horário vedado por norma municipal;</li>
+                    <li>V - Não utilizar equipamentos sonoros em infração à legislação vigente;</li>
+                </ul>
+
+                <p>Art. 82 Os estabelecimentos que produzam fumaça, desprendam odores desagradáveis, incômodos ou
+                    prejudiciais à saúde,
+                    deverão instalar dispositivos para eliminar ou reduzir ao mínimo os fatores da poluição, de acordo
+                    com
+                    os programas
+                    e projetos implantados ou aprovados pelo Município.</p>
+
+                <p>Art. 91-B Os estabelecimentos que comercializam tintas em embalagens do tipo spray deverão manter
+                    cadastro na
+                    Secretaria Municipal do Desenvolvimento Econômico (SMDE), nos termos definidos em regulamento.
+                    (Redação
+                    acrescida
+                    pela Lei Complementar nº 832/2018)</p>
+
+                <p>Art. 91-C Ficam sujeitos à multa de 650 (seiscentas e cinquenta) UFMs a 2.600 (duas mil e seiscentas)
+                    UFMs os
+                    estabelecimentos comerciais que cometerem as seguintes infrações administrativas:</p>
+                <ul>
+                    <li>I - Vender tintas em embalagens do tipo spray sem o cadastro referido no art. 91-B desta Lei
+                        Complementar; ou
+                    </li>
+                    <li>II - Vender tintas em embalagens do tipo spray à pessoa com menos de 18 (dezoito) anos de idade.
+                    </li>
+                </ul>
+                <p>Parágrafo único. Em caso de reincidência, a multa referida no caput deste artigo será aplicada em
+                    dobro,
+                    ficando o
+                    estabelecimento sujeito à suspensão parcial ou total de suas atividades. (Redação acrescida pela Lei
+                    Complementar nº
+                    832/2018)</p>
+
+                <p>Art. 91-D Em caso de reincidência das infrações estabelecidas nesta Lei Complementar ou quando a
+                    prática
+                    da conduta
+                    por ela vedada acarretar dano ao patrimônio público tombado, a sanção de multa será aplicada em
+                    dobro.
+                    (Redação
+                    acrescida pela Lei Complementar nº 832/2018)</p>
+            </details>
+            <details>
+                <summary>🏗️ PERTURBAÇÃO DO SOSSEGO (OBRAS)</summary>
+
+                <h4>DECRETO Nº 8185, DE 07 MARÇO DE 1983 (SMAMUS)</h4>
+
+                <p>Art. 9º Sem a devida autorização especial, ficam proibidos os serviços de construção civil nos
+                    seguintes dias e
+                    horários:</p>
+                <ul>
+                    <li>a) Domingos e feriados - a qualquer hora.</li>
+                    <li>b) Em dias úteis - nos horários vespertino e noturno. (Somente é permitida a realização de obras
+                        de 2ª feira
+                        a sábado, das 7h às 19h, exceto quando se tratar de obras públicas de emergência ou urgência.)
+                    </li>
+                </ul>
+                <p>Parágrafo único. Fica a critério da SMAM limitar os dias e horários permitidos em unidades
+                    territoriais
+                    residenciais e zonas sensíveis a ruídos.</p>
+
+                <p>Art. 10 Não é permitida a utilização de quaisquer ferramentas ou equipamentos, execução de serviços
+                    de carga e
+                    descarga, consertos, serviços de construção em dias úteis, domingos e feriados, de modo que o som
+                    assim
+                    originado ultrapasse aos valores máximos fixados neste Decreto.</p>
+
+                <h4>LEI COMPLEMENTAR Nº 12, DE 07 DE JANEIRO DE 1975</h4>
+
+                <p>Art. 26 Constitui infração:</p>
+                <ul>
+                    <li>I - Não ter ou deixar de exibir, quando solicitado pela Fiscalização, no local da obra, o
+                        projeto aprovado e
+                        a licença de execução;<br>
+                        <strong>Pena:</strong> multa de um a cinco salários mínimos.
+                    </li>
+                </ul>
+
+                <p>Art. 85 Não poderão funcionar aos domingos e feriados e no horário compreendido entre 22h e 6h,
+                    máquinas, motores
+                    e equipamentos eletro-acústicos em geral, de uso eventual, que, embora utilizando dispositivos para
+                    amortecer os
+                    efeitos de som, não apresentem diminuição sensível das perturbações ou ruídos.</p>
+                <p>Parágrafo Único - O funcionamento nos demais dias e horários dependerá de autorização prévia do setor
+                    competente
+                    do Município. A infração do disposto neste artigo acarretará pena de multa de um a cinco salários
+                    mínimos.</p>
+            </details>
+            <details>
+                <summary>⚱💨 PICHAÇÃO</summary>
+
+                <h4>LEI COMPLEMENTAR Nº 12, DE 07 DE JANEIRO DE 1975</h4>
+
+                <p>Art. 91-A Fica proibido pichar ou, por qualquer outro meio, conspurcar edificação ou monumento,
+                    públicos ou
+                    particulares.</p>
+
+                <p>§ 1º A infração do disposto neste artigo acarretará lavratura de auto de infração, nos termos do art.
+                    6º desta
+                    Lei Complementar.</p>
+
+                <p>§ 2º O descumprimento ao disposto no caput deste artigo acarretará ao infrator:</p>
+                <ul>
+                    <li>I - Multa de 750 (setecentos e cinquenta) a 2.600 (duas mil e seiscentas) UFMs, aplicada em
+                        dobro em caso de
+                        reincidência; e</li>
+                    <li>II - Obrigação de reparação de dano, que consiste em eliminar as marcas da pichação e pintar
+                        integralmente a
+                        edificação ou o monumento.</li>
+                </ul>
+
+                <p>§ 3º Independentemente da aplicação da multa ao autor do delito, sempre que a reparação do dano de
+                    pichação
+                    depender de profissional técnico devidamente habilitado para o encargo, a execução de seu trabalho
+                    será
+                    ressarcida diretamente pelo agente infrator, independentemente se efetivada em edificação ou
+                    monumento, público
+                    ou privado, de reconhecido valor artístico, arqueológico ou histórico, ou nos demais casos em que se
+                    verifique
+                    inviável a plena e geral reparação do dano pelo próprio responsável.</p>
+
+                <p>§ 4º Só será permitida a pichação em tapumes ou cercamentos de obras e construções, públicas ou
+                    privadas,
+                    mediante autorização de órgão público responsável ou do proprietário, respectivamente, sendo que
+                    essas deverão
+                    ter caráter educativo, informativo ou artístico, e as pichações voltadas ao caráter educativo e
+                    informativo
+                    deverão respeitar padrão determinado pelo Executivo Municipal.</p>
+
+                <p>§ 5º Alternativa ou anteriormente à aplicação da multa prevista no inc. I do § 2º deste artigo, a
+                    Administração
+                    procederá ao devido flagrante na área policial e à instauração do processo administrativo que
+                    decidirá pela
+                    aplicação da multa, pela forma de reparo ao dano ou pelo envio do processo à Procuradoria-Geral do
+                    Município de
+                    Porto Alegre para proposição de ação judicial cível de reparação de dano ao patrimônio.</p>
+
+                <p>§ 6º Os valores arrecadados com a aplicação das multas previstas no caput e no inc. I do § 2º deste
+                    artigo serão
+                    destinados ao Departamento Municipal de Limpeza Urbana (DMLU), para que este promova as ações
+                    necessárias à
+                    conservação e à reparação de danos causados pela pichação.</p>
+
+                <p>Art. 91-B Os estabelecimentos que comercializam tintas em embalagens do tipo spray deverão manter
+                    cadastro na
+                    Secretaria Municipal do Desenvolvimento Econômico (SMDE), nos termos definidos em regulamento.</p>
+
+                <p>Art. 91-C Ficam sujeitos à multa de 650 (seiscentas e cinquenta) UFMs a 2.600 (duas mil e seiscentas)
+                    UFMs os
+                    estabelecimentos comerciais que cometerem as seguintes infrações administrativas:</p>
+                <ul>
+                    <li>I - Vender tintas em embalagens do tipo spray sem o cadastro referido no art. 91-B desta Lei
+                        Complementar;
+                        ou</li>
+                    <li>II - Vender tintas em embalagens do tipo spray à pessoa com menos de 18 (dezoito) anos de idade.
+                    </li>
+                </ul>
+
+                <p>Parágrafo único. Em caso de reincidência, a multa referida no caput deste artigo será aplicada em
+                    dobro, ficando
+                    o estabelecimento sujeito à suspensão parcial ou total de suas atividades.</p>
+
+                <p>Art. 91-D Em caso de reincidência das infrações estabelecidas nesta Lei Complementar ou quando a
+                    prática da
+                    conduta por ela vedada acarretar dano ao patrimônio público tombado, a sanção de multa será aplicada
+                    em dobro.
+                </p>
+
+                <h4>RECOMENDAÇÃO DE RITO AO FISCALIZAR PICHAÇÃO</h4>
+                <ul>
+                    <li>Fotografar a pichação sempre que possível de forma nítida;</li>
+                    <li>Descrever no corpo do auto de infração de acordo com LP n° 992/23 Art. 79 V: descrição da
+                        irregularidade
+                        constatada e indicação do dispositivo legal.</li>
+                </ul>
+
+                <p><strong>Exemplo de descrição:</strong></p>
+                <ul>
+                    <li>Cores utilizadas na pichação;</li>
+                    <li>Textos ou palavras escritos (números e letras);</li>
+                    <li>Desenhos;</li>
+                    <li>Medidas mensuráveis do dano;</li>
+                    <li>Material utilizado.</li>
+                </ul>
+            </details>
+
+            <details>
+                <summary>🐶 ANIMAIS</summary>
+
+                <h4>DECRETO Nº 18.587, DE 13 DE MARÇO DE 2014</h4>
+
+                <p>Art. 7º É vedada qualquer prática de maus tratos aos animais.</p>
+                <ul>
+                    <li>§ 1º Praticar ato de abuso ou crueldade contra qualquer animal sujeita o infrator à multa de 720
+                        (setecentas
+                        e vinte) UFMs.</li>
+                    <li>§ 2º Manter animais em lugares anti-higiênicos ou que lhe impeçam a respiração, o movimento ou o
+                        descanso,
+                        ou os privem de ar ou luz, sujeita o infrator à multa de 240 (duzentas e quarenta) UFMs.</li>
+                    <li>§ 3º Submeter animais a trabalhos excessivos ou superiores às suas forças, causando-lhes
+                        sofrimento, sujeita
+                        o infrator à multa de 360 (trezentas e sessenta) UFMs.</li>
+                    <li>§ 4º Açoitar, galopear, ferir ou mutilar animais sujeita o infrator à multa de 720 (setecentas e
+                        vinte)
+                        UFMs.</li>
+                    <li>§ 5º Abandonar animais sujeita o infrator à multa de 2.520 (duas mil quinhentas e vinte) UFMs.
+                    </li>
+                    <li>§ 6º Conduzir animais sem arreios ou apetrechos adequados, causando-lhes incômodo ou sofrimento,
+                        sujeita o
+                        infrator à multa de 360 (trezentas e sessenta) UFMs.</li>
+                    <li>§ 7º Não fornecer ao animal água e alimentação sujeita o infrator à multa de 240 (duzentas e
+                        quarenta) UFMs.
+                    </li>
+                    <li>§ 8º Deixar de fornecer a necessária assistência ao animal sujeita o infrator à multa de 360
+                        (trezentas e
+                        sessenta) UFMs.</li>
+                </ul>
+
+                <p>Art. 8º É vedada a veiculação de publicidade em animais ou por meio deles.</p>
+                <p>Parágrafo Único - Em caso de não cumprimento ao disposto no caput deste artigo, o guardião ou
+                    responsável estará
+                    sujeito à multa de 60 (sessenta) UFMs.</p>
+
+                <p>Art. 12 Em residência, condomínio ou estabelecimento que possua cão ou animal bravio, é obrigatória:
+                </p>
+                <ul>
+                    <li>I - A instalação de placa visível e de fácil leitura, alertando os transeuntes da existência de
+                        animais, sob
+                        pena de multa de 20 (vinte) UFMs.</li>
+                    <li>II - A existência de muros ou grades de ferro e de portões de segurança capazes de garantir a
+                        permanência
+                        domiciliada dos animais e a proteção aos transeuntes, sob pena de multa de 120 (cento e vinte)
+                        UFMs.</li>
+                    <li>III - A instalação de equipamentos para a entrega de correspondência e a coleta de resíduos, de
+                        modo a
+                        evitar o contato do animal com os trabalhadores, sob pena de multa de 60 (sessenta) UFMs.</li>
+                </ul>
+
+                <p>Art. 30 São proibidas:</p>
+                <ul>
+                    <li>I - A exibição de animais silvestres ou exóticos em vias públicas, bem como a sua utilização em
+                        apresentações artísticas de diversões públicas;</li>
+                    <li>II - A exibição de animais bravios em espetáculos;</li>
+                    <li>III - A utilização e a exibição de animais em eventos circenses; e</li>
+                    <li>IV - A realização de rinhas de animais, tais como de cães e aves.</li>
+                </ul>
+                <p>Parágrafo Único - Em caso de não cumprimento ao disposto nos incs. I, II, III ou IV deste artigo, o
+                    responsável
+                    estará sujeito à multa de 3.600 (três mil e seiscentas) UFMs, para cada uma das infrações.</p>
+
+                <p>Art. 31 É proibido o passeio com cães em vias e logradouros públicos, exceto se conduzidos por
+                    pessoas com força
+                    suficiente para controlar os movimentos do animal e se utilizadas adequadamente a coleira e a guia.
+                </p>
+                <ul>
+                    <li>§ 1º Em caso de não cumprimento ao disposto no caput deste artigo, o guardião ou responsável
+                        estará sujeito
+                        à multa de 60 (sessenta) UFMs.</li>
+                    <li>§ 2º Os cães considerados de guarda, de combate ou de outra aptidão em que se destaquem
+                        componentes de força
+                        ou de potencial agressivo, salvo os cães pertencentes a órgãos oficiais, somente poderão sair às
+                        ruas usando
+                        focinheira e enforcador de aço, sob pena de multa de 60 (sessenta) UFMs.</li>
+                </ul>
+
+                <p>Art. 32 O recolhimento de dejetos de animal em logradouros e demais espaços públicos é
+                    responsabilidade de seu
+                    respectivo guardião ou condutor.</p>
+                <p>Parágrafo Único - Em caso de não cumprimento ao disposto no caput deste artigo, o guardião ou
+                    responsável estará
+                    sujeito à multa de 120 (cento e vinte) UFMs.</p>
+
+                <p>Art. 33 Os cães considerados de guarda, de combate ou de outra aptidão em que se destaquem
+                    componentes de força
+                    ou de potencial agressivo, deverão ser identificados com microchip, quando atingirem a idade de 6
+                    (seis) meses,
+                    no qual serão informados as características do animal e o nome do seu guardião ou responsável, às
+                    expensas do
+                    guardião ou responsável pelo animal, e cadastrado no órgão municipal competente.</p>
+                <p>Parágrafo Único - Em caso de não cumprimento ao disposto no caput deste artigo, o guardião ou
+                    responsável estará
+                    sujeito à multa de 360 UFMs.</p>
+
+                <p>Art. 34 É proibida a permanência de animais, com proprietário, soltos ou amarrados em vias e
+                    logradouros públicos
+                    e em locais de livre acesso ao público.</p>
+                <p>Parágrafo Único - Em caso de não cumprimento ao disposto no caput deste artigo, o guardião ou
+                    responsável estará
+                    sujeito à multa de 120 (cento e vinte) UFMs.</p>
+            </details>
+            <details>
+                <summary>🎶 MANIFESTAÇÕES E EVENTOS</summary>
+
+                <h4>CONSTITUIÇÃO DA REPÚBLICA FEDERATIVA DO BRASIL DE 1988</h4>
+                <p>Art. 5º Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos
+                    brasileiros e aos
+                    estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à
+                    segurança e à
+                    propriedade, nos termos seguintes:</p>
+                <ul>
+                    <li>IX - É livre a expressão da atividade intelectual, artística, científica e de comunicação,
+                        independentemente
+                        de censura ou licença.</li>
+                </ul>
+
+                <h4>LEI Nº 12.821, DE 11 DE MARÇO DE 2021</h4>
+
+                <p>Art. 1º Ficam permitidas manifestações culturais, religiosas, sociais, esportivas e de artistas de
+                    rua em espaços
+                    públicos abertos do Município de Porto Alegre, tais como praças, anfiteatros, largos e vias.</p>
+
+                <p>Art. 2º A permissão de que trata o art. 1º desta Lei fica condicionada à observância dos seguintes
+                    requisitos:
+                </p>
+                <ul>
+                    <li>I - Gratuidade para os espectadores, permitidas doações espontâneas;</li>
+                    <li>II - Permissão da livre fluência do trânsito, da passagem e da circulação de pedestres, bem como
+                        do acesso a
+                        instalações públicas ou privadas;</li>
+                    <li>III - Em caso de utilização de fonte de energia para alimentação de som, a potência desse
+                        equipamento será
+                        de, no máximo, 30 (trinta) kVA; e</li>
+                    <li>IV - Inexistência de patrocínio privado que caracterize as manifestações como um evento de
+                        marketing, salvo
+                        projetos apoiados por leis municipais, estaduais ou federais de incentivo à cultura.</li>
+                </ul>
+
+                <p>Art. 3º Para os fins desta Lei, consideram-se manifestações culturais de artistas de rua aquelas que
+                    compreendam:
+                </p>
+                <ul>
+                    <li>I - Teatro;</li>
+                    <li>II - Dança;</li>
+                    <li>III - Capoeira;</li>
+                    <li>IV - Folclore;</li>
+                    <li>V - Representação por mímica, inclusive as estátuas vivas;</li>
+                    <li>VI - Artes circenses em geral, abrangendo a arte dos palhaços, dos mágicos, do malabarismo e dos
+                        saltos
+                        mortais no chão ou em trapézios;</li>
+                    <li>VII - Artes plásticas de qualquer natureza;</li>
+                    <li>VIII - Espetáculo ou apresentação de música, erudita ou popular, vocal ou instrumental;</li>
+                    <li>IX - Literatura, poesia, desafios poéticos, poesia de cordel, improvisação e repentistas; e</li>
+                    <li>X - Recital, declamação ou cantata de texto.</li>
+                </ul>
+
+                <p>§ 1º Durante as manifestações culturais previstas neste artigo, fica permitido ao artista receber
+                    doação
+                    espontânea em troca de bens culturais duráveis, vinculados às apresentações dos artistas ou dos
+                    grupos.</p>
+                <p>§ 2º As manifestações culturais de artistas de rua independem de prévia autorização dos órgãos
+                    públicos
+                    municipais e não estão sujeitas à cobrança de quaisquer tributos ou preços públicos.</p>
+
+                <p>Art. 4º As manifestações culturais de que trata esta Lei independem de prévia autorização dos órgãos
+                    públicos
+                    municipais e não estão sujeitas à cobrança de quaisquer tributos ou preços públicos.</p>
+                <ul>
+                    <li>§ 1º O responsável pela manifestação cultural informará ao Executivo Municipal o dia e a hora de
+                        sua
+                        realização, a fim de compatibilizar o compartilhamento do espaço, se for o caso, com outra
+                        atividade da
+                        mesma natureza no mesmo dia e no mesmo local e de possibilitar prévia divulgação.</li>
+                    <li>§ 2º Eventuais pedidos de bloqueios de vias para a realização das manifestações descritas no
+                        caput do art.
+                        1º desta Lei poderão ser analisados, excepcionalmente, pelo Executivo Municipal.</li>
+                </ul>
+
+                <p>Art. 5º Fica vedado o uso de espaços públicos para as atividades elencadas no caput do art. 1º desta
+                    Lei que
+                    possam causar prejuízo à preservação do meio ambiente e do patrimônio público.</p>
+                <p>Parágrafo único. A pessoa física ou jurídica autorizada na forma desta Lei fica obrigada a ressarcir
+                    o Município
+                    de Porto Alegre por quaisquer danos ambientais ou físicos causados aos espaços públicos, bem como
+                    por qualquer
+                    avaria aos equipamentos ou estruturas públicas em decorrência das atividades realizadas.</p>
+            </details>
+            <details>
+                <summary>🚗 GUARDADOR DE VEÍCULOS</summary>
+
+                <h4>LEI COMPLEMENTAR Nº 874, DE 15 DE JANEIRO DE 2020</h4>
+
+                <p>Art. 1º Fica proibida a atividade de guardador autônomo de veículos automotores — flanelinhas — ou
+                    assemelhados
+                    nas vias e nos logradouros públicos do Município de Porto Alegre.</p>
+
+                <p>Art. 5º O não cumprimento ao disposto nesta Lei Complementar sujeitará o infrator a multa no valor de
+                    R$ 300,00
+                    (trezentos reais), aplicada em dobro em caso de reincidência.</p>
+            </details>
+
+        </div>
+    </div>
     <script>
         // Configuração Firebase
         const firebaseConfig = {
@@ -1359,64 +2075,64 @@
             sessionStorage.clear();
             window.location.reload();
         }
-
-        function baixa_banco() {
-            //baixar os dados de qths, gus, qru
-            db.collection("dados_fixos").onSnapshot((snapshot) => {
-                snapshot.forEach((doc) => {
-                    localStorage.setItem(doc.id, JSON.stringify(doc.data()).replace(/\n/g, "<br>"));
-                    // Armazenar os dados do documento no localStorage
-
-                    if (doc.data().qth) {
-                        document.querySelectorAll('#setores_table tbody tr').forEach(linha => {
-                            if (!doc.data().qth.includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[1].innerText != '' && linha.querySelectorAll('td')[2].innerText != '') {
-                                linha.remove();
+        
+                function baixa_banco() {
+                    //baixar os dados de qths, gus, qru
+                    db.collection("dados_fixos").onSnapshot((snapshot) => {
+                        snapshot.forEach((doc) => {
+                            localStorage.setItem(doc.id, JSON.stringify(doc.data()).replace(/\n/g, "<br>"));
+                            // Armazenar os dados do documento no localStorage
+        
+                            if (doc.data().qth) {
+                                document.querySelectorAll('#setores_table tbody tr').forEach(linha => {
+                                    if (!doc.data().qth.includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[1].innerText != '' && linha.querySelectorAll('td')[2].innerText != '') {
+                                        linha.remove();
+                                    }
+                                });
+                                let linhas = '';
+                                doc.data().qth.replace(/\n/g, "<br>").split('-++-').forEach(setor => {
+                                    if (!setor) return;
+        
+                                    const celulas = setor.split('-()-');
+                                    const l = criar_linha('setores', celulas);
+                                    const lin = document.querySelector(`#setores_table tr[name='${celulas[0]}']`);
+                                    if (lin) {
+        
+                                        if (lin.querySelectorAll('td')[1].innerText.trim().replaceAll('  ', ' ') != celulas[1].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[2].innerText.trim().replaceAll('  ', ' ') != celulas[4].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[3].innerText.trim().replaceAll('  ', ' ') != celulas[2].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[4].innerText.trim().replaceAll('  ', ' ') != celulas[5].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[5].innerText.trim().replaceAll('  ', ' ') != celulas[3].trim().replaceAll('  ', ' ')) {
+                                            document.querySelector(`#setores_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                        }
+                                    } else {
+                                        linhas += l;
+                                    }
+                                })
+                                document.querySelector('#setores_table tbody').insertAdjacentHTML('afterbegin', linhas);
                             }
+        
                         });
-                        let linhas = '';
-                        doc.data().qth.replace(/\n/g, "<br>").split('-++-').forEach(setor => {
-                            if (!setor) return;
-
-                            const celulas = setor.split('-()-');
-                            const l = criar_linha('setores', celulas);
-                            const lin = document.querySelector(`#setores_table tr[name='${celulas[0]}']`);
-                            if (lin) {
-
-                                if (lin.querySelectorAll('td')[1].innerText.trim().replaceAll('  ', ' ') != celulas[1].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[2].innerText.trim().replaceAll('  ', ' ') != celulas[4].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[3].innerText.trim().replaceAll('  ', ' ') != celulas[2].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[4].innerText.trim().replaceAll('  ', ' ') != celulas[5].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[5].innerText.trim().replaceAll('  ', ' ') != celulas[3].trim().replaceAll('  ', ' ')) {
-                                    document.querySelector(`#setores_table tr[name='${celulas[0]}']`).outerHTML = l;
-                                }
-                            } else {
-                                linhas += l;
-                            }
-                        })
-                        document.querySelector('#setores_table tbody').insertAdjacentHTML('afterbegin', linhas);
+                    }), (error) => {
+                        console.log("Erro ao buscar documentos: ", error);
                     }
-
-                });
-            }), (error) => {
-                console.log("Erro ao buscar documentos: ", error);
-            }
-            if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
-                db.collection('users').get()
-                    .then((querySnapshot) => {
-                        if (querySnapshot.empty) {
-                            console.log("Nenhum usuário encontrado.");
-                            return;
-                        }
-                        let linhas = '';
-                        querySnapshot.forEach((doc) => {
-                            const dados = doc.data();
-                            const celulas = [doc.id, dados.nome, dados.credencial, dados.senha];
-                            linhas += criar_linha('usuários', celulas);
-                        });
-                        document.querySelector('#usuários tbody').insertAdjacentHTML('afterbegin', linhas);
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao buscar usuários:", error);
-                    });
-            }
-        }
-
+                    if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
+                        db.collection('users').get()
+                            .then((querySnapshot) => {
+                                if (querySnapshot.empty) {
+                                    console.log("Nenhum usuário encontrado.");
+                                    return;
+                                }
+                                let linhas = '';
+                                querySnapshot.forEach((doc) => {
+                                    const dados = doc.data();
+                                    const celulas = [doc.id, dados.nome, dados.credencial, dados.senha];
+                                    linhas += criar_linha('usuários', celulas);
+                                });
+                                document.querySelector('#usuários tbody').insertAdjacentHTML('afterbegin', linhas);
+                            })
+                            .catch((error) => {
+                                console.error("Erro ao buscar usuários:", error);
+                            });
+                    }
+                }
+        
         function escaparHTML(text) {
             return String(text)
                 .replace(/&/g, '&amp;')
@@ -1714,9 +2430,9 @@
                     l_chamadas[index].remove();
 
                 }
-                data_inicial = new Date(document.querySelector('#rotina_data_inicial').value);
+                data_inicial = new Date(document.querySelector('#chamadas_data_inicial').value);
                 data_inicial.setHours(0, 0, 0, 0);
-                data_final = new Date(document.querySelector('#rotina_data_final').value);
+                data_final = new Date(document.querySelector('#chamadas_data_final').value);
                 data_final.setHours(0, 0, 0, 0);
                 if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
                     return;
@@ -1750,14 +2466,22 @@
 
                         dados.chamadas.split('-++-').forEach(linha => {
                             if (!linha) return;
-                            const celulas = linha.split('-()-');
-                            const l = criar_linha('chamadas', celulas);
-                            if (document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`)) {
-                                document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`).outerHTML = l;
-                            } else {
-                                linhas += l;
+                            const celulas = linha.split('-()-'); //9
+
+                            const partes_datahora = celulas[9].split(/\/|, |:/);
+                            const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
+                            console.log(celulas[9]);
+                            if (new Date(document.querySelector('#chamadas_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#chamadas_data_final').value)) {
+                                const l = criar_linha('chamadas', celulas);
+                                if (document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`)) {
+                                    document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                } else {
+                                    linhas += l;
+                                }
                             }
                         });
+
+
 
                         document.querySelector('#chamadas_table tbody').insertAdjacentHTML('afterbegin', linhas);
                         window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
@@ -2473,6 +3197,25 @@ ${samu}`
                 })
             })
 
+            //se o usuario setar periodo relativo na aba Rotinas, ele vai ficar monitorando e excluindo localmente os registros fora do período
+            setInterval(() => {
+                if (document.querySelector("#seleciona_periodo_relativo > input[type=radio]").checked) {
+                    const data_inicial_filtro = new Date();
+                    const minutos = parseInt(document.querySelector("#num_periodo_relativo").value) * parseInt(document.querySelector("#select_tipo_periodo").value)
+                    data_inicial_filtro.setMinutes(data_inicial_filtro.getMinutes() - minutos);
+                    const linhas = document.querySelectorAll('#rotinas_table tbody tr');
+                    linhas.forEach(linha => {
+                        let data_hora_registro = linha.querySelectorAll('td')[5].innerText.split(/\/|, |:/);
+                        if (data_hora_registro.length == 5) {
+                            data_hora_registro = new Date(parseInt(data_hora_registro[2]), parseInt(data_hora_registro[1]) - 1, parseInt(data_hora_registro[0]), parseInt(data_hora_registro[3]), parseInt(data_hora_registro[4]));
+                            if (!isNaN(data_hora_registro) && (data_hora_registro < data_inicial_filtro || data_hora_registro > new Date()) && !linha.contains(document.activeElement)) {
+                                linha.remove();
+                            }
+                        }
+                    })
+                }
+            }, 60000);
+
         });
 
         function blockEvent(e) {
@@ -2741,7 +3484,15 @@ ${samu}`
             document.querySelector(`#${aba}_table label[class="checkbox-wrapper"]`).click();
         }
 
+        function abrir_legislacao_modal() {
+            const modal = document.querySelector('#modal');
+            modal.style.display = 'block';
 
+        }
+
+        function fechar_modal() {
+            document.querySelector('#modal').style.display = 'none';
+        }
     </script>
 </body>
 
