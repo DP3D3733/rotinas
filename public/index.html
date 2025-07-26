@@ -123,7 +123,7 @@
         #filtro_setores table td {
             padding: 10px;
         }
-        
+
 
         #seleciona_periodo_absoluto,
         #seleciona_periodo_relativo {
@@ -257,7 +257,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-           
+
             /* Scroll se o conteúdo for grande */
             background-color: rgba(0, 0, 0, 0.5);
             /* Fundo semi-transparente */
@@ -786,7 +786,7 @@
             background-color: #666;
         }
 
-        
+
 
         /* Tabs */
         body.dark-mode .tab-button {
@@ -927,7 +927,7 @@
             background-color: #6e6e6e7e;
         }
 
-        
+
 
         /* Caixa do conteúdo */
         body.dark-mode .modal-content {
@@ -937,7 +937,7 @@
 
         body.dark-mode details {
             background: #1e1e1e;
-            border: 1,5px solid #555;
+            border: 1, 5px solid #555;
         }
 
         details[open] {
@@ -1260,7 +1260,8 @@
 
                             </td>
                             <td oninput="filterOptions(this,5)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onfocus="atendente(this)"
+                                onkeydown="teclas_atalho(this,event.key)">
 
                             </td>
                             <td oninput="filterOptions(this,6)" onblur="enviar_dados(this),hideOptions(event, this)"
@@ -2075,64 +2076,64 @@
             sessionStorage.clear();
             window.location.reload();
         }
-        
-                function baixa_banco() {
-                    //baixar os dados de qths, gus, qru
-                    db.collection("dados_fixos").onSnapshot((snapshot) => {
-                        snapshot.forEach((doc) => {
-                            localStorage.setItem(doc.id, JSON.stringify(doc.data()).replace(/\n/g, "<br>"));
-                            // Armazenar os dados do documento no localStorage
-        
-                            if (doc.data().qth) {
-                                document.querySelectorAll('#setores_table tbody tr').forEach(linha => {
-                                    if (!doc.data().qth.includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[1].innerText != '' && linha.querySelectorAll('td')[2].innerText != '') {
-                                        linha.remove();
-                                    }
-                                });
-                                let linhas = '';
-                                doc.data().qth.replace(/\n/g, "<br>").split('-++-').forEach(setor => {
-                                    if (!setor) return;
-        
-                                    const celulas = setor.split('-()-');
-                                    const l = criar_linha('setores', celulas);
-                                    const lin = document.querySelector(`#setores_table tr[name='${celulas[0]}']`);
-                                    if (lin) {
-        
-                                        if (lin.querySelectorAll('td')[1].innerText.trim().replaceAll('  ', ' ') != celulas[1].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[2].innerText.trim().replaceAll('  ', ' ') != celulas[4].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[3].innerText.trim().replaceAll('  ', ' ') != celulas[2].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[4].innerText.trim().replaceAll('  ', ' ') != celulas[5].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[5].innerText.trim().replaceAll('  ', ' ') != celulas[3].trim().replaceAll('  ', ' ')) {
-                                            document.querySelector(`#setores_table tr[name='${celulas[0]}']`).outerHTML = l;
-                                        }
-                                    } else {
-                                        linhas += l;
-                                    }
-                                })
-                                document.querySelector('#setores_table tbody').insertAdjacentHTML('afterbegin', linhas);
+
+        function baixa_banco() {
+            //baixar os dados de qths, gus, qru
+            db.collection("dados_fixos").onSnapshot((snapshot) => {
+                snapshot.forEach((doc) => {
+                    localStorage.setItem(doc.id, JSON.stringify(doc.data()).replace(/\n/g, "<br>"));
+                    // Armazenar os dados do documento no localStorage
+
+                    if (doc.data().qth) {
+                        document.querySelectorAll('#setores_table tbody tr').forEach(linha => {
+                            if (!doc.data().qth.includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[1].innerText != '' && linha.querySelectorAll('td')[2].innerText != '') {
+                                linha.remove();
                             }
-        
                         });
-                    }), (error) => {
-                        console.log("Erro ao buscar documentos: ", error);
-                    }
-                    if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
-                        db.collection('users').get()
-                            .then((querySnapshot) => {
-                                if (querySnapshot.empty) {
-                                    console.log("Nenhum usuário encontrado.");
-                                    return;
+                        let linhas = '';
+                        doc.data().qth.replace(/\n/g, "<br>").split('-++-').forEach(setor => {
+                            if (!setor) return;
+
+                            const celulas = setor.split('-()-');
+                            const l = criar_linha('setores', celulas);
+                            const lin = document.querySelector(`#setores_table tr[name='${celulas[0]}']`);
+                            if (lin) {
+
+                                if (lin.querySelectorAll('td')[1].innerText.trim().replaceAll('  ', ' ') != celulas[1].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[2].innerText.trim().replaceAll('  ', ' ') != celulas[4].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[3].innerText.trim().replaceAll('  ', ' ') != celulas[2].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[4].innerText.trim().replaceAll('  ', ' ') != celulas[5].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[5].innerText.trim().replaceAll('  ', ' ') != celulas[3].trim().replaceAll('  ', ' ')) {
+                                    document.querySelector(`#setores_table tr[name='${celulas[0]}']`).outerHTML = l;
                                 }
-                                let linhas = '';
-                                querySnapshot.forEach((doc) => {
-                                    const dados = doc.data();
-                                    const celulas = [doc.id, dados.nome, dados.credencial, dados.senha];
-                                    linhas += criar_linha('usuários', celulas);
-                                });
-                                document.querySelector('#usuários tbody').insertAdjacentHTML('afterbegin', linhas);
-                            })
-                            .catch((error) => {
-                                console.error("Erro ao buscar usuários:", error);
-                            });
+                            } else {
+                                linhas += l;
+                            }
+                        })
+                        document.querySelector('#setores_table tbody').insertAdjacentHTML('afterbegin', linhas);
                     }
-                }
-        
+
+                });
+            }), (error) => {
+                console.log("Erro ao buscar documentos: ", error);
+            }
+            if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
+                db.collection('users').get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            console.log("Nenhum usuário encontrado.");
+                            return;
+                        }
+                        let linhas = '';
+                        querySnapshot.forEach((doc) => {
+                            const dados = doc.data();
+                            const celulas = [doc.id, dados.nome, dados.credencial, dados.senha];
+                            linhas += criar_linha('usuários', celulas);
+                        });
+                        document.querySelector('#usuários tbody').insertAdjacentHTML('afterbegin', linhas);
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao buscar usuários:", error);
+                    });
+            }
+        }
+
         function escaparHTML(text) {
             return String(text)
                 .replace(/&/g, '&amp;')
@@ -2470,7 +2471,6 @@
 
                             const partes_datahora = celulas[9].split(/\/|, |:/);
                             const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
-                            console.log(celulas[9]);
                             if (new Date(document.querySelector('#chamadas_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#chamadas_data_final').value)) {
                                 const l = criar_linha('chamadas', celulas);
                                 if (document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`)) {
@@ -2651,6 +2651,14 @@
             const aba = document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase();
             let celulas = td.parentNode.querySelectorAll('td');
 
+            if (aba == 'rotinas' || aba == 'chamadas') {
+                let registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
+                registros_locais[`${aba}--${td.parentNode.getAttribute('name')}`] = td.parentNode.outerHTML;
+                localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
+            }
+
+
+
             let vazia = '';
             const table = document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`);
             table.querySelectorAll('tr')[table.querySelectorAll('tr').length - 1].querySelectorAll('td').forEach(function (item) {
@@ -2748,6 +2756,12 @@
                     minute: '2-digit',
                     hour12: false, // usa o formato 24h
                 });
+            }
+        }
+
+        function atendente(celula) {
+            if (celula.innerText == '' || celula.innerText == '\n') {
+                celula.innerText = `GM ${JSON.parse(sessionStorage.getItem('usuario_logado')).nome.toUpperCase()}`;
             }
         }
 
@@ -3029,6 +3043,15 @@ ${samu}`
                                         if (aba == 'Rotinas') {
                                             fecha_ultimo_horario(celulas);
                                         }
+                                        //remove do banco local, já que já subiu pro bd
+                                        const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
+                                        Object.entries(registros_locais).forEach(([key]) => {
+                                            if (key.includes(newData.split('-()-')[0])) {
+                                                delete registros_locais[key];
+                                            }
+                                        });
+                                        localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
+
                                     })
                                     .catch((error) => { console.error("Erro ao atualizar o documento:", error); clearInterval(interval_envio) });
 
@@ -3048,7 +3071,18 @@ ${samu}`
                                 sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dados));
                                 // Documento não existe, apenas cria com os novos dados
                                 docRef.set(dados)
-                                    .then(() => { clearInterval(interval_envio); fecha_ultimo_horario(celulas) })
+                                    .then(() => {
+                                        clearInterval(interval_envio);
+                                        fecha_ultimo_horario(celulas);
+                                        //remove do banco local, já que já subiu pro bd
+                                        const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
+                                        Object.entries(registros_locais).forEach(([key]) => {
+                                            if (key.includes(newData.split('-()-')[0])) {
+                                                delete registros_locais[key];
+                                            }
+                                        });
+                                        localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
+                                    })
                                     .catch((error) => { console.error("Erro ao criar o documento:", error); clearInterval(interval_envio) });
                             }
                         });
@@ -3131,6 +3165,9 @@ ${samu}`
             }
             let interval_logado = setInterval(() => {
                 if (sessionStorage.getItem('usuario_logado')) {
+
+
+
                     if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
                         document.querySelector('#aba_usuários').style.display = '';
                     }
@@ -3148,6 +3185,10 @@ ${samu}`
                     if (localStorage.getItem('config_abas')) {
                         Array.from(document.querySelectorAll('button[class*="tab-button"]')).filter(button => button.innerText == localStorage.getItem('config_abas'))[0].click();
                     }
+                    const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
+                    Object.entries(registros_locais).forEach(([key, value]) => {
+                        document.querySelector(`#${key.split('--')[0]}_table tbody`).insertAdjacentHTML('afterbegin', value);
+                    });
                 }
             }, 100);
             document.querySelectorAll('th.sortable').forEach(th => {
@@ -3319,7 +3360,16 @@ ${samu}`
             let confirmacao = todos || confirm(`Você realmente deseja excluir o registro:\n${celulas[1]?.innerText} - ${celulas[2]?.innerText} - ${celulas[3]?.innerText} - ${celulas[4]?.innerText}?`);
             if (!confirmacao) return;
 
-            const removerLinhaVisual = () => row.remove();
+            const removerLinhaVisual = () => {
+                row.remove();
+                const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
+                Object.entries(registros_locais).forEach(([key]) => {
+                    if (key.includes(row.getAttribute('name'))) {
+                        delete registros_locais[key];
+                    }
+                });
+                localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
+            }
 
             const atualizarFirestore = async (colecao, docId) => {
                 const docRef = db.collection(colecao).doc(docId);
@@ -3340,6 +3390,7 @@ ${samu}`
                     const dadosAtualizados = JSON.parse(novoStr);
                     await docRef.set(dadosAtualizados);
                     sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dadosAtualizados));
+
                     removerLinhaVisual();
                 } catch (e) {
                     console.error("Erro ao atualizar Firestore:", e);
