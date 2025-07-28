@@ -101,6 +101,7 @@
         #filtro,
         #filtro_chamadas,
         #resumo_chamadas,
+        #filtro_equipes,
         #filtro_setores {
             background: #fff;
             padding: 10px;
@@ -120,6 +121,7 @@
         #filtro table td,
         #filtro_chamadas table td,
         #resumo_chamadas table td,
+        #filtro_equipes table td,
         #filtro_setores table td {
             padding: 10px;
         }
@@ -170,7 +172,9 @@
 
         #filtro input[type*="date"],
         #filtro_chamadas input[type*="date"],
+        #filtro_equipes input[type*="date"],
         #filtro button,
+        #filtro_equipes button,
         #filtro_chamadas button {
             padding: 6px;
             border-radius: 5px;
@@ -178,7 +182,8 @@
         }
 
         #filtro button,
-        #filtro_chamadas button {
+        #filtro_chamadas button,
+        #filtro_equipes button {
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.2s, color 0.32;
@@ -186,6 +191,7 @@
         }
 
         #filtro button:hover,
+        #filtro_equipes button:hover,
         #filtro_chamadas button:hover {
             background-color: #ffffff;
         }
@@ -215,11 +221,38 @@
         #rotinas_table,
         #chamadas_table,
         #setores_table,
+        #equipes_table,
         #usuários_table {
             width: 100%;
             border-collapse: collapse;
             border-radius: 8px;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            margin-top: 4px;
+            min-width: 160px;
+            z-index: 999;
+        }
+
+        .dropdown-content label {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block;
         }
 
         body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar,
@@ -375,6 +408,7 @@
         body:not(.dark-mode) #rotinas_table,
         body:not(.dark-mode) #chamadas_table,
         body:not(.dark-mode) #setores_table,
+        body:not(.dark-mode) #equipes_table,
         body:not(.dark-mode) #usuários_table {
             background: white;
         }
@@ -382,6 +416,7 @@
         body:not(.dark-mode) #rotinas_table tr:nth-child(even),
         body:not(.dark-mode) #chamadas_table tr:nth-child(even),
         body:not(.dark-mode) #setores_table tr:nth-child(even),
+        body:not(.dark-mode) #equipes_table tr:nth-child(even),
         body:not(.dark-mode) #usuários_table tr:nth-child(even) {
             background-color: #fffafa;
         }
@@ -389,6 +424,7 @@
         body:not(.dark-mode) #rotinas_table tr:hover,
         body:not(.dark-mode) #chamadas_table tr:hover,
         body:not(.dark-mode) #setores_table tr:hover,
+        body:not(.dark-mode) #equipes_table tr:hover,
         body:not(.dark-mode) #usuários_table tr:hover {
             background-color: #eceaea;
         }
@@ -399,6 +435,8 @@
         #chamadas_table td,
         #setores_table th,
         #setores_table td,
+        #equipes_table th,
+        #equipes_table td,
         #usuários_table th,
         #usuários_table td {
             padding: 10px 12px;
@@ -409,6 +447,7 @@
         body:not(.dark-mode) #rotinas_table th,
         body:not(.dark-mode) #chamadas_table th,
         body:not(.dark-mode) #setores_table th,
+        body:not(.dark-mode) #equipes_table th,
         body:not(.dark-mode) #usuários_table th {
             position: sticky;
             top: 0;
@@ -423,6 +462,7 @@
         body.dark-mode #rotinas_table th,
         body.dark-mode #chamadas_table th,
         body.dark-mode #setores_table th,
+        body.dark-mode #equipes_table th,
         body.dark-mode #usuários_table th {
             position: sticky;
             top: 0;
@@ -705,6 +745,7 @@
         /* Filtros */
         body.dark-mode #filtro,
         body.dark-mode #filtro_chamadas,
+        body.dark-mode #filtro_equipes,
         body.dark-mode #resumo_chamadas,
         body.dark-mode #filtro_setores {
             background: #2c2c2c;
@@ -713,8 +754,10 @@
 
         body.dark-mode #filtro input[type*="date"],
         body.dark-mode #filtro_chamadas input[type*="date"],
+        body.dark-mode #filtro_equipes input[type*="date"],
         body.dark-mode #filtro button,
         body.dark-mode #filtro_chamadas button,
+        body.dark-mode #filtro_equipes button,
         body.dark-mode #seleciona_periodo_absoluto,
         body.dark-mode #seleciona_periodo_relativo,
         body.dark-mode #seleciona_periodo_relativo input,
@@ -734,7 +777,8 @@
         }
 
         body.dark-mode #filtro button:hover,
-        body.dark-mode #filtro_chamadas button:hover {
+        body.dark-mode #filtro_chamadas button:hover,
+        body.dark-mode #filtro_equipes button:hover {
             background-color: #333;
         }
 
@@ -761,6 +805,11 @@
         body.dark-mode th {
             background-color: #2c2c2c;
             color: #fff;
+        }
+
+        body.dark-mode .dropdown-content {
+            background: #2c2c2c;
+            border: 1px solid #444;
         }
 
         body.dark-mode .div_tabela_registros::-webkit-scrollbar,
@@ -988,6 +1037,7 @@
         <div class="tabs">
             <button class="tab-button ativo" onclick="selecionarAba(this)">Rotinas</button>
             <button class="tab-button" onclick="selecionarAba(this)">Chamadas</button>
+            <button class="tab-button" onclick="selecionarAba(this)">Equipes</button>
             <button class="tab-button" onclick="selecionarAba(this)">Setores</button>
             <button style="display: none;" id="aba_usuários" class="tab-button"
                 onclick="selecionarAba(this)">Usuários</button>
@@ -1358,6 +1408,79 @@
 
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div id="equipes" style="display: none;">
+            <div id="filtro_equipes">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button onclick="turno_atual(this)">Turno Atual</button>
+                            </td>
+                            <td>
+                                <input oninput="filtrar_dados('equipes')" type="datetime-local"
+                                    name="equipes_data_inicial" id="equipes_data_inicial">
+                            </td>
+                            <td>
+                                <input oninput="filtrar_dados('equipes')" type="datetime-local"
+                                    name="equipes_data_final" id="equipes_data_final">
+                            </td>
+                            <td>
+                                <div class="dropdown" id="filtro_areas">
+                                    <button class="dropdown-button">Áreas</button>
+                                    <div class="dropdown-content">
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="Todas">Todas</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="200 Cruzeiro">200 Cruzeiro</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="300 Partenon">300 Partenon</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="400 Leste">400 Leste</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="500 Restinga">500 Restinga</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="600 Norte">600 Norte</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="700 Eixo Baltazar">700 Eixo Baltazar</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="800 Pinheiro">800 Pinheiro</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="900 Sul">900 Sul</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="1000 Romu">1000 Romu</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="1100 Patam">1100 Patam</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="1200 Centro">1200 Centro</label>
+                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                                value="Comando">Comando</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="div_tabela_registros">
+                <table id="equipes_table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="sortable">DATA-HORA</th>
+                            <th class="sortable">GUARNIÇÃO</th>
+                            <th class="sortable">GM/PREFIXO</th>
+                            <th class="sortable">FUNÇÃO/MODELO</th>
+                            <th class="sortable">AUTOR</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
                     </tbody>
                 </table>
             </div>
@@ -2310,11 +2433,40 @@
                         ${dados[3].substring(0, 4)}
                     </td>
                 </tr>`;
+            } else if (aba == 'equipes') {
+                linha = `<tr name="${dados[0]}">
+                    <td>
+                    </td>
+                    <td>
+                        ${new Date(parseInt(dados[0])).toLocaleString('pt-BR', {
+                    timeZone: 'America/Sao_Paulo',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}
+                    </td>
+                    <td>
+                        ${dados[1]}
+                    </td>
+                    <td>
+                        ${dados[3]}
+                    </td>
+                    <td>
+                        ${dados[4]}
+                    </td>
+                    <td>
+                        ${dados[5]}
+                    </td>
+                </tr>`;
             }
             return linha;
         }
         let unsubscribeRotinasList = [];
         let unsubscribeChamadasList = [];
+        let unsubscribeEquipesList = [];
+
         function filtrar_dados(aba) {
             let partes_inicial, data_inicial, partes_final, cad_norte, cad_sul, cad_centro, cad_especializadas, th;
 
@@ -2563,6 +2715,91 @@
                 filtros.forEach(input => {
                     input.addEventListener('input', filtrarComDelay);
                 });
+            } else if (aba == 'equipes') {
+                let l_equipes = document.querySelectorAll('#equipes_table tbody tr');
+                for (let index = 0; index < l_equipes.length; index++) {
+                    l_equipes[index].remove();
+
+                }
+                data_inicial = new Date(document.querySelector('#equipes_data_inicial').value);
+                data_inicial.setHours(0, 0, 0, 0);
+                data_final = new Date(document.querySelector('#equipes_data_final').value);
+                data_final.setHours(0, 0, 0, 0);
+                if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
+                    return;
+                }
+                localStorage.setItem('filtro_equipes', `${document.querySelector('#equipes_data_inicial').value}-()-${document.querySelector('#equipes_data_final').value}`);
+
+                unsubscribeEquipesList.forEach(unsub => unsub());
+                unsubscribeEquipesList = [];
+                // lista de unsubscribers
+
+                // Suponha que você já tenha: data_inicial e data_final
+                let current = new Date(data_inicial);
+
+                while (current <= data_final) {
+                    const dataStr = current.toISOString();
+
+                    const unsub = db.collection('equipes').doc(dataStr).onSnapshot(doc => {
+                        if (!doc.exists) { return };
+                        document.querySelector('#equipes_table tbody').innerHTML = '';
+                        const dados = Object.entries(doc.data());
+
+                        let linhas = '';
+
+                        for (const [campoId, linha] of dados) {
+                            if (!linha) return;
+                            let celulas = linha.split('-()-');
+
+                            const datahora_linha = new Date(parseInt(campoId));
+                            celulas.unshift(campoId);
+
+                            if (new Date(document.querySelector('#equipes_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#equipes_data_final').value)) {
+                                if (celulas[3].includes('-++-')) {
+                                    const pessoas = celulas[3].split(',');
+                                    pessoas.forEach((pessoa) => {
+                                        const gms = JSON.parse(localStorage.getItem('gms')).gms.split('-');
+
+                                        let l = [celulas[0], celulas[1], 'Agente', gms.find(item => item.toUpperCase().startsWith(pessoa.split('-++-')[0].toUpperCase())), pessoa.split('-++-')[1], celulas[2]];
+                                        l = criar_linha('equipes', l);
+                                        linhas += l;
+                                    })
+                                } else {
+                                    const equipamentos = celulas[3].split(',');
+                                    equipamentos.forEach((equipamentos) => {
+                                        let l = [celulas[0], celulas[1], 'Equipamento', equipamentos.split(' - ')[1], equipamentos.split(' - ')[0], celulas[2]];
+                                        l = criar_linha('equipes', l);
+                                        linhas += l;
+                                    })
+                                }
+
+
+                            }
+                        }
+                        document.querySelector('#equipes_table tbody').insertAdjacentHTML('afterbegin', linhas);
+
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        th = document.querySelector('#equipes_table th[asc],#equipes_table th[desc]');
+                        if (th) {
+                            const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
+                            let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
+                            if (th.getAttribute('asc')) {
+                                lin_tab.sort().reverse();
+                            } else {
+                                lin_tab.sort();
+                            }
+                            th.closest('table').querySelector('tbody').innerHTML = '';
+                            lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
+                                th.closest('table').querySelector('tbody').insertAdjacentHTML('afterbegin', l);
+                            });
+                            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        }
+
+                    });
+
+                    unsubscribeEquipesList.push(unsub); // salvar função para limpar depois
+                    current.setDate(current.getDate() + 1);
+                }
             }
 
             return true;
@@ -2882,6 +3119,7 @@ ${samu}`
             document.querySelector('#rotinas').style.display = 'none';
             document.querySelector('#chamadas').style.display = 'none';
             document.querySelector('#setores').style.display = 'none';
+            document.querySelector('#equipes').style.display = 'none';
             document.querySelector('#usuários').style.display = 'none';
 
             document.querySelectorAll('.tab-button').forEach(btn => {
@@ -2896,6 +3134,8 @@ ${samu}`
                 document.querySelector('#setores').style.display = 'block';
             } else if (botao.innerText == 'Usuários') {
                 document.querySelector('#usuários').style.display = 'block';
+            } else if (botao.innerText == 'Equipes') {
+                document.querySelector('#equipes').style.display = 'block';
             }
             localStorage.setItem('config_abas', botao.innerText);
 
@@ -3163,11 +3403,14 @@ ${samu}`
                 document.querySelector('#chamadas_data_final').value = filtro_chamadas.split('-()-')[1];
 
             }
+            const filtro_equipes = localStorage.getItem('filtro_equipes');
+            if (filtro_equipes) {
+                document.querySelector('#equipes_data_inicial').value = filtro_equipes.split('-()-')[0];
+                document.querySelector('#equipes_data_final').value = filtro_equipes.split('-()-')[1];
+
+            }
             let interval_logado = setInterval(() => {
                 if (sessionStorage.getItem('usuario_logado')) {
-
-
-
                     if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
                         document.querySelector('#aba_usuários').style.display = '';
                     }
@@ -3181,6 +3424,7 @@ ${samu}`
                     }
                     filtrar_dados('rotinas');
                     filtrar_dados('chamadas');
+                    filtrar_dados('equipes');
                     baixa_banco();
                     if (localStorage.getItem('config_abas')) {
                         Array.from(document.querySelectorAll('button[class*="tab-button"]')).filter(button => button.innerText == localStorage.getItem('config_abas'))[0].click();
@@ -3199,7 +3443,10 @@ ${samu}`
                     });
                     const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
                     let linhas = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
-                    linhas.pop();
+                    if (th.closest('table').getAttribute('id') != 'equipes_table') {
+                        linhas.pop();
+                    }
+
                     if (!th.getAttribute('asc')) {
                         th.closest('table').querySelectorAll('th').forEach(header => {
                             header.classList.remove('sorted-asc', 'sorted-desc');
@@ -3219,11 +3466,33 @@ ${samu}`
                         th.setAttribute('desc', 'a');
                         linhas.sort();
                     }
-                    th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-                    linhas = linhas.map((l) => l.split('-&&-')[1]).forEach(l => {
-                        th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
-                    });
-                    localStorage.setItem('ordem_tabelas', document.querySelector('#rotinas_table thead').innerHTML + '-()-' + document.querySelector('#chamadas_table thead').innerHTML);
+                    if (th.closest('table').getAttribute('id') != 'equipes_table') {
+                        th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
+                        linhas = linhas.map((l) => l.split('-&&-')[1]).forEach(l => {
+                            th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+                        });
+                    } else {
+                        th.closest('table').querySelector('tbody').innerHTML = '';
+                        linhas = linhas.map((l) => l.split('-&&-')[1]).forEach(l => {
+                            th.closest('table').querySelector('tbody').insertAdjacentHTML('afterbegin', l);
+                        });
+                    }
+
+                    localStorage.setItem('ordem_tabelas', document.querySelector('#rotinas_table thead').innerHTML + '-()-' + document.querySelector('#chamadas_table thead').innerHTML + '-()-' + document.querySelector('#equipes_table thead').innerHTML);
+                });
+
+                const dropdown = document.getElementById('filtro_areas');
+                const button = dropdown.querySelector('.dropdown-button');
+
+                button.addEventListener('click', () => {
+                    dropdown.classList.toggle('show');
+                });
+
+                // Fecha o dropdown se clicar fora
+                window.addEventListener('click', (e) => {
+                    if (!dropdown.contains(e.target)) {
+                        dropdown.classList.remove('show');
+                    }
                 });
             });
 
@@ -3257,6 +3526,8 @@ ${samu}`
                 }
             }, 60000);
 
+
+
         });
 
         function blockEvent(e) {
@@ -3278,6 +3549,32 @@ ${samu}`
                 element.disabled = false;
                 element.removeEventListener('mousedown', blockEvent);
                 element.removeEventListener('keydown', blockEvent);
+            }
+        }
+
+        function filtro_areas(area) {
+            const linhas = document.querySelectorAll('#equipes_table tbody tr');
+            const areas = ['200 Cruzeiro', '300 Partenon', '400 Leste', '500 Restinga', '600 Norte', '700 Eixo Baltazar', '800 Pinheiro', '900 Sul', '1000 Romu', '1100 Patam', '1200 Centro', 'Comando'];
+            const primeiro_char = ['2', '3', '4', '5', '6', '7', '8', '9', 'R', 'P', 'C', 'A'];
+            if (area.value == 'Todas') {
+                for (let index = 1; index < area.parentNode.parentNode.querySelectorAll('input').length; index++) {
+                    area.parentNode.parentNode.querySelectorAll('input')[index].checked = area.checked;
+                    area.parentNode.parentNode.querySelectorAll('input')[index].dispatchEvent(new Event('input'));
+                }
+            } else {
+                linhas.forEach(linha => {
+                    
+                    if (linha.querySelectorAll('td')[2].innerText.startsWith(primeiro_char[areas.indexOf(area.value)]) || linha.querySelectorAll('td')[2].innerText.trim().startsWith(area.value.split(' ')[0])) {
+                        console.log(area.checked);
+                        linha.style.display = area.checked ? '' : 'none';
+                    }
+                })
+                if (area.checked == false) {
+                    area.parentNode.parentNode.querySelector('input').checked = false;
+                } else if (area.parentNode.parentNode.querySelectorAll('input:checked').length == 12) {
+                    area.parentNode.parentNode.querySelector('input').checked = true;
+                }
+
             }
         }
 
