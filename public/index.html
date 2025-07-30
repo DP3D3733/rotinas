@@ -1462,6 +1462,19 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <div class="dropdown" id="filtro_tipo">
+                                    <button class="dropdown-button">Tipo</button>
+                                    <div class="dropdown-content">
+                                        <label><input type="checkbox" oninput="filtro_tipo_equipes(this)" checked
+                                                value="Todas">Todas</label>
+                                        <label><input type="checkbox" oninput="filtro_tipo_equipes(this)" checked
+                                                value="Pessoas">Pessoas</label>
+                                        <label><input type="checkbox" oninput="filtro_tipo_equipes(this)" checked
+                                                value="Equipamentos">Equipamentos</label>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -2497,7 +2510,8 @@
                 if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || (cad_norte.checked == false && cad_sul.checked == false && cad_centro.checked == false && cad_especializadas.checked == false)) {
                     return;
                 }
-                localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${document.querySelector('#num_periodo_relativo').value}-()-${document.querySelector('#select_tipo_periodo').value}-()-${cad_norte.checked}-()-${cad_sul.checked}-()-${cad_centro.checked}-()-${cad_especializadas.checked}-()-${document.querySelector('#filtro input:not([type=radio]):not([readonly])').parentNode.parentNode.getAttribute('id')}`);
+                guardar_filtro('rotinas');
+
 
                 unsubscribeRotinasList.forEach(unsub => unsub());
                 unsubscribeRotinasList = [];
@@ -2590,7 +2604,8 @@
                 if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
                     return;
                 }
-                localStorage.setItem('filtro_chamadas', `${document.querySelector('#chamadas_data_inicial').value}-()-${document.querySelector('#chamadas_data_final').value}`);
+                guardar_filtro('chamadas');
+
 
                 unsubscribeChamadasList.forEach(unsub => unsub());
                 unsubscribeChamadasList = [];
@@ -2728,7 +2743,8 @@
                 if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
                     return;
                 }
-                localStorage.setItem('filtro_equipes', `${document.querySelector('#equipes_data_inicial').value}-()-${document.querySelector('#equipes_data_final').value}`);
+                guardar_filtro('equipes');
+
 
                 unsubscribeEquipesList.forEach(unsub => unsub());
                 unsubscribeEquipesList = [];
@@ -2774,9 +2790,14 @@
                                 }
 
 
+
                             }
                         }
                         document.querySelector('#equipes_table tbody').insertAdjacentHTML('afterbegin', linhas);
+                        document.querySelectorAll('#filtro_equipes input[type="checkbox"]:not([value="Todas"])').forEach(input => {
+                            input.checked = input.checked == true;
+                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                        })
 
                         window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                         th = document.querySelector('#equipes_table th[asc],#equipes_table th[desc]');
@@ -3376,6 +3397,7 @@ ${samu}`
             if (localStorage.getItem("ordem_tabelas")) {
                 document.querySelector('#rotinas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[0];
                 document.querySelector('#chamadas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[1];
+                document.querySelector('#equipes_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[2];
             }
 
             toggle.addEventListener("click", () => {
@@ -3405,8 +3427,16 @@ ${samu}`
             }
             const filtro_equipes = localStorage.getItem('filtro_equipes');
             if (filtro_equipes) {
-                document.querySelector('#equipes_data_inicial').value = filtro_equipes.split('-()-')[0];
-                document.querySelector('#equipes_data_final').value = filtro_equipes.split('-()-')[1];
+                const inputs = document.querySelectorAll('#filtro_equipes input');
+                const valores = filtro_equipes.split('-()-');
+                for (let index = 0; index < inputs.length; index++) {
+                    const input = inputs[index];
+                    if (input.type == 'datetime-local') {
+                        input.value = valores[index];
+                    } else {
+                        input.checked = valores[index] == 'true';
+                    }
+                }
 
             }
             let interval_logado = setInterval(() => {
@@ -3481,19 +3511,21 @@ ${samu}`
                     localStorage.setItem('ordem_tabelas', document.querySelector('#rotinas_table thead').innerHTML + '-()-' + document.querySelector('#chamadas_table thead').innerHTML + '-()-' + document.querySelector('#equipes_table thead').innerHTML);
                 });
 
-                const dropdown = document.getElementById('filtro_areas');
-                const button = dropdown.querySelector('.dropdown-button');
+                document.querySelectorAll('.dropdown').forEach(item => {
+                    const button = item.querySelector('.dropdown-button');
 
-                button.addEventListener('click', () => {
-                    dropdown.classList.toggle('show');
+                    button.addEventListener('click', () => {
+                        item.classList.toggle('show');
+                    });
+
+                    // Fecha o dropdown se clicar fora
+                    window.addEventListener('click', (e) => {
+                        if (!item.contains(e.target)) {
+                            item.classList.remove('show');
+                        }
+                    });
                 });
 
-                // Fecha o dropdown se clicar fora
-                window.addEventListener('click', (e) => {
-                    if (!dropdown.contains(e.target)) {
-                        dropdown.classList.remove('show');
-                    }
-                });
             });
 
             if (sessionStorage.getItem('usuario_logado')) {
@@ -3563,9 +3595,7 @@ ${samu}`
                 }
             } else {
                 linhas.forEach(linha => {
-                    
-                    if (linha.querySelectorAll('td')[2].innerText.startsWith(primeiro_char[areas.indexOf(area.value)]) || linha.querySelectorAll('td')[2].innerText.trim().startsWith(area.value.split(' ')[0])) {
-                        console.log(area.checked);
+                    if (linha.querySelectorAll('td')[2].innerText.trim().startsWith(primeiro_char[areas.indexOf(area.value)]) || linha.querySelectorAll('td')[2].innerText.trim().startsWith(area.value.split(' ')[0])) {
                         linha.style.display = area.checked ? '' : 'none';
                     }
                 })
@@ -3576,6 +3606,48 @@ ${samu}`
                 }
 
             }
+            guardar_filtro('equipes');
+        }
+
+        function guardar_filtro(filtro) {
+            if (filtro == 'rotinas') {
+                localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${document.querySelector('#num_periodo_relativo').value}-()-${document.querySelector('#select_tipo_periodo').value}-()-${document.querySelector('#rotina_checkbox_norte').checked}-()-${document.querySelector('#rotina_checkbox_sul').checked}-()-${document.querySelector('#rotina_checkbox_centro').checked}-()-${document.querySelector('#rotina_checkbox_especializadas').checked}-()-${document.querySelector('#filtro input:not([type=radio]):not([readonly])').parentNode.parentNode.getAttribute('id')}`);
+            } else if (filtro == 'chamadas') {
+                localStorage.setItem('filtro_chamadas', `${document.querySelector('#chamadas_data_inicial').value}-()-${document.querySelector('#chamadas_data_final').value}`);
+            } else {
+                let valores = [];
+                document.querySelectorAll('#filtro_equipes input').forEach(input => {
+                    if (input.type == 'datetime-local') {
+                        valores.push(input.value);
+                    } else {
+                        valores.push(input.checked);
+                    }
+                })
+                localStorage.setItem('filtro_equipes', valores.join('-()-'));
+            }
+        }
+
+        function filtro_tipo_equipes(tipo) {
+            const linhas = document.querySelectorAll('#equipes_table tbody tr');
+            if (tipo.value == 'Todas') {
+                for (let index = 1; index < tipo.parentNode.parentNode.querySelectorAll('input').length; index++) {
+                    tipo.parentNode.parentNode.querySelectorAll('input')[index].checked = tipo.checked;
+                    tipo.parentNode.parentNode.querySelectorAll('input')[index].dispatchEvent(new Event('input'));
+                }
+            } else {
+                linhas.forEach(linha => {
+                    if ((tipo.value == 'Pessoas' && (linha.querySelectorAll('td')[2].innerText.trim().includes('Dia') || linha.querySelectorAll('td')[2].innerText.trim().includes('Noite'))) || tipo.value == 'Equipamentos' && !linha.querySelectorAll('td')[2].innerText.trim().includes('Dia') && !linha.querySelectorAll('td')[2].innerText.trim().includes('Noite')) {
+                        linha.style.display = tipo.checked ? '' : 'none';
+                    }
+                })
+                if (tipo.checked == false) {
+                    tipo.parentNode.parentNode.querySelector('input').checked = false;
+                } else if (tipo.parentNode.parentNode.querySelectorAll('input:checked').length == 2) {
+                    tipo.parentNode.parentNode.querySelector('input').checked = true;
+                }
+
+            }
+            guardar_filtro('equipes');
         }
 
         function seleciona_periodo(tipo_periodo) {
