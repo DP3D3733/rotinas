@@ -992,6 +992,17 @@
         details[open] {
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
+
+        .selection-box {
+            position: absolute;
+            border: 2px #007bff;
+            background: rgba(0, 123, 255, 0.2);
+            pointer-events: none;
+        }
+
+        .selected {
+            background: #007bff;
+        }
     </style>
 </head>
 
@@ -3463,6 +3474,72 @@ ${samu}`
                     Object.entries(registros_locais).forEach(([key, value]) => {
                         document.querySelector(`#${key.split('--')[0]}_table tbody`).insertAdjacentHTML('afterbegin', value);
                     });
+                    let selectionBox;
+                    let startX, startY;
+
+                    document.addEventListener('mousedown', (e) => {
+                        if (e.button !== 0) return; // Só botão esquerdo
+                        if (!(e.target.tagName == 'BODY' || e.target.tagName == 'HTML')) return;
+                        e.preventDefault();
+
+                        startX = e.pageX;
+                        startY = e.pageY;
+
+                        selectionBox = document.createElement('div');
+                        selectionBox.className = 'selection-box';
+                        selectionBox.style.left = `${startX}px`;
+                        selectionBox.style.top = `${startY}px`;
+                        document.body.appendChild(selectionBox);
+                        document.addEventListener('mousemove', onMouseMove);
+                        document.addEventListener('mouseup', onMouseUp);
+                    });
+
+                    function onMouseMove(e) {
+                        if (!selectionBox) return;
+                        document.body.style.userSelect = 'none';
+                        const currentX = e.pageX;
+                        const currentY = e.pageY;
+
+                        const width = Math.abs(currentX - startX);
+                        const height = Math.abs(currentY - startY);
+
+                        selectionBox.style.width = `${width}px`;
+                        selectionBox.style.height = `${height}px`;
+
+                        selectionBox.style.left = `${Math.min(currentX, startX)}px`;
+                        selectionBox.style.top = `${Math.min(currentY, startY)}px`;
+                        const items = document.querySelectorAll('.div_tabela_registros tbody tr');
+                        const boxRect = selectionBox.getBoundingClientRect();
+
+                        items.forEach(item => {
+                            const itemRect = item.getBoundingClientRect();
+                            const isInside = !(
+                                itemRect.right < boxRect.left ||
+                                itemRect.left > boxRect.right ||
+                                itemRect.bottom < boxRect.top ||
+                                itemRect.top > boxRect.bottom
+                            );
+
+                            if (item?.querySelector('input[type=checkbox]')) {
+                                if (isInside) {
+                                    item.querySelector('input[type=checkbox]').checked = true;
+                                } else {
+                                    item.querySelector('input[type=checkbox]').checked = false;
+                                }
+                            }
+
+                        });
+                    }
+
+                    function onMouseUp(e) {
+                        if (!selectionBox) return;
+                        // Verificar colisão com itens
+                        document.body.style.userSelect = '';
+
+                        selectionBox.remove();
+                        document.removeEventListener('mousemove', onMouseMove);
+                        document.removeEventListener('mouseup', onMouseUp);
+                    }
                 }
             }, 100);
             document.querySelectorAll('th.sortable').forEach(th => {
@@ -3525,6 +3602,7 @@ ${samu}`
                         }
                     });
                 });
+
 
             });
 
