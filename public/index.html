@@ -158,7 +158,8 @@
 
         #seleciona_periodo_absoluto input[type="datetime-local"],
         #seleciona_periodo_relativo input,
-        #seleciona_periodo_relativo select {
+        #seleciona_periodo_relativo select,
+        #num_pregistros_rotinas {
             padding: 6px 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
@@ -166,7 +167,8 @@
             cursor: pointer;
         }
 
-        #num_periodo_relativo {
+        #num_periodo_relativo,
+        #num_pregistros_rotinas {
             width: 35px;
         }
 
@@ -727,6 +729,10 @@
             overflow: auto;
         }
 
+        #chamadas .div_tabela_registros {
+            max-height: 62vh;
+        }
+
         body.dark-mode {
             background-color: #181818;
             color: #e0e0e0;
@@ -761,7 +767,8 @@
         body.dark-mode #seleciona_periodo_absoluto,
         body.dark-mode #seleciona_periodo_relativo,
         body.dark-mode #seleciona_periodo_relativo input,
-        body.dark-mode #seleciona_periodo_relativo select {
+        body.dark-mode #seleciona_periodo_relativo select,
+         body.dark-mode #num_pregistros_rotinas{
             background-color: #1e1e1e;
             color: #fff;
             border: 1px solid #555;
@@ -1108,6 +1115,36 @@
                                 <input oninput="filtrar_dados('rotinas')" type="checkbox"
                                     name="rotina_checkbox_especializadas" id="rotina_checkbox_especializadas">
                                 <label for="rotina_checkbox_especializadas">OUTRAS</label>
+                            </td>
+                            <td>
+                                 <button onclick="abrir_filtro_avancado(this)">←</button>
+                            </td>
+                        </tr>
+                        <tr style="display: none;">
+                            <td>
+
+                            </td>
+                            <td>
+                                <span>
+                                    <input type="number" id="num_pregistros_rotinas"
+                                        oninput="ultimos_registros('rotinas')" value="20">
+                                    Último(s) Reg. por QRA
+                                </span>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
                             </td>
                         </tr>
                     </tbody>
@@ -2391,7 +2428,7 @@
                         ${dados[5]}
                     </td>
                     <td oninput="filterOptions(this,5)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)" onfocus="atendente(this)" contenteditable="${content_editable}"
                         onkeydown="teclas_atalho(this,event.key)">
                         ${dados[6]}
                     </td>
@@ -2564,7 +2601,6 @@
                                         datahorafinal_filtro = new Date();
                                         data_inicial_filtro = new Date();
                                         data_inicial_filtro.setMinutes(data_inicial_filtro.getMinutes() - (num_periodo_relativo * select_tipo_periodo));
-
                                     }
                                     if (data_inicial_filtro <= datahora_linha && datahora_linha <= datahorafinal_filtro) {
                                         const l = criar_linha('rotinas', celulas);
@@ -3420,7 +3456,7 @@ ${samu}`
 
 
             const filtro_rotinas = localStorage.getItem('filtro_rotinas');
-            if (filtro_rotinas && filtro_rotinas.split('-()-')[7]) {
+            if (filtro_rotinas && filtro_rotinas.split('-()-')[9]) {
                 document.querySelector('#rotina_data_inicial').value = filtro_rotinas.split('-()-')[0];
                 document.querySelector('#rotina_data_final').value = filtro_rotinas.split('-()-')[1];
                 document.querySelector('#num_periodo_relativo').value = filtro_rotinas.split('-()-')[2];
@@ -3429,6 +3465,7 @@ ${samu}`
                 document.querySelector('#rotina_checkbox_sul').checked = filtro_rotinas.split('-()-')[5] === 'true';
                 document.querySelector('#rotina_checkbox_centro').checked = filtro_rotinas.split('-()-')[6] === 'true';
                 document.querySelector('#rotina_checkbox_especializadas').checked = filtro_rotinas.split('-()-')[7] === 'true';
+                document.querySelector('#num_pregistros_rotinas').value = filtro_rotinas.split('-()-')[9];
             }
             const filtro_chamadas = localStorage.getItem('filtro_chamadas');
             if (filtro_chamadas) {
@@ -3619,26 +3656,52 @@ ${samu}`
 
             //se o usuario setar periodo relativo na aba Rotinas, ele vai ficar monitorando e excluindo localmente os registros fora do período
             setInterval(() => {
+                const linhas = document.querySelectorAll('#rotinas_table tbody tr');
                 if (document.querySelector("#seleciona_periodo_relativo > input[type=radio]").checked) {
-                    const data_inicial_filtro = new Date();
-                    const minutos = parseInt(document.querySelector("#num_periodo_relativo").value) * parseInt(document.querySelector("#select_tipo_periodo").value)
-                    data_inicial_filtro.setMinutes(data_inicial_filtro.getMinutes() - minutos);
-                    const linhas = document.querySelectorAll('#rotinas_table tbody tr');
-                    linhas.forEach(linha => {
-                        let data_hora_registro = linha.querySelectorAll('td')[5].innerText.split(/\/|, |:/);
-                        if (data_hora_registro.length == 5) {
-                            data_hora_registro = new Date(parseInt(data_hora_registro[2]), parseInt(data_hora_registro[1]) - 1, parseInt(data_hora_registro[0]), parseInt(data_hora_registro[3]), parseInt(data_hora_registro[4]));
-                            if (!isNaN(data_hora_registro) && (data_hora_registro < data_inicial_filtro || data_hora_registro > new Date()) && !linha.contains(document.activeElement)) {
-                                linha.remove();
+                    
+                    if (document.querySelector("#select_tipo_periodo").value != '0') {
+                        const data_inicial_filtro = new Date();
+                        const minutos = parseInt(document.querySelector("#num_periodo_relativo").value) * parseInt(document.querySelector("#select_tipo_periodo").value)
+                        data_inicial_filtro.setMinutes(data_inicial_filtro.getMinutes() - minutos);
+                        linhas.forEach(linha => {
+                            let data_hora_registro = linha.querySelectorAll('td')[5].innerText.split(/\/|, |:/);
+                            if (data_hora_registro.length == 5) {
+                                data_hora_registro = new Date(parseInt(data_hora_registro[2]), parseInt(data_hora_registro[1]) - 1, parseInt(data_hora_registro[0]), parseInt(data_hora_registro[3]), parseInt(data_hora_registro[4]));
+                                if (!isNaN(data_hora_registro) && (data_hora_registro < data_inicial_filtro || data_hora_registro > new Date()) && !linha.contains(document.activeElement)) {
+                                    linha.remove();
+                                }
                             }
+                        })
+                    }
+                }
+                let ja_corrigidos = '';
+                    const ultimos_registros = parseInt(document.querySelector("#num_pregistros_rotinas").value);
+                    linhas.forEach(linha => {
+                        if (!linha) return;
+                        let qra = linha.querySelectorAll('td')[1].innerText.trim()
+                        if (!ja_corrigidos.includes(qra)) {
+                            const celulas = Array.from(linhas).filter(l => l.querySelectorAll('td')[1].innerText.trim() == qra);
+                            for (let index = 0; index < celulas.length - ultimos_registros; index++) {
+                                celulas[index].style.display = 'none';
+                            }
+                            ja_corrigidos += qra;
                         }
                     })
-                }
-            }, 60000);
+
+
+            }, 1000);
 
 
 
         });
+
+        function ultimos_registros(tabela) {
+            document.querySelectorAll(`#${tabela}_table tbody tr`).forEach(linha => {
+                linha.style.display = '';
+            });
+            guardar_filtro('rotinas');
+
+        }
 
         function blockEvent(e) {
             e.preventDefault();
@@ -3689,7 +3752,7 @@ ${samu}`
 
         function guardar_filtro(filtro) {
             if (filtro == 'rotinas') {
-                localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${document.querySelector('#num_periodo_relativo').value}-()-${document.querySelector('#select_tipo_periodo').value}-()-${document.querySelector('#rotina_checkbox_norte').checked}-()-${document.querySelector('#rotina_checkbox_sul').checked}-()-${document.querySelector('#rotina_checkbox_centro').checked}-()-${document.querySelector('#rotina_checkbox_especializadas').checked}-()-${document.querySelector('#filtro input:not([type=radio]):not([readonly])').parentNode.parentNode.getAttribute('id')}`);
+                localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${document.querySelector('#num_periodo_relativo').value}-()-${document.querySelector('#select_tipo_periodo').value}-()-${document.querySelector('#rotina_checkbox_norte').checked}-()-${document.querySelector('#rotina_checkbox_sul').checked}-()-${document.querySelector('#rotina_checkbox_centro').checked}-()-${document.querySelector('#rotina_checkbox_especializadas').checked}-()-${document.querySelector('#filtro input:not([type=radio]):not([readonly])').parentNode.parentNode.getAttribute('id')}-()-${document.querySelector('#num_pregistros_rotinas').value}`);
             } else if (filtro == 'chamadas') {
                 localStorage.setItem('filtro_chamadas', `${document.querySelector('#chamadas_data_inicial').value}-()-${document.querySelector('#chamadas_data_final').value}`);
             } else {
@@ -3990,6 +4053,11 @@ ${samu}`
 
         function fechar_modal() {
             document.querySelector('#modal').style.display = 'none';
+        }
+
+        function abrir_filtro_avancado(tabela) {
+            tabela.closest('tr').nextElementSibling.style.display = tabela.closest('tr').nextElementSibling.style.display == 'none' ? '' : 'none';
+            tabela.innerHTML = tabela.innerHTML == '←' ? '↓' : '←';
         }
     </script>
 </body>
