@@ -768,7 +768,7 @@
         body.dark-mode #seleciona_periodo_relativo,
         body.dark-mode #seleciona_periodo_relativo input,
         body.dark-mode #seleciona_periodo_relativo select,
-         body.dark-mode #num_pregistros_rotinas{
+        body.dark-mode #num_pregistros_rotinas {
             background-color: #1e1e1e;
             color: #fff;
             border: 1px solid #555;
@@ -1117,7 +1117,7 @@
                                 <label for="rotina_checkbox_especializadas">OUTRAS</label>
                             </td>
                             <td>
-                                 <button onclick="abrir_filtro_avancado(this)">←</button>
+                                <button onclick="abrir_filtro_avancado(this)">←</button>
                             </td>
                         </tr>
                         <tr style="display: none;">
@@ -2605,7 +2605,9 @@
                                     if (data_inicial_filtro <= datahora_linha && datahora_linha <= datahorafinal_filtro) {
                                         const l = criar_linha('rotinas', celulas);
                                         if (document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`)) {
+                                            let marcado = document.querySelector(`#rotinas_table tr[name='${celulas[0]}'] input[type=checkbox]`).checked;
                                             document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                            document.querySelector(`#rotinas_table tr[name='${celulas[0]}'] input[type=checkbox]`).checked = marcado == true;
                                         } else {
                                             linhas += l;
                                         }
@@ -2618,7 +2620,7 @@
                         th = document.querySelector('#rotinas_table th[asc],#rotinas_table th[desc]');
                         if (th) {
                             const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-                            let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
+                            let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML + '-&&-' + l.querySelector('input[type=checkbox]').checked);
                             lin_tab.pop();
                             if (th.getAttribute('asc')) {
                                 lin_tab.sort().reverse();
@@ -2626,8 +2628,9 @@
                                 lin_tab.sort();
                             }
                             th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-                            lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
-                                th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+                            lin_tab.forEach(l => {
+                                th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
+                                th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
                             });
                             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                         }
@@ -3586,7 +3589,7 @@ ${samu}`
                         header.classList.remove('sorted-asc', 'sorted-desc');
                     });
                     const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-                    let linhas = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
+                    let linhas = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML + '-&&-' + l.querySelector('input[type=checkbox]').checked);
                     if (th.closest('table').getAttribute('id') != 'equipes_table') {
                         linhas.pop();
                     }
@@ -3612,8 +3615,9 @@ ${samu}`
                     }
                     if (th.closest('table').getAttribute('id') != 'equipes_table') {
                         th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-                        linhas = linhas.map((l) => l.split('-&&-')[1]).forEach(l => {
-                            th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+                        linhas.forEach(l => {
+                            th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
+                            th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
                         });
                     } else {
                         th.closest('table').querySelector('tbody').innerHTML = '';
@@ -3658,7 +3662,7 @@ ${samu}`
             setInterval(() => {
                 const linhas = document.querySelectorAll('#rotinas_table tbody tr');
                 if (document.querySelector("#seleciona_periodo_relativo > input[type=radio]").checked) {
-                    
+
                     if (document.querySelector("#select_tipo_periodo").value != '0') {
                         const data_inicial_filtro = new Date();
                         const minutos = parseInt(document.querySelector("#num_periodo_relativo").value) * parseInt(document.querySelector("#select_tipo_periodo").value)
@@ -3675,18 +3679,18 @@ ${samu}`
                     }
                 }
                 let ja_corrigidos = '';
-                    const ultimos_registros = parseInt(document.querySelector("#num_pregistros_rotinas").value);
-                    linhas.forEach(linha => {
-                        if (!linha) return;
-                        let qra = linha.querySelectorAll('td')[1].innerText.trim()
-                        if (!ja_corrigidos.includes(qra)) {
-                            const celulas = Array.from(linhas).filter(l => l.querySelectorAll('td')[1].innerText.trim() == qra);
-                            for (let index = 0; index < celulas.length - ultimos_registros; index++) {
-                                celulas[index].style.display = 'none';
-                            }
-                            ja_corrigidos += qra;
+                const ultimos_registros = parseInt(document.querySelector("#num_pregistros_rotinas").value);
+                linhas.forEach(linha => {
+                    if (!linha) return;
+                    let qra = linha.querySelectorAll('td')[1].innerText.trim()
+                    if (!ja_corrigidos.includes(qra)) {
+                        const celulas = Array.from(linhas).filter(l => l.querySelectorAll('td')[1].innerText.trim() == qra);
+                        for (let index = 0; index < celulas.length - ultimos_registros; index++) {
+                            celulas[index].style.display = 'none';
                         }
-                    })
+                        ja_corrigidos += qra;
+                    }
+                })
 
 
             }, 1000);
