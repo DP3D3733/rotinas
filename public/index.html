@@ -3277,7 +3277,9 @@ ${samu}`
                             newData = `${celulas[0].parentNode.getAttribute('name')}-()-${celulas[0].getAttribute('dados') || (celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
                         }
                     } else if (aba == 'Chamadas') {
-                        data = new Date(new Date(parseInt(td.parentNode.getAttribute('name').split('-**-')[1])).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name').split('-**-')[1])).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name').split('-**-')[1])).getDate());
+                        data = celulas[9].innerText.split(',')[0].split('/').map((d) => parseInt(d));
+                        data = new Date(data[2], data[1] - 1, data[0]);
+                        
                         newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
                     } else if (aba == 'Setores') {
                         data = new Date(new Date(parseInt(td.parentNode.getAttribute('name'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name'))).getDate());
@@ -3314,9 +3316,11 @@ ${samu}`
                         });
                     }
                     let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
+                    console.log(ja_enviado.includes(newData));
                     if (!ja_enviado.includes(newData)) {
                         let docRef = '';
                         if (aba == 'Rotinas' || aba == 'Chamadas') {
+                        console.log(data.toISOString());
                             docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
                         } else {
                             docRef = db.collection('dados_fixos').doc('qth');
