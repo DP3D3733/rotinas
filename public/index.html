@@ -3279,7 +3279,7 @@ ${samu}`
                     } else if (aba == 'Chamadas') {
                         data = celulas[9].innerText.split(',')[0].split('/').map((d) => parseInt(d));
                         data = new Date(data[2], data[1] - 1, data[0]);
-                        
+
                         newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
                     } else if (aba == 'Setores') {
                         data = new Date(new Date(parseInt(td.parentNode.getAttribute('name'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name'))).getDate());
@@ -3320,7 +3320,7 @@ ${samu}`
                     if (!ja_enviado.includes(newData)) {
                         let docRef = '';
                         if (aba == 'Rotinas' || aba == 'Chamadas') {
-                        console.log(data.toISOString());
+                            console.log(data.toISOString());
                             docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
                         } else {
                             docRef = db.collection('dados_fixos').doc('qth');
@@ -3593,7 +3593,7 @@ ${samu}`
                         header.classList.remove('sorted-asc', 'sorted-desc');
                     });
                     const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-                    let linhas = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML + '-&&-' + l.querySelector('input[type=checkbox]').checked);
+                    let linhas = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML + '-&&-' + l.querySelector('input[type=checkbox]')?.checked);
                     if (th.closest('table').getAttribute('id') != 'equipes_table') {
                         linhas.pop();
                     }
@@ -3621,7 +3621,9 @@ ${samu}`
                         th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
                         linhas.forEach(l => {
                             th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
-                            th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
+                            if (th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]')) {
+                                th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
+                            }
                         });
                     } else {
                         th.closest('table').querySelector('tbody').innerHTML = '';
