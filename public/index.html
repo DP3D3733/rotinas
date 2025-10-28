@@ -2643,7 +2643,7 @@
                                 th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
                                 th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
                             });
-                            if (tdComFoco) {
+                            if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco}"] td`)[1]) {
                                 document.querySelectorAll(`tr[name="${tdComFoco}"] td`)[1].focus();
                             }
                             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
