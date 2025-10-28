@@ -2531,7 +2531,6 @@
         document.addEventListener('focusin', (e) => {
             if (e.target.tagName === 'TD') {
                 tdComFoco = e.target.closest('tr').getAttribute('name');
-                console.log(tdComFoco);
             }
         });
 
@@ -3331,11 +3330,9 @@ ${samu}`
                         });
                     }
                     let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
-                    console.log(ja_enviado.includes(newData));
                     if (!ja_enviado.includes(newData)) {
                         let docRef = '';
                         if (aba == 'Rotinas' || aba == 'Chamadas') {
-                            console.log(data.toISOString());
                             docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
                         } else {
                             docRef = db.collection('dados_fixos').doc('qth');
