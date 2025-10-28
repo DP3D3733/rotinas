@@ -2524,6 +2524,17 @@
             }
             return linha;
         }
+
+        let tdComFoco = null;
+
+        // Quando um <td> ganha foco
+        document.addEventListener('focusin', (e) => {
+            if (e.target.tagName === 'TD') {
+                tdComFoco = e.target.closest('tr').getAttribute('name');
+                console.log(tdComFoco);
+            }
+        });
+
         let unsubscribeRotinasList = [];
         let unsubscribeChamadasList = [];
         let unsubscribeEquipesList = [];
@@ -2571,6 +2582,7 @@
                     const dataStr = current.toISOString();
 
                     const unsub = db.collection('rotinas').doc(dataStr).onSnapshot(doc => {
+
                         if (!doc.exists) { return };
                         const dados = doc.data();
                         let linhas = '';
@@ -2632,6 +2644,9 @@
                                 th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
                                 th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
                             });
+                            if (tdComFoco) {
+                                document.querySelectorAll(`tr[name="${tdComFoco}"] td`)[1].focus();
+                            }
                             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                         }
                     });
