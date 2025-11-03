@@ -3429,7 +3429,7 @@ ${samu}`
                 hour12: false, // usa o formato 24h
             });
             // Filtra as rotinas da GU que ainda não têm um horário final (td[6] vazio)
-            let rotinas_da_gu = Array.from(document.querySelectorAll('tr')).filter(linha => {
+            let rotinas_da_gu = Array.from(document.querySelectorAll('#rotinas_table tbody tr')).filter(linha => {
                 return linha.innerText.includes(celulas[1].innerText) && linha.querySelectorAll('td')[6].innerText == '';
             });
 
