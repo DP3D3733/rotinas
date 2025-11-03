@@ -1481,31 +1481,31 @@
                                 <div class="dropdown" id="filtro_areas">
                                     <button class="dropdown-button">Áreas</button>
                                     <div class="dropdown-content">
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes_todas(this)" checked
                                                 value="Todas">Todas</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="200 Cruzeiro">200 Cruzeiro</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="300 Partenon">300 Partenon</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="400 Leste">400 Leste</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="500 Restinga">500 Restinga</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="600 Norte">600 Norte</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="700 Eixo Baltazar">700 Eixo Baltazar</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="800 Pinheiro">800 Pinheiro</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="900 Sul">900 Sul</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="1000 Romu">1000 Romu</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="1100 Patam">1100 Patam</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="1200 Centro">1200 Centro</label>
-                                        <label><input type="checkbox" oninput="filtro_areas(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="Comando">Comando</label>
                                     </div>
                                 </div>
@@ -1514,14 +1514,22 @@
                                 <div class="dropdown" id="filtro_tipo">
                                     <button class="dropdown-button">Tipo</button>
                                     <div class="dropdown-content">
-                                        <label><input type="checkbox" oninput="filtro_tipo_equipes(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes_todas(this)" checked
                                                 value="Todas">Todas</label>
-                                        <label><input type="checkbox" oninput="filtro_tipo_equipes(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="Pessoas">Pessoas</label>
-                                        <label><input type="checkbox" oninput="filtro_tipo_equipes(this)" checked
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="Equipamentos">Equipamentos</label>
                                     </div>
                                 </div>
+                            </td>
+                            <td>
+                                <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                        value="somente_ultima">Somente Última</label>
+                            </td>
+                            <td>
+                                <label><input type="text" oninput="filtro_equipes()"
+                                        value="" placeholder="Digite..."/></label>
                             </td>
                         </tr>
                     </tbody>
@@ -1531,7 +1539,20 @@
                 <table id="equipes_table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>
+                                <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" class="custom-checkbox" onchange="selecionar_tudo(this)">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <svg class="copiar" onclick="copiar_selecionados()"
+                                        xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24" fill="none"
+                                        stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </span>
+                            </th>
                             <th class="sortable">DATA-HORA</th>
                             <th class="sortable">GUARNIÇÃO</th>
                             <th class="sortable">GM/PREFIXO</th>
@@ -2497,6 +2518,18 @@
             } else if (aba == 'equipes') {
                 linha = `<tr name="${dados[0]}">
                     <td>
+                        <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" class="custom-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <svg class="copiar" onclick="copiar_dados(this,false)"
+                                        xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24" fill="none"
+                                        stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </span>
                     </td>
                     <td>
                         ${new Date(parseInt(dados[0])).toLocaleString('pt-BR', {
@@ -3135,6 +3168,8 @@ ${qth_endereco}
 *Número:* ${celulas[2].innerText}
                     
 ${samu}`
+            } else if(aba == 'Equipes') {
+                texto = `${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-&&-`;
             }
             if (todos == true) {
                 return texto;
@@ -3461,9 +3496,13 @@ ${samu}`
                 toggle.textContent = "☀️";
             }
             if (localStorage.getItem("ordem_tabelas")) {
-                document.querySelector('#rotinas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[0];
+                if(localStorage.getItem('ordem_tabelas').split('-()-')[0].includes('copiar_selecionados')) {
+                    document.querySelector('#rotinas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[0];
+                }
                 document.querySelector('#chamadas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[1];
-                document.querySelector('#equipes_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[2];
+                if(localStorage.getItem('ordem_tabelas').split('-()-')[2].includes('copiar_selecionados')) {
+                    document.querySelector('#equipes_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[2];
+                }
             }
 
             toggle.addEventListener("click", () => {
@@ -3747,28 +3786,96 @@ ${samu}`
             }
         }
 
-        function filtro_areas(area) {
+        function filtro_equipes_todas(checkbox) {
+            for (let index = 1; index < checkbox.parentNode.parentNode.querySelectorAll('input').length; index++) {
+                checkbox.parentNode.parentNode.querySelectorAll('input')[index].checked = checkbox.checked;
+            }
+            filtro_equipes();
+        }
+
+        function filtro_equipes() {
+            if(document.querySelector('#filtro_areas input:not([value=Todas]):not(:checked)')) {
+                document.querySelector('#filtro_areas input').checked = false;
+            } else {
+                document.querySelector('#filtro_areas input').checked = true;
+            }
+            if(document.querySelector('#filtro_tipo input:not([value=Todas]):not(:checked)')) {
+                document.querySelector('#filtro_tipo input').checked = false;
+            } else {
+                document.querySelector('#filtro_tipo input').checked = true;
+            }
             const linhas = document.querySelectorAll('#equipes_table tbody tr');
             const areas = ['200 Cruzeiro', '300 Partenon', '400 Leste', '500 Restinga', '600 Norte', '700 Eixo Baltazar', '800 Pinheiro', '900 Sul', '1000 Romu', '1100 Patam', '1200 Centro', 'Comando'];
             const primeiro_char = ['2', '3', '4', '5', '6', '7', '8', '9', 'R', 'P', 'C', 'A'];
-            if (area.value == 'Todas') {
-                for (let index = 1; index < area.parentNode.parentNode.querySelectorAll('input').length; index++) {
-                    area.parentNode.parentNode.querySelectorAll('input')[index].checked = area.checked;
-                    area.parentNode.parentNode.querySelectorAll('input')[index].dispatchEvent(new Event('input'));
-                }
-            } else {
-                linhas.forEach(linha => {
-                    if (linha.querySelectorAll('td')[2].innerText.trim().startsWith(primeiro_char[areas.indexOf(area.value)]) || linha.querySelectorAll('td')[2].innerText.trim().startsWith(area.value.split(' ')[0])) {
-                        linha.style.display = area.checked ? '' : 'none';
+            let ultimo_registro = {};
+            linhas.forEach(linha => {
+                const id = linha.getAttribute('name');
+                const gu = linha.querySelectorAll('td')[2].innerText.trim();
+                const horario = linha.querySelectorAll('td')[1].innerText.trim().split(/[/,: ]+/);
+                if (!ultimo_registro[gu] || ultimo_registro[gu].time < new Date(horario[2], horario[1], horario[0], horario[3], horario[4]).getTime()) {
+                    ultimo_registro[gu] = {
+                        'guarnicao': gu,
+                        'time': new Date(horario[2], horario[1], horario[0], horario[3], horario[4]).getTime(),
+                        'id': id
                     }
-                })
-                if (area.checked == false) {
-                    area.parentNode.parentNode.querySelector('input').checked = false;
-                } else if (area.parentNode.parentNode.querySelectorAll('input:checked').length == 12) {
-                    area.parentNode.parentNode.querySelector('input').checked = true;
+                }
+            });
+
+            linhas.forEach(linha => {
+                linha.style.display = 'none';
+                let areas_ativo = '';
+                let tipo_ativo = '';
+                let somente_ultima_ativo = '';
+                let texto_procurado_ativo= '';
+
+
+                //análise de área
+                const gu = linha.querySelectorAll('td')[2].innerText;
+                if (gu.includes('Dia') || gu.includes('Noite')) {
+                    areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])[0].checked;
+                } else {
+                    areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.split('- ')[1].trim().substring(0, 1))])[0].checked;
                 }
 
-            }
+
+                //análise do tipo
+                const func_modelo = linha.querySelectorAll('td')[4].innerText;
+                if (func_modelo.trim() == 'Automóvel' || func_modelo.trim() == 'Câmera Corporal') {
+                    tipo_ativo = document.querySelector('#filtro_tipo input[value="Equipamentos"]').checked;
+                } else {
+                    tipo_ativo = document.querySelector('#filtro_tipo input[value="Pessoas"]').checked;
+                }
+
+                //análise da última
+                if (document.querySelector('input[value=somente_ultima]').checked) {
+                    if (ultimo_registro[gu.trim()] && ultimo_registro[gu.trim()].id == linha.getAttribute('name')) {
+                        somente_ultima_ativo = true;
+                    } else {
+                        somente_ultima_ativo = false;
+                    }
+                } else {
+                    somente_ultima_ativo = true;
+                }
+
+                //análise de texto procurado
+                const texto_procurado = document.querySelector('#filtro_equipes input[type=text]').value;
+                if(!texto_procurado == '') {
+                    if(linha.innerText.includes(texto_procurado)) {
+                        texto_procurado_ativo = true;
+                    } else {
+                        texto_procurado_ativo = false;
+                    }
+                } else {
+                    texto_procurado_ativo = true;
+                }
+
+
+
+                if (areas_ativo && tipo_ativo && somente_ultima_ativo && texto_procurado_ativo) {
+                    linha.style.display = '';
+                }
+
+            });
             guardar_filtro('equipes');
         }
 
@@ -3788,29 +3895,6 @@ ${samu}`
                 })
                 localStorage.setItem('filtro_equipes', valores.join('-()-'));
             }
-        }
-
-        function filtro_tipo_equipes(tipo) {
-            const linhas = document.querySelectorAll('#equipes_table tbody tr');
-            if (tipo.value == 'Todas') {
-                for (let index = 1; index < tipo.parentNode.parentNode.querySelectorAll('input').length; index++) {
-                    tipo.parentNode.parentNode.querySelectorAll('input')[index].checked = tipo.checked;
-                    tipo.parentNode.parentNode.querySelectorAll('input')[index].dispatchEvent(new Event('input'));
-                }
-            } else {
-                linhas.forEach(linha => {
-                    if ((tipo.value == 'Pessoas' && (linha.querySelectorAll('td')[2].innerText.trim().includes('Dia') || linha.querySelectorAll('td')[2].innerText.trim().includes('Noite'))) || tipo.value == 'Equipamentos' && !linha.querySelectorAll('td')[2].innerText.trim().includes('Dia') && !linha.querySelectorAll('td')[2].innerText.trim().includes('Noite')) {
-                        linha.style.display = tipo.checked ? '' : 'none';
-                    }
-                })
-                if (tipo.checked == false) {
-                    tipo.parentNode.parentNode.querySelector('input').checked = false;
-                } else if (tipo.parentNode.parentNode.querySelectorAll('input:checked').length == 2) {
-                    tipo.parentNode.parentNode.querySelector('input').checked = true;
-                }
-
-            }
-            guardar_filtro('equipes');
         }
 
         function seleciona_periodo(tipo_periodo) {
@@ -3953,9 +4037,10 @@ ${samu}`
             });
         }
         function copiar_selecionados() {
+            const aba = document.querySelector('button.tab-button.ativo').innerText;
             let texto = '';
             let copiados = localStorage.getItem('copiados') || '';
-            document.querySelectorAll('#rotinas_table tbody tr').forEach(tr => {
+            document.querySelectorAll(`#${aba.toLowerCase()}_table tbody tr`).forEach(tr => {
                 if (tr.querySelector('input[type=checkbox]').checked == true) {
                     tr.querySelector('svg').setAttribute('class', 'copiar_clicado');
                     copiados += tr.getAttribute('name');
@@ -3977,7 +4062,7 @@ ${samu}`
             msg.style.zIndex = '9999'; // ← garante que fique por cima
 
             // Garante que o SVG possa conter o elemento
-            const wrapper = document.querySelector('#rotinas_table thead span');
+            const wrapper = document.querySelector(`#${aba.toLowerCase()}_table thead span`);
             wrapper.style.position = 'relative';
             wrapper.appendChild(msg);
 
