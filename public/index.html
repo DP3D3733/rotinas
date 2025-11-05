@@ -3858,9 +3858,9 @@ ${samu}`
                 }
 
                 //análise de texto procurado
-                const texto_procurado = document.querySelector('#filtro_equipes input[type=text]').value;
+                const texto_procurado = document.querySelector('#filtro_equipes input[type=text]').value.toLowerCase();
                 if(!texto_procurado == '') {
-                    if(linha.innerText.includes(texto_procurado)) {
+                    if(linha.innerText.toLowerCase().includes(texto_procurado)) {
                         texto_procurado_ativo = true;
                     } else {
                         texto_procurado_ativo = false;
