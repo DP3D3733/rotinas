@@ -1507,6 +1507,8 @@
                                                 value="1200 Centro">1200 Centro</label>
                                         <label><input type="checkbox" oninput="filtro_equipes()" checked
                                                 value="Comando">Comando</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="cogm">COGM</label>
                                     </div>
                                 </div>
                             </td>
@@ -1528,8 +1530,8 @@
                                         value="somente_ultima">Somente Última</label>
                             </td>
                             <td>
-                                <label><input type="text" oninput="filtro_equipes()"
-                                        value="" placeholder="Digite..."/></label>
+                                <label><input type="text" oninput="filtro_equipes()" value=""
+                                        placeholder="Digite..." /></label>
                             </td>
                         </tr>
                     </tbody>
@@ -3168,7 +3170,7 @@ ${qth_endereco}
 *Número:* ${celulas[2].innerText}
                     
 ${samu}`
-            } else if(aba == 'Equipes') {
+            } else if (aba == 'Equipes') {
                 texto = `${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-&&-`;
             }
             if (todos == true) {
@@ -3496,11 +3498,11 @@ ${samu}`
                 toggle.textContent = "☀️";
             }
             if (localStorage.getItem("ordem_tabelas")) {
-                if(localStorage.getItem('ordem_tabelas').split('-()-')[0].includes('copiar_selecionados')) {
+                if (localStorage.getItem('ordem_tabelas').split('-()-')[0].includes('copiar_selecionados')) {
                     document.querySelector('#rotinas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[0];
                 }
                 document.querySelector('#chamadas_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[1];
-                if(localStorage.getItem('ordem_tabelas').split('-()-')[2].includes('copiar_selecionados')) {
+                if (localStorage.getItem('ordem_tabelas').split('-()-')[2].includes('copiar_selecionados')) {
                     document.querySelector('#equipes_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[2];
                 }
             }
@@ -3794,19 +3796,19 @@ ${samu}`
         }
 
         function filtro_equipes() {
-            if(document.querySelector('#filtro_areas input:not([value=Todas]):not(:checked)')) {
+            if (document.querySelector('#filtro_areas input:not([value=Todas]):not(:checked)')) {
                 document.querySelector('#filtro_areas input').checked = false;
             } else {
                 document.querySelector('#filtro_areas input').checked = true;
             }
-            if(document.querySelector('#filtro_tipo input:not([value=Todas]):not(:checked)')) {
+            if (document.querySelector('#filtro_tipo input:not([value=Todas]):not(:checked)')) {
                 document.querySelector('#filtro_tipo input').checked = false;
             } else {
                 document.querySelector('#filtro_tipo input').checked = true;
             }
             const linhas = document.querySelectorAll('#equipes_table tbody tr');
-            const areas = ['200 Cruzeiro', '300 Partenon', '400 Leste', '500 Restinga', '600 Norte', '700 Eixo Baltazar', '800 Pinheiro', '900 Sul', '1000 Romu', '1100 Patam', '1200 Centro', 'Comando'];
-            const primeiro_char = ['2', '3', '4', '5', '6', '7', '8', '9', 'R', 'P', 'C', 'A'];
+            const areas = ['200 Cruzeiro', '300 Partenon', '400 Leste', '500 Restinga', '600 Norte', '700 Eixo Baltazar', '800 Pinheiro', '900 Sul', '1000 Romu', '1100 Patam', '1200 Centro', 'Comando', 'cogm'];
+            const primeiro_char = ['2', '3', '4', '5', '6', '7', '8', '9', 'R', 'P', 'C', 'A', 'S'];
             let ultimo_registro = {};
             linhas.forEach(linha => {
                 const id = linha.getAttribute('name');
@@ -3826,13 +3828,15 @@ ${samu}`
                 let areas_ativo = '';
                 let tipo_ativo = '';
                 let somente_ultima_ativo = '';
-                let texto_procurado_ativo= '';
+                let texto_procurado_ativo = '';
 
 
                 //análise de área
                 const gu = linha.querySelectorAll('td')[2].innerText;
                 if (gu.includes('Dia') || gu.includes('Noite')) {
-                    areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])[0].checked;
+                    if (Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])[0]) {
+                        areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])[0].checked;
+                    }
                 } else {
                     areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.split('- ')[1].trim().substring(0, 1))])[0].checked;
                 }
@@ -3859,8 +3863,8 @@ ${samu}`
 
                 //análise de texto procurado
                 const texto_procurado = document.querySelector('#filtro_equipes input[type=text]').value.toLowerCase();
-                if(!texto_procurado == '') {
-                    if(linha.innerText.toLowerCase().includes(texto_procurado)) {
+                if (!texto_procurado == '') {
+                    if (linha.innerText.toLowerCase().includes(texto_procurado)) {
                         texto_procurado_ativo = true;
                     } else {
                         texto_procurado_ativo = false;
