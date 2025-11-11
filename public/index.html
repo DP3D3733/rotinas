@@ -3812,24 +3812,21 @@ ${samu}`
                     localStorage.setItem('ordem_tabelas', document.querySelector('#rotinas_table thead').innerHTML + '-()-' + document.querySelector('#chamadas_table thead').innerHTML + '-()-' + document.querySelector('#equipes_table thead').innerHTML);
                 });
 
-                document.querySelectorAll('.dropdown').forEach(item => {
-                    const button = item.querySelector('.dropdown-button');
+            });
+            document.querySelectorAll('.dropdown').forEach(item => {
+                const button = item.querySelector('.dropdown-button');
 
-                    button.addEventListener('click', () => {
-                        item.classList.toggle('show');
-                    });
-
-                    // Fecha o dropdown se clicar fora
-                    window.addEventListener('click', (e) => {
-                        if (!item.contains(e.target)) {
-                            item.classList.remove('show');
-                        }
-                    });
+                button.addEventListener('click', () => {
+                    item.classList.toggle('show');
                 });
 
-
+                // Fecha o dropdown se clicar fora
+                window.addEventListener('click', (e) => {
+                    if (!item.contains(e.target)) {
+                        item.classList.remove('show');
+                    }
+                });
             });
-
             if (sessionStorage.getItem('usuario_logado')) {
                 document.querySelector('#login').style.display = 'none';
                 document.querySelector('#programa').style.display = '';
