@@ -629,6 +629,14 @@
             fill: rgb(33, 16, 133) !important;
         }
 
+        .msg_rapida:hover path {
+            fill: yellow;
+        }
+
+        body.dark-mode .msg_rapida path {
+            fill: rgb(255, 255, 255);
+        }
+
         .copiado-msg {
             position: absolute;
             background-color: #007bff;
@@ -983,6 +991,17 @@
             background-color: #6e6e6e7e;
         }
 
+        #saudacoes {
+            position: fixed;
+            right: 85px;
+            margin-top: 6px;
+            border: 0;
+            font-size: 15px;
+            color: #000000;
+            border-radius: 50%;
+            padding: 5px
+        }
+
 
 
         /* Caixa do conteúdo */
@@ -994,6 +1013,10 @@
         body.dark-mode details {
             background: #1e1e1e;
             border: 1, 5px solid #555;
+        }
+
+        body.dark-mode #saudacoes {
+            color: #ffffff;
         }
 
         details[open] {
@@ -1050,6 +1073,7 @@
         </div>
     </div>
     <div id="programa" style="display: none;">
+        <div id="saudacoes">Olá</div>
         <div onclick="logout()" id="logout">X</div>
         <div id="toggle-dark-mode">🌙</div>
         <div class="tabs">
@@ -1332,6 +1356,15 @@
                                                 d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
                                             <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
                                                 d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                        </g>
+                                    </svg>
+                                    <svg class="msg_rapida" onclick="msg_rapida(this)" version="1.0"
+                                        xmlns="http://www.w3.org/2000/svg" width="17px" height="17px"
+                                        viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000" stroke="none">
+                                            <path
+                                                d="M1795 4928 c-21 -19 -110 -260 -485 -1321 -330 -932 -458 -1305 -454 -1323 3 -13 18 -33 31 -44 25 -20 43 -20 745  20 l720 0 29 -29 c16 -16 29 -38 29 -48 0 -10 -125 -453 -277 -985 -274 -956 -288 -1011 -244 -983 7 3 532 617 1168 1363 636 746 1168 1369 1182 1385 35 39 34 91 -3 123 l-27 24 -734 0 c-517 0 -741 3 -758 11 -32 15 -51 50 -45 86 2 16 223 398 491 850 341 576 487 830 487 850 -1 32 -15 55 -47 71 -16 9 -252 12 -902 12 l-880 0 -26 -22z" />
                                         </g>
                                     </svg>
                                 </span>
@@ -2161,7 +2194,85 @@
 
         </div>
     </div>
+    <div id="modal_msg_rapida" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fechar_modal()">&times;</span>
+            <h2>⚡CHAMADAS PRÉ-PRONTAS⚡</h2>
+            <table id="chamadas_pre_prontas_table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="sortable">NOME</th>
+                        <th class="sortable">TELEFONE</th>
+                        <th class="sortable">NARRATIVA</th>
+                        <th class="sortable">NATUREZA</th>
+                        <th class="sortable">ENDEREÇO</th>
+                        <th class="sortable">ATENDENTE</th>
+                        <th class="sortable">ÁREA</th>
+                        <th class="sortable">MEIO</th>
+                        <th class="sortable">QTR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 10px;">
+                            <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                <button class="seleciona_pre_pronta_but"
+                                    onclick="seleciona_pre_pronta(this)">Selecionar</button>
+                            </span>
+                        </td>
+                        <td>
+                            Regulador
+                        </td>
+                        <td>
+                            51 32892509
+                        </td>
+                        <td>
+                            Paciente: Idade: anos. Surto. Agressivo.
+                        </td>
+                        <td>
+                            Apoio Ao Samu
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            WhatsApp 153
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
     <script>
+        //expirar login
+        let tempoLimite = 25 * 60 * 1000;
+        let timer;
+
+        function resetTimer() {
+            clearTimeout(timer);
+            timer = setTimeout(logout, tempoLimite);
+        }
+
+        // Eventos que contam como atividade
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt => {
+            const hora = (new Date).getHours();
+            if (hora != 18 || hora != 6) {
+                document.addEventListener(evt, resetTimer);
+            }
+        });
+
         // Configuração Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBag5uPzTK0sXx3nBzjGhmlmSCySO3u3_U",
@@ -2216,6 +2327,7 @@
                         document.querySelector('#programa').style.display = '';
                         document.querySelector('#login').style.display = 'none';
                         sessionStorage.setItem('usuario_logado', JSON.stringify(dados));
+                        document.querySelector('#saudacoes').innerHTML = `Olá, GCM ${JSON.parse(sessionStorage.getItem('usuario_logado')).nome}.`;
                         document.querySelectorAll("#rotinas_table tbody tr,#chamadas_table tbody tr,#setores_table tbody tr").forEach(tr => {
                             tr.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
                         });
@@ -2359,6 +2471,7 @@
                 copiado = 'copiar';
             }
             let borracha = '';
+            let rapido = '';
             let content_editable = false;
             if (!dados[0].toString().includes('-**-') || (aba != 'usuários' && (dados[0].split('-**-')[0] == JSON.parse(sessionStorage.getItem('usuario_logado')).nome || JSON.parse(sessionStorage.getItem('usuario_logado')).credencial != '1'))) {
                 borracha = `<svg class="borracha" onclick="excluir_linha(this,false)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
@@ -2367,6 +2480,15 @@
                                 <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 "/>
                             </g>
                         </svg>`;
+                rapido = `<svg class="msg_rapida" onclick="msg_rapida(this)" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                        width="17px" height="17px" viewBox="0 0 512.000000 512.000000"
+                                        preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000" stroke="none">
+                                            <path
+                                                d="M1795 4928 c-21 -19 -110 -260 -485 -1321 -330 -932 -458 -1305 -454 -1323 3 -13 18 -33 31 -44 25 -20 43 -20 745  20 l720 0 29 -29 c16 -16 29 -38 29 -48 0 -10 -125 -453 -277 -985 -274 -956 -288 -1011 -244 -983 7 3 532 617 1168 1363 636 746 1168 1369 1182 1385 35 39 34 91 -3 123 l-27 24 -734 0 c-517 0 -741 3 -758 11 -32 15 -51 50 -45 86 2 16 223 398 491 850 341 576 487 830 487 850 -1 32 -15 55 -47 71 -16 9 -252 12 -902 12 l-880 0 -26 -22z" />
+                                        </g>
+                                    </svg>`
                 content_editable = true;
             }
             if (aba == 'rotinas') {
@@ -2429,6 +2551,7 @@
                                 </g>
                             </svg>
                             ${borracha}
+                            ${rapido}
                         </span>
                     </td>
                     <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
@@ -3549,6 +3672,7 @@ ${samu}`
             }
             let interval_logado = setInterval(() => {
                 if (sessionStorage.getItem('usuario_logado')) {
+                    document.querySelector('#saudacoes').innerHTML = `Olá, GCM ${JSON.parse(sessionStorage.getItem('usuario_logado')).nome}.`;
                     if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
                         document.querySelector('#aba_usuários').style.display = '';
                     }
@@ -4037,7 +4161,9 @@ ${samu}`
 
         function selecionar_tudo(checkbox) {
             checkbox.closest('table').querySelectorAll('input[type="checkbox"]:not([onchange])').forEach(check => {
-                check.checked = checkbox.checked;
+                if (check.closest('tr').style.display != 'none') {
+                    check.checked = checkbox.checked;
+                }
             });
         }
         function copiar_selecionados() {
@@ -4052,6 +4178,7 @@ ${samu}`
                     tr.querySelector('input[type=checkbox]').checked = false;
                 }
             })
+            document.querySelector(`#${aba.toLowerCase()}_table thead input[type=checkbox]`).checked = false;
             localStorage.setItem('copiados', copiados);
             navigator.clipboard.writeText(texto);
             const msg = document.createElement('div');
@@ -4065,11 +4192,18 @@ ${samu}`
             msg.style.borderRadius = '10px';
             msg.style.zIndex = '9999'; // ← garante que fique por cima
 
-            // Garante que o SVG possa conter o elemento
             const wrapper = document.querySelector(`#${aba.toLowerCase()}_table thead span`);
-            wrapper.style.position = 'relative';
-            wrapper.appendChild(msg);
+            const rect = wrapper.getBoundingClientRect();
 
+            msg.style.position = 'fixed';
+            msg.style.top = `${rect.top - 30}px`;     // 30px acima do span
+            msg.style.left = `${rect.left + rect.width / 2}px`;
+            msg.style.transform = 'translateX(-50%)';
+            msg.style.transition = 'opacity 0.3s';
+
+            document.body.appendChild(msg);
+
+            // remove após 1s
             setTimeout(() => msg.remove(), 1000);
 
 
@@ -4164,11 +4298,30 @@ ${samu}`
 
         function fechar_modal() {
             document.querySelector('#modal').style.display = 'none';
+            document.querySelector('#modal_msg_rapida').style.display = 'none';
         }
 
         function abrir_filtro_avancado(tabela) {
             tabela.closest('tr').nextElementSibling.style.display = tabela.closest('tr').nextElementSibling.style.display == 'none' ? '' : 'none';
             tabela.innerHTML = tabela.innerHTML == '←' ? '↓' : '←';
+        }
+
+        function msg_rapida(but) {
+            const linha = but.closest('tr').getAttribute('name');
+            sessionStorage.setItem('msg_rapida', linha);
+            document.querySelector('#modal_msg_rapida').style.display = 'block';
+        }
+
+        function seleciona_pre_pronta(but) {
+            const dados = Array.from(but.closest('tr').querySelectorAll('td')).map(celula => celula.innerText);
+            document.querySelector('#modal_msg_rapida').style.display = 'none';
+            const celulas = document.querySelectorAll(`#chamadas_table tr[name="${sessionStorage.getItem('msg_rapida')}"] td`);
+            sessionStorage.removeItem('msg_rapida');
+            for (let index = 1; index < 9; index++) {
+                celulas[index].innerText = dados[index];
+            }
+            celulas[1].focus();
+            celulas[1].dispatchEvent(new Event('input', { bubbles: true }));
         }
     </script>
 </body>
