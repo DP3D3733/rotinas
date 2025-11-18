@@ -220,11 +220,7 @@
         }
 
         /* Tabela de rotinas */
-        #rotinas_table,
-        #chamadas_table,
-        #setores_table,
-        #equipes_table,
-        #usuários_table {
+        .tabela_dados {
             width: 100%;
             border-collapse: collapse;
             border-radius: 8px;
@@ -407,50 +403,26 @@
             transform: translateY(-50%) rotate(90deg);
         }
 
-        body:not(.dark-mode) #rotinas_table,
-        body:not(.dark-mode) #chamadas_table,
-        body:not(.dark-mode) #setores_table,
-        body:not(.dark-mode) #equipes_table,
-        body:not(.dark-mode) #usuários_table {
+        body:not(.dark-mode) .tabela_dados {
             background: white;
         }
 
-        body:not(.dark-mode) #rotinas_table tr:nth-child(even),
-        body:not(.dark-mode) #chamadas_table tr:nth-child(even),
-        body:not(.dark-mode) #setores_table tr:nth-child(even),
-        body:not(.dark-mode) #equipes_table tr:nth-child(even),
-        body:not(.dark-mode) #usuários_table tr:nth-child(even) {
+        body:not(.dark-mode) .tabela_dados tr:nth-child(even) {
             background-color: #fffafa;
         }
 
-        body:not(.dark-mode) #rotinas_table tr:hover,
-        body:not(.dark-mode) #chamadas_table tr:hover,
-        body:not(.dark-mode) #setores_table tr:hover,
-        body:not(.dark-mode) #equipes_table tr:hover,
-        body:not(.dark-mode) #usuários_table tr:hover {
+        body:not(.dark-mode) .tabela_dados tr:hover {
             background-color: #eceaea;
         }
 
-        #rotinas_table th,
-        #rotinas_table td,
-        #chamadas_table th,
-        #chamadas_table td,
-        #setores_table th,
-        #setores_table td,
-        #equipes_table th,
-        #equipes_table td,
-        #usuários_table th,
-        #usuários_table td {
+        .tabela_dados th,
+        .tabela_dados td {
             padding: 10px 12px;
             border: 1px solid #e0e0e0;
             text-align: left;
         }
 
-        body:not(.dark-mode) #rotinas_table th,
-        body:not(.dark-mode) #chamadas_table th,
-        body:not(.dark-mode) #setores_table th,
-        body:not(.dark-mode) #equipes_table th,
-        body:not(.dark-mode) #usuários_table th {
+        body:not(.dark-mode) .tabela_dados th {
             position: sticky;
             top: 0;
             z-index: 2;
@@ -461,11 +433,7 @@
 
         }
 
-        body.dark-mode #rotinas_table th,
-        body.dark-mode #chamadas_table th,
-        body.dark-mode #setores_table th,
-        body.dark-mode #equipes_table th,
-        body.dark-mode #usuários_table th {
+        body.dark-mode .tabela_dados th {
             position: sticky;
             top: 0;
             z-index: 2;
@@ -475,10 +443,7 @@
 
         }
 
-        body:not(.dark-mode) #rotinas_table td[contenteditable="true"]:focus,
-        body:not(.dark-mode) #chamadas_table td[contenteditable="true"]:focus,
-        body:not(.dark-mode) #setores_table td[contenteditable="true"]:focus,
-        body:not(.dark-mode) #usuários_table td[contenteditable="true"]:focus {
+        body:not(.dark-mode) .tabela_dados td[contenteditable="true"]:focus {
             background-color: #ffffcc;
             outline: 2px solid #ffc107;
         }
@@ -947,6 +912,10 @@
             background-color: #104bb3;
         }
 
+        body.dark-mode .selecionar path {
+            fill: white;
+        }
+
         body.dark-mode .login-footer {
             color: #aaa;
         }
@@ -1175,7 +1144,7 @@
                 </table>
             </div>
             <div class="div_tabela_registros">
-                <table id="rotinas_table">
+                <table id="rotinas_table" class="tabela_dados">
                     <thead>
                         <tr>
                             <th class="no-sort">
@@ -1313,7 +1282,7 @@
                 </table>
             </div>
             <div class="div_tabela_registros">
-                <table id="chamadas_table">
+                <table id="chamadas_table" class="tabela_dados">
                     <thead>
                         <tr>
                             <th></th>
@@ -1444,7 +1413,7 @@
                 </table>
             </div>
             <div class="div_tabela_registros">
-                <table id="setores_table">
+                <table id="setores_table" class="tabela_dados">
                     <thead>
                         <tr>
                             <th></th>
@@ -1571,7 +1540,7 @@
                 </table>
             </div>
             <div class="div_tabela_registros">
-                <table id="equipes_table">
+                <table id="equipes_table" class="tabela_dados">
                     <thead>
                         <tr>
                             <th>
@@ -1605,7 +1574,7 @@
         </div>
 
         <div id="usuários" style="display: none;">
-            <table id="usuários_table">
+            <table id="usuários_table" class="tabela_dados">
                 <thead>
                     <tr>
                         <th></th>
@@ -2198,7 +2167,7 @@
         <div class="modal-content">
             <span class="close" onclick="fechar_modal()">&times;</span>
             <h2>⚡CHAMADAS PRÉ-PRONTAS⚡</h2>
-            <table id="chamadas_pre_prontas_table">
+            <table id="chamadas_pre_prontas_table" class="tabela_dados">
                 <thead>
                     <tr>
                         <th></th>
@@ -2217,35 +2186,64 @@
                     <tr>
                         <td style="width: 10px;">
                             <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
-                                <button class="seleciona_pre_pronta_but"
-                                    onclick="seleciona_pre_pronta(this)">Selecionar</button>
+                                <svg class="selecionar" onclick="seleciona_pre_pronta(this)" version="1.0"
+                                    xmlns="http://www.w3.org/2000/svg" width="18px" height="18px"
+                                    viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                        fill="#000000" stroke="none">
+                                        <path
+                                            d="M2375 4793 c-921 -80 -1711 -724 -1963 -1603 -68 -235 -87 -373 -86 -635 0 -249 16 -372 78 -598 206 -746 807 -1347 1553 -1553 224 -61 349 -77 598 -78 242 -1 343 11 559 65 621 155 1161 592 1453 1174 90 178 171 439 209 670 27 164 25 505 -4 675 -85 500 -304 918 -659 1261 -369 356 -836 571 -1343 618 -107 10 -303 12 -395 4z m490 -337 c202 -36 347 -83 524 -167 399 -191 708 -500 901 -901 253 -528 253 -1132 -1 -1658 -461 -957 -1602 -1358 -2558 -899 -400 192 -709 501 -901 901 -84 176 -129 318 -167 528 -24 133 -24 467 0 600 38 210 83 352 167 528 122 254 284 463 495 640 291 244 638 394 1025 441 107 14 408 6 515 -13z" />
+                                        <path
+                                            d="M2829 2734 l-656 -656 -258 324 c-142 178 -261 326 -264 330 -6 7 -243 -175 -248 -190 -2 -4 165 -217 370 -474 l374 -466 784 784 784 784 -110 110 c-60 60 -112 110 -115 110 -3 0 -300 -295 -661 -656z" />
+                                    </g>
+                                </svg>
+                                <svg class="borracha" onclick="excluir_linha(this,false)"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                    <g id="surface1">
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                        <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                            d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                    </g>
+                                </svg>
                             </span>
-                        </td>
-                        <td>
-                            Regulador
-                        </td>
-                        <td>
-                            51 32892509
-                        </td>
-                        <td>
-                            Paciente: Idade: anos. Surto. Agressivo.
-                        </td>
-                        <td>
-                            Apoio Ao Samu
-                        </td>
-                        <td>
+
+
+
 
                         </td>
-                        <td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
 
                         </td>
-                        <td>
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
 
                         </td>
-                        <td>
-                            WhatsApp 153
+                        <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
                         </td>
-                        <td>
+                        <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
+                            contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
+                            contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,5)" onblur="enviar_dados(this),hideOptions(event, this)"
+                            contenteditable="true" onfocus="atendente(this)" onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,6)" onblur="enviar_dados(this),hideOptions(event, this)"
+                            contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,7)" onblur="enviar_dados(this),hideOptions(event, this)"
+                            contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                        </td>
+                        <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            onblur="enviar_dados(this)">
 
                         </td>
                     </tr>
@@ -2426,8 +2424,30 @@
                             }
                         })
                         document.querySelector('#setores_table tbody').insertAdjacentHTML('afterbegin', linhas);
-                    }
+                    } else if (doc.data().chamadas_pre_prontas) {
+                        document.querySelectorAll('#chamadas_pre_prontas_table tbody tr').forEach(linha => {
+                            if (!doc.data().chamadas_pre_prontas.includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[1].innerText.trim() != '' && linha.querySelectorAll('td')[2].innerText.trim() != '') {
+                                console.log(linha.querySelectorAll('td')[1].innerText.trim());
+                                linha.remove();
+                            }
+                        });
+                        let linhas = '';
+                        doc.data().chamadas_pre_prontas.replace(/\n/g, "<br>").split('-++-').forEach(setor => {
+                            if (!setor) return;
 
+                            const celulas = setor.split('-()-');
+                            const l = criar_linha('chamadas_pre_prontas', celulas);
+                            const lin = document.querySelector(`#chamadas_pre_prontas_table tr[name='${celulas[0]}']`);
+                            if (lin) {
+                                if (lin.querySelectorAll('td')[1].innerText.trim().replaceAll('  ', ' ') != celulas[1].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[2].innerText.trim().replaceAll('  ', ' ') != celulas[4].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[3].innerText.trim().replaceAll('  ', ' ') != celulas[2].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[4].innerText.trim().replaceAll('  ', ' ') != celulas[5].trim().replaceAll('  ', ' ') || lin.querySelectorAll('td')[5].innerText.trim().replaceAll('  ', ' ') != celulas[3].trim().replaceAll('  ', ' ')) {
+                                    document.querySelector(`#chamadas_pre_prontas_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                }
+                            } else {
+                                linhas += l;
+                            }
+                        })
+                        document.querySelector('#chamadas_pre_prontas_table tbody').insertAdjacentHTML('afterbegin', linhas);
+                    }
                 });
             }), (error) => {
                 console.log("Erro ao buscar documentos: ", error);
@@ -2480,15 +2500,13 @@
                                 <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 "/>
                             </g>
                         </svg>`;
-                rapido = `<svg class="msg_rapida" onclick="msg_rapida(this)" version="1.0" xmlns="http://www.w3.org/2000/svg"
-                                        width="17px" height="17px" viewBox="0 0 512.000000 512.000000"
-                                        preserveAspectRatio="xMidYMid meet">
-                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                                            fill="#000000" stroke="none">
-                                            <path
-                                                d="M1795 4928 c-21 -19 -110 -260 -485 -1321 -330 -932 -458 -1305 -454 -1323 3 -13 18 -33 31 -44 25 -20 43 -20 745  20 l720 0 29 -29 c16 -16 29 -38 29 -48 0 -10 -125 -453 -277 -985 -274 -956 -288 -1011 -244 -983 7 3 532 617 1168 1363 636 746 1168 1369 1182 1385 35 39 34 91 -3 123 l-27 24 -734 0 c-517 0 -741 3 -758 11 -32 15 -51 50 -45 86 2 16 223 398 491 850 341 576 487 830 487 850 -1 32 -15 55 -47 71 -16 9 -252 12 -902 12 l-880 0 -26 -22z" />
-                                        </g>
-                                    </svg>`
+                if (aba != 'chamadas_pre_prontas') {
+                    rapido = `<svg class="msg_rapida" onclick="msg_rapida(this)" version="1.0" xmlns="http://www.w3.org/2000/svg" width="17px" height="17px" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                            <path d="M1795 4928 c-21 -19 -110 -260 -485 -1321 -330 -932 -458 -1305 -454 -1323 3 -13 18 -33 31 -44 25 -20 43 -20 745  20 l720 0 29 -29 c16 -16 29 -38 29 -48 0 -10 -125 -453 -277 -985 -274 -956 -288 -1011 -244 -983 7 3 532 617 1168 1363 636 746 1168 1369 1182 1385 35 39 34 91 -3 123 l-27 24 -734 0 c-517 0 -741 3 -758 11 -32 15 -51 50 -45 86 2 16 223 398 491 850 341 576 487 830 487 850 -1 32 -15 55 -47 71 -16 9 -252 12 -902 12 l-880 0 -26 -22z" />
+                        </g>
+                    </svg>`
+                }
                 content_editable = true;
             }
             if (aba == 'rotinas') {
@@ -2530,12 +2548,24 @@
                     ${dados[12] || ''}
                 </td>
             </tr>`;
-            } else if (aba == 'chamadas') {
-
+            } else if (aba.includes('chamadas')) {
                 linha = `<tr name="${dados[0]}">
                     <td style="width: 10px;">
-                        <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
-                            <svg class="${copiado}" onclick="copiar_dados(this,false)" xmlns="http://www.w3.org/2000/svg" height="18px"
+                        <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">`
+                if (aba == 'chamadas_pre_prontas') {
+                    linha += ` <svg class="selecionar" onclick="seleciona_pre_pronta(this)" version="1.0"
+                                    xmlns="http://www.w3.org/2000/svg" width="18px" height="18px"
+                                    viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                        fill="#000000" stroke="none">
+                                        <path
+                                            d="M2375 4793 c-921 -80 -1711 -724 -1963 -1603 -68 -235 -87 -373 -86 -635 0 -249 16 -372 78 -598 206 -746 807 -1347 1553 -1553 224 -61 349 -77 598 -78 242 -1 343 11 559 65 621 155 1161 592 1453 1174 90 178 171 439 209 670 27 164 25 505 -4 675 -85 500 -304 918 -659 1261 -369 356 -836 571 -1343 618 -107 10 -303 12 -395 4z m490 -337 c202 -36 347 -83 524 -167 399 -191 708 -500 901 -901 253 -528 253 -1132 -1 -1658 -461 -957 -1602 -1358 -2558 -899 -400 192 -709 501 -901 901 -84 176 -129 318 -167 528 -24 133 -24 467 0 600 38 210 83 352 167 528 122 254 284 463 495 640 291 244 638 394 1025 441 107 14 408 6 515 -13z" />
+                                        <path
+                                            d="M2829 2734 l-656 -656 -258 324 c-142 178 -261 326 -264 330 -6 7 -243 -175 -248 -190 -2 -4 165 -217 370 -474 l374 -466 784 784 784 784 -110 110 c-60 60 -112 110 -115 110 -3 0 -300 -295 -661 -656z" />
+                                    </g>
+                                </svg>`;
+                } else {
+                    linha += `<svg class="${copiado}" onclick="copiar_dados(this,false)" xmlns="http://www.w3.org/2000/svg" height="18px"
                                 width="18px" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
@@ -2550,6 +2580,9 @@
                                         d="M 4.765625 1.308594 C 4.167969 1.441406 3.535156 1.882812 3.210938 2.394531 C 3.003906 2.71875 2.96875 2.832031 2.1875 5.4375 L 1.511719 7.691406 L 1.253906 7.839844 C 0.738281 8.136719 0.289062 8.699219 0.105469 9.277344 C 0.0195312 9.550781 0.0195312 9.5625 0.0195312 12.441406 L 0.0195312 15.332031 L 0.109375 15.507812 C 0.15625 15.605469 0.246094 15.75 0.308594 15.824219 C 0.453125 15.996094 0.820312 16.195312 1.0625 16.230469 L 1.242188 16.257812 L 1.257812 17.046875 C 1.269531 17.761719 1.277344 17.847656 1.359375 18.007812 C 1.496094 18.285156 1.652344 18.453125 1.921875 18.597656 L 2.167969 18.730469 L 4.082031 18.730469 L 4.328125 18.597656 C 4.601562 18.449219 4.71875 18.328125 4.875 18.03125 C 4.976562 17.835938 4.980469 17.808594 4.992188 17.039062 L 5.007812 16.25 L 15 16.25 L 15 16.96875 C 15 17.523438 15.015625 17.730469 15.0625 17.882812 C 15.160156 18.179688 15.371094 18.429688 15.664062 18.589844 L 15.917969 18.730469 L 17.832031 18.730469 L 18.078125 18.597656 C 18.351562 18.449219 18.46875 18.328125 18.625 18.03125 C 18.726562 17.835938 18.730469 17.808594 18.742188 17.046875 L 18.757812 16.257812 L 18.9375 16.230469 C 19.167969 16.195312 19.542969 16 19.671875 15.847656 C 19.726562 15.785156 19.816406 15.640625 19.875 15.53125 L 19.980469 15.332031 L 19.980469 12.441406 C 19.980469 9.5625 19.980469 9.550781 19.894531 9.277344 C 19.710938 8.699219 19.261719 8.136719 18.746094 7.839844 L 18.488281 7.691406 L 17.8125 5.4375 C 17.441406 4.199219 17.09375 3.058594 17.039062 2.910156 C 16.785156 2.191406 16.222656 1.640625 15.484375 1.378906 L 15.175781 1.269531 L 10.097656 1.261719 C 5.859375 1.257812 4.976562 1.265625 4.765625 1.308594 Z M 15.257812 5.625 C 15.566406 6.644531 15.816406 7.484375 15.820312 7.488281 C 15.820312 7.496094 13.199219 7.5 9.996094 7.5 C 5.199219 7.5 4.175781 7.492188 4.191406 7.449219 C 4.203125 7.421875 4.453125 6.589844 4.746094 5.601562 C 5.042969 4.617188 5.292969 3.796875 5.300781 3.777344 C 5.308594 3.761719 7.429688 3.753906 10.007812 3.757812 L 14.699219 3.769531 Z M 5.511719 10.738281 C 5.78125 10.867188 5.949219 11.027344 6.097656 11.296875 C 6.21875 11.523438 6.230469 11.570312 6.230469 11.875 C 6.230469 12.179688 6.21875 12.226562 6.097656 12.453125 C 5.949219 12.726562 5.824219 12.84375 5.53125 13 C 5.363281 13.085938 5.28125 13.101562 5 13.101562 C 4.695312 13.105469 4.648438 13.09375 4.421875 12.972656 C 4.152344 12.828125 3.996094 12.660156 3.859375 12.382812 C 3.734375 12.125 3.738281 11.617188 3.867188 11.347656 C 4.03125 11.011719 4.347656 10.753906 4.707031 10.660156 C 4.898438 10.609375 5.324219 10.652344 5.511719 10.738281 Z M 15.511719 10.738281 C 15.78125 10.867188 15.949219 11.027344 16.097656 11.296875 C 16.21875 11.523438 16.230469 11.570312 16.230469 11.875 C 16.230469 12.179688 16.21875 12.226562 16.097656 12.453125 C 15.949219 12.726562 15.824219 12.84375 15.53125 13 C 15.363281 13.085938 15.28125 13.101562 15 13.101562 C 14.695312 13.105469 14.648438 13.09375 14.421875 12.972656 C 14.152344 12.828125 13.996094 12.660156 13.859375 12.382812 C 13.734375 12.125 13.738281 11.617188 13.867188 11.347656 C 14.03125 11.011719 14.347656 10.753906 14.707031 10.660156 C 14.898438 10.609375 15.324219 10.652344 15.511719 10.738281 Z M 15.511719 10.738281 " />
                                 </g>
                             </svg>
+                            `
+                }
+                linha += `
                             ${borracha}
                             ${rapido}
                         </span>
@@ -3128,11 +3161,16 @@
         }
 
         function filterOptions(td, list) {
-            const aba = document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase();
+            let aba;
+            if (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '') {
+                aba = document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase();
+            } else {
+                aba = 'chamadas_pre_prontas';
+            }
             let celulas = td.parentNode.querySelectorAll('td');
 
             let vazia = '';
-            const table = document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`);
+            const table = document.querySelector(`#${aba}_table tbody`);
             table.querySelectorAll('tr')[table.querySelectorAll('tr').length - 1].querySelectorAll('td').forEach(function (item) {
                 if (item.innerText != '') {
                     vazia = 'nao';
@@ -3410,7 +3448,7 @@ ${samu}`
 
             if (aba == 'Rotinas' && (celulas[1].innerText == '' || celulas[2].innerText == '')) {
                 return;
-            } else if (aba == 'Chamadas' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
+            } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
                 return;
             } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
                 return;
@@ -3420,7 +3458,7 @@ ${samu}`
             let data = '';
             let newData = '';
             let interval_envio = setInterval(() => {
-                if ((aba == 'Setores' && celulas[1].innerText != '' && celulas[2].innerText != '' && celulas[3].innerText != '' && celulas[4].innerText != '') || aba == 'Usuários' || (celulas[1].innerText != '' && celulas[2].innerText != '' && (celulas[3].innerText != '' || celulas[4].innerText != '') && celulas[5].innerText != '')) {
+                if (document.getElementById('modal_msg_rapida').style.display == 'block' || (aba == 'Setores' && celulas[1].innerText != '' && celulas[2].innerText != '' && celulas[3].innerText != '' && celulas[4].innerText != '') || aba == 'Usuários' || (celulas[1].innerText != '' && celulas[2].innerText != '' && (celulas[3].innerText != '' || celulas[4].innerText != '') && celulas[5].innerText != '')) {
                     clearInterval(interval_envio);
                     const cads_gu = ['6734', '2958', 'C', 'PAR'];
                     const cads_tipo = ['norte', 'sul', 'centro', 'especializadas'];
@@ -3430,9 +3468,6 @@ ${samu}`
                             cad = cads_tipo[index];
                         }
                     }
-
-
-
                     if (aba == 'Rotinas') {
                         data = new Date(celulas[5].innerText.split(',')[0].split('/')[2], parseInt(celulas[5].innerText.split('/')[1]) - 1, celulas[5].innerText.split('/')[0]);
 
@@ -3485,8 +3520,10 @@ ${samu}`
                     let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
                     if (!ja_enviado.includes(newData)) {
                         let docRef = '';
-                        if (aba == 'Rotinas' || aba == 'Chamadas') {
+                        if (aba == 'Rotinas' || (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == ''))) {
                             docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
+                        } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                            docRef = db.collection('dados_fixos').doc('chamadas_pre_prontas');
                         } else {
                             docRef = db.collection('dados_fixos').doc('qth');
                         }
@@ -3498,8 +3535,10 @@ ${samu}`
                                 if (!JSON.stringify(existingData).includes(td.parentNode.getAttribute('name'))) {
                                     if (aba == 'Rotinas') {
                                         existingData[cad] += newData;
-                                    } else if (aba == 'Chamadas') {
+                                    } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
                                         existingData['chamadas'] += newData;
+                                    } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                                        existingData['chamadas_pre_prontas'] += newData;
                                     } else if (aba == 'Setores') {
                                         existingData['qth'] += newData;
                                     }
@@ -3509,8 +3548,10 @@ ${samu}`
                                     existingData = JSON.parse(JSON.stringify(existingData).replaceAll(dado_antigo, ''));
                                     if (aba == 'Rotinas') {
                                         existingData[cad] += newData;
-                                    } else if (aba == 'Chamadas') {
+                                    } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
                                         existingData['chamadas'] += newData;
+                                    } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                                        existingData['chamadas_pre_prontas'] += newData;
                                     } else if (aba == 'Setores') {
                                         existingData['qth'] += newData;
                                     }
@@ -3537,8 +3578,10 @@ ${samu}`
                                         'especializadas': ''
                                     }
                                     dados[cad] = newData;
-                                } else if (aba == 'Chamadas') {
+                                } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
                                     dados = { 'chamadas': newData };
+                                } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                                    dados = { 'chamadas_pre_prontas': newData };
                                 }
                                 sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dados));
                                 // Documento não existe, apenas cria com os novos dados
@@ -3654,7 +3697,7 @@ ${samu}`
                     if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
                         document.querySelector('#aba_usuários').style.display = '';
                     }
-                    document.querySelectorAll("#rotinas_table tbody tr,#chamadas_table tbody tr,#setores_table tbody tr").forEach(tr => {
+                    document.querySelectorAll("#rotinas_table tbody tr,#chamadas_pre_prontas_table tbody tr,#chamadas_table tbody tr,#setores_table tbody tr").forEach(tr => {
                         tr.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
                     });
                     clearInterval(interval_logado);
@@ -4080,7 +4123,12 @@ ${samu}`
             }
 
             const atualizarFirestore = async (colecao, docId) => {
-                const docRef = db.collection(colecao).doc(docId);
+                let docRef;
+                if (document.getElementById('modal_msg_rapida').style.display == 'block') {
+                    docRef = db.collection('dados_fixos').doc('chamadas_pre_prontas');
+                } else {
+                    docRef = db.collection(colecao).doc(docId);
+                }
                 const snapshot = await docRef.get();
                 if (!snapshot.exists) return removerLinhaVisual();
 
