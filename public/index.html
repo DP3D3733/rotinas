@@ -3131,14 +3131,6 @@
             const aba = document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase();
             let celulas = td.parentNode.querySelectorAll('td');
 
-            if (aba == 'rotinas' || aba == 'chamadas') {
-                let registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
-                registros_locais[`${aba}--${td.parentNode.getAttribute('name')}`] = td.parentNode.outerHTML;
-                localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
-            }
-
-
-
             let vazia = '';
             const table = document.querySelector(`#${document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase()}_table tbody`);
             table.querySelectorAll('tr')[table.querySelectorAll('tr').length - 1].querySelectorAll('td').forEach(function (item) {
@@ -3530,14 +3522,6 @@ ${samu}`
                                         if (aba == 'Rotinas') {
                                             fecha_ultimo_horario(celulas);
                                         }
-                                        //remove do banco local, já que já subiu pro bd
-                                        const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
-                                        Object.entries(registros_locais).forEach(([key]) => {
-                                            if (key.includes(newData.split('-()-')[0])) {
-                                                delete registros_locais[key];
-                                            }
-                                        });
-                                        localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
 
                                     })
                                     .catch((error) => { console.error("Erro ao atualizar o documento:", error); clearInterval(interval_envio) });
@@ -3561,14 +3545,7 @@ ${samu}`
                                     .then(() => {
                                         clearInterval(interval_envio);
                                         fecha_ultimo_horario(celulas);
-                                        //remove do banco local, já que já subiu pro bd
-                                        const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
-                                        Object.entries(registros_locais).forEach(([key]) => {
-                                            if (key.includes(newData.split('-()-')[0])) {
-                                                delete registros_locais[key];
-                                            }
-                                        });
-                                        localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
+                                       
                                     })
                                     .catch((error) => { console.error("Erro ao criar o documento:", error); clearInterval(interval_envio) });
                             }
@@ -3691,10 +3668,6 @@ ${samu}`
                     if (localStorage.getItem('config_abas')) {
                         Array.from(document.querySelectorAll('button[class*="tab-button"]')).filter(button => button.innerText == localStorage.getItem('config_abas'))[0].click();
                     }
-                    const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
-                    Object.entries(registros_locais).forEach(([key, value]) => {
-                        document.querySelector(`#${key.split('--')[0]}_table tbody`).insertAdjacentHTML('afterbegin', value);
-                    });
                     let selectionBox;
                     let startX, startY;
 
@@ -4103,13 +4076,6 @@ ${samu}`
 
             const removerLinhaVisual = () => {
                 row.remove();
-                const registros_locais = JSON.parse(localStorage.getItem('registros_locais') || '{}');
-                Object.entries(registros_locais).forEach(([key]) => {
-                    if (key.includes(row.getAttribute('name'))) {
-                        delete registros_locais[key];
-                    }
-                });
-                localStorage.setItem('registros_locais', JSON.stringify(registros_locais));
             }
 
             const atualizarFirestore = async (colecao, docId) => {
