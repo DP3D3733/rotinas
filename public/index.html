@@ -3228,6 +3228,7 @@
                     minute: '2-digit',
                     hour12: false, // usa o formato 24h
                 });
+                celula.closest('tbody').querySelectorAll("tr:last-child td")[1].focus();
             }
         }
 
@@ -3545,7 +3546,7 @@ ${samu}`
                                     .then(() => {
                                         clearInterval(interval_envio);
                                         fecha_ultimo_horario(celulas);
-                                       
+
                                     })
                                     .catch((error) => { console.error("Erro ao criar o documento:", error); clearInterval(interval_envio) });
                             }
