@@ -98,11 +98,7 @@
         }
 
         /* Filtros */
-        #filtro,
-        #filtro_chamadas,
-        #resumo_chamadas,
-        #filtro_equipes,
-        #filtro_setores {
+        .tabela_filtros {
             background: #fff;
             padding: 10px;
             border-radius: 8px;
@@ -118,11 +114,7 @@
             text-align: center;
         }
 
-        #filtro table td,
-        #filtro_chamadas table td,
-        #resumo_chamadas table td,
-        #filtro_equipes table td,
-        #filtro_setores table td {
+        .tabela_filtros table td {
             padding: 10px;
         }
 
@@ -172,33 +164,25 @@
             width: 35px;
         }
 
-        #filtro input[type*="date"],
-        #filtro_chamadas input[type*="date"],
-        #filtro_equipes input[type*="date"],
-        #filtro button,
-        #filtro_equipes button,
-        #filtro_chamadas button {
+        .tabela_filtros input[type*="date"],
+        .tabela_filtros button {
             padding: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
 
-        #filtro button,
-        #filtro_chamadas button,
-        #filtro_equipes button {
+        .tabela_filtros button {
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.2s, color 0.32;
             color: black;
         }
 
-        #filtro button:hover,
-        #filtro_equipes button:hover,
-        #filtro_chamadas button:hover {
+        .tabela_filtros button:hover {
             background-color: #ffffff;
         }
 
-        #filtro_chamadas div {
+        .tabela_filtros div {
             display: flex;
             flex-direction: row;
             margin-left: auto;
@@ -206,12 +190,12 @@
             text-align: center;
         }
 
-        #filtro input[type="checkbox"] {
+        .tabela_filtros input[type="checkbox"] {
             margin-right: 5px;
         }
 
-        #filtro input[readonly],
-        #filtro select[readonly] {
+        .tabela_filtros input[readonly],
+        .tabela_filtros select[readonly] {
             background-color: #ebe9e9;
             /* cor de fundo típica de disabled */
             color: #b4b4b4;
@@ -722,21 +706,13 @@
         }
 
         /* Filtros */
-        body.dark-mode #filtro,
-        body.dark-mode #filtro_chamadas,
-        body.dark-mode #filtro_equipes,
-        body.dark-mode #resumo_chamadas,
-        body.dark-mode #filtro_setores {
+        body.dark-mode .tabela_filtros {
             background: #2c2c2c;
             box-shadow: none;
         }
 
-        body.dark-mode #filtro input[type*="date"],
-        body.dark-mode #filtro_chamadas input[type*="date"],
-        body.dark-mode #filtro_equipes input[type*="date"],
-        body.dark-mode #filtro button,
-        body.dark-mode #filtro_chamadas button,
-        body.dark-mode #filtro_equipes button,
+        body.dark-mode .tabela_filtros input[type*="date"],
+        body.dark-mode .tabela_filtros button,
         body.dark-mode #seleciona_periodo_absoluto,
         body.dark-mode #seleciona_periodo_relativo,
         body.dark-mode #seleciona_periodo_relativo input,
@@ -747,8 +723,8 @@
             border: 1px solid #555;
         }
 
-        body.dark-mode #filtro input[readonly],
-        body.dark-mode #filtro select[readonly] {
+        body.dark-mode .tabela_filtros input[readonly],
+        body.dark-mode .tabela_filtros select[readonly] {
             background-color: #363636;
             /* cor de fundo típica de disabled */
             color: #504f4f;
@@ -756,9 +732,7 @@
             pointer-events: none;
         }
 
-        body.dark-mode #filtro button:hover,
-        body.dark-mode #filtro_chamadas button:hover,
-        body.dark-mode #filtro_equipes button:hover {
+        body.dark-mode .tabela_filtros button:hover {
             background-color: #333;
         }
 
@@ -1049,13 +1023,14 @@
             <button class="tab-button ativo" onclick="selecionarAba(this)">Rotinas</button>
             <button class="tab-button" onclick="selecionarAba(this)">Chamadas</button>
             <button class="tab-button" onclick="selecionarAba(this)">Equipes</button>
+            <button class="tab-button" onclick="selecionarAba(this)">OS</button>
             <button class="tab-button" onclick="selecionarAba(this)">Setores</button>
             <button style="display: none;" id="aba_usuários" class="tab-button"
                 onclick="selecionarAba(this)">Usuários</button>
         </div>
         <br><br>
         <div id="rotinas">
-            <div id="filtro">
+            <div id="filtro" class="tabela_filtros">
                 <table>
                     <tbody>
                         <tr>
@@ -1238,7 +1213,7 @@
             </div>
         </div>
         <div id="chamadas" style="display: none;">
-            <div id="filtro_chamadas" style="display: flex;">
+            <div id="filtro_chamadas" style="display: flex;" class="tabela_filtros">
                 <table>
                     <tbody>
 
@@ -1261,7 +1236,7 @@
                     <button id="legislacao_button" onclick="abrir_legislacao_modal()">Legislação Aplicada</button>
                 </div>
             </div>
-            <div id="resumo_chamadas">
+            <div id="resumo_chamadas" class="tabela_filtros">
                 <table>
                     <thead>
                         <tr>
@@ -1384,7 +1359,7 @@
         </div>
 
         <div id="setores" style="display: none;">
-            <div id="filtro_setores">
+            <div id="filtro_setores" class="tabela_filtros">
                 <table>
                     <tbody>
                         <tr>
@@ -1464,7 +1439,7 @@
 
         </div>
         <div id="equipes" style="display: none;">
-            <div id="filtro_equipes">
+            <div id="filtro_equipes" class="tabela_filtros">
                 <table>
                     <tbody>
                         <tr>
@@ -1567,6 +1542,129 @@
                     </thead>
                     <tbody>
 
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div id="os" style="display: none;">
+            <div id="filtro_os" class="tabela_filtros">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button onclick="turno_atual(this)">Turno Atual</button>
+                            </td>
+                            <td>
+                                <input oninput="filtrar_dados('os')" type="datetime-local" name="os_data_inicial"
+                                    id="os_data_inicial">
+                            </td>
+                            <td>
+                                <input oninput="filtrar_dados('os')" type="datetime-local" name="os_data_final"
+                                    id="os_data_final">
+                            </td>
+                            <td>
+                                <label><input type="text" oninput="filtro_os()" value=""
+                                        placeholder="Digite..." /></label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="div_tabela_registros">
+                <table id="os_table" class="tabela_dados">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" class="custom-checkbox" onchange="selecionar_tudo(this)">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <svg class="duplicar" onclick="duplicar_selecionados()" version="1.0"
+                                        xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"
+                                        viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000" stroke="none">
+                                            <path
+                                                d="M1852 4306 c-1179 -590 -1144 -570 -1157 -658 -3 -24 -5 -720 -3 -1548 3 -1490 3 -1505 23 -1540 24 -41 93 -80 142 -80 22 0 198 83 573 270 l540 270 0 -308 c0 -299 1 -309 23 -352 30 -60 76 -90 138 -90 44 0 149 50 1137 544 1179 590 1144 570 1157 658 3 24 5 720 3 1548 -3 1498 -3 1505 -24 1540 -25 43 -87 80 -136 80 -29 0 -159 -61 -578 -270 l-540 -270 0 308 c0 299 -1 309 -22 352 -31 60 -77 90 -139 90 -44 0 -149 -50 -1137 -544z m978 -121 l0 -245 -397 -199 c-219 -109 -406 -207 -415 -218 -49 -55 -48 -20 -48 -1120 l0 -1028 -475 -238 c-261 -130 -477 -237 -480 -237 -3 0 -5 591 -5 1313 l0 1312 902 452 c497 249 906 452 911 452 4 1 7 -109 7 -244z m1280 -1278 l0 -1312 -905 -453 c-498 -248 -907 -452 -910 -452 -3 0 -4 590 -3 1312 l3 1312 905 452 c498 249 906 453 908 453 1 1 2 -590 2 -1312z" />
+                                        </g>
+                                    </svg>
+
+                                    <svg class="copiar" onclick="copiar_selecionados()"
+                                        xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 0 24 24" fill="none"
+                                        stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </span>
+                            </th>
+                            <th class="sortable">DEMANDA</th>
+                            <th class="sortable">FINALIDADE</th>
+                            <th class="sortable">NATUREZA</th>
+                            <th class="sortable">LOCAL</th>
+                            <th class="sortable">RECURSO</th>
+                            <th class="sortable">INÍCIO</th>
+                            <th class="sortable">TÉRMINO</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 10px;">
+                                <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" class="custom-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <svg class="borracha" onclick="excluir_linha(this,false)"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                        <g id="surface1">
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                        </g>
+                                    </svg>
+                                    <svg class="duplicar" onclick="duplicar()" version="1.0"
+                                        xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"
+                                        viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000" stroke="none">
+                                            <path
+                                                d="M1852 4306 c-1179 -590 -1144 -570 -1157 -658 -3 -24 -5 -720 -3 -1548 3 -1490 3 -1505 23 -1540 24 -41 93 -80 142 -80 22 0 198 83 573 270 l540 270 0 -308 c0 -299 1 -309 23 -352 30 -60 76 -90 138 -90 44 0 149 50 1137 544 1179 590 1144 570 1157 658 3 24 5 720 3 1548 -3 1498 -3 1505 -24 1540 -25 43 -87 80 -136 80 -29 0 -159 -61 -578 -270 l-540 -270 0 308 c0 299 -1 309 -22 352 -31 60 -77 90 -139 90 -44 0 -149 -50 -1137 -544z m978 -121 l0 -245 -397 -199 c-219 -109 -406 -207 -415 -218 -49 -55 -48 -20 -48 -1120 l0 -1028 -475 -238 c-261 -130 -477 -237 -480 -237 -3 0 -5 591 -5 1313 l0 1312 902 452 c497 249 906 452 911 452 4 1 7 -109 7 -244z m1280 -1278 l0 -1312 -905 -453 c-498 -248 -907 -452 -910 -452 -3 0 -4 590 -3 1312 l3 1312 905 452 c498 249 906 453 908 453 1 1 2 -590 2 -1312z" />
+                                        </g>
+                                    </svg>
+                                </span>
+                            </td>
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                            </td>
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+
+                            </td>
+                            <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                            </td>
+                            <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                            </td>
+                            <td oninput="filterOptions(this,0)" contenteditable="true"
+                                onkeydown="teclas_atalho(this,event.key)" onblur="enviar_dados(this)">
+
+                            </td>
+                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                                onblur="enviar_dados(this)">
+
+                            </td>
+                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                                onblur="enviar_dados(this)">
+
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -2427,7 +2525,6 @@
                     } else if (doc.data().chamadas_pre_prontas) {
                         document.querySelectorAll('#chamadas_pre_prontas_table tbody tr').forEach(linha => {
                             if (!doc.data().chamadas_pre_prontas.includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[1].innerText.trim() != '' && linha.querySelectorAll('td')[2].innerText.trim() != '') {
-                                console.log(linha.querySelectorAll('td')[1].innerText.trim());
                                 linha.remove();
                             }
                         });
@@ -2626,6 +2723,56 @@
                         ${dados[9]}
                     </td>
                 </tr>`
+            } else if (aba == 'os') {
+                linha = `<tr name="${dados[0]}">
+                            <td style="width: 10px;">
+                                <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" class="custom-checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <svg class="borracha" onclick="excluir_linha(this,false)"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                        <g id="surface1">
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                        </g>
+                                    </svg>
+                                    <svg class="duplicar" onclick="duplicar(this)" version="1.0" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                            fill="#000000" stroke="none">
+                                            <path d="M1852 4306 c-1179 -590 -1144 -570 -1157 -658 -3 -24 -5 -720 -3 -1548 3 -1490 3 -1505 23 -1540 24 -41 93 -80 142 -80 22 0 198 83 573 270 l540 270 0 -308 c0 -299 1 -309 23 -352 30 -60 76 -90 138 -90 44 0 149 50 1137 544 1179 590 1144 570 1157 658 3 24 5 720 3 1548 -3 1498 -3 1505 -24 1540 -25 43 -87 80 -136 80 -29 0 -159 -61 -578 -270 l-540 -270 0 308 c0 299 -1 309 -22 352 -31 60 -77 90 -139 90 -44 0 -149 -50 -1137 -544z m978 -121 l0 -245 -397 -199 c-219 -109 -406 -207 -415 -218 -49 -55 -48 -20 -48 -1120 l0 -1028 -475 -238 c-261 -130 -477 -237 -480 -237 -3 0 -5 591 -5 1313 l0 1312 902 452 c497 249 906 452 911 452 4 1 7 -109 7 -244z m1280 -1278 l0 -1312 -905 -453 c-498 -248 -907 -452 -910 -452 -3 0 -4 590 -3 1312 l3 1312 905 452 c498 249 906 453 908 453 1 1 2 -590 2 -1312z" />
+                                        </g>
+                                    </svg>
+                                </span>
+                            </td>
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                                ${dados[1]}
+                            </td>
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                                ${dados[2]}
+                            </td>
+                            <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                ${dados[3]}
+                            </td>
+                            <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                ${dados[4]}
+                            </td>
+                            <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)">
+                                ${dados[5]}
+                            </td>
+                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                                ${dados[6]}
+                            </td>
+                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                                ${dados[7]}
+                            </td>
+                        </tr>`;
             } else if (aba == 'setores') {
                 linha = `<tr name="${dados[0]}">
                     <td style="width: 10px;">
@@ -2716,18 +2863,81 @@
             return linha;
         }
 
-        let tdComFoco = null;
+        let tdComFoco = {
+            linha: '',
+            coluna: ''
+        };
 
         // Quando um <td> ganha foco
         document.addEventListener('focusin', (e) => {
             if (e.target.tagName === 'TD') {
-                tdComFoco = e.target.closest('tr').getAttribute('name');
+                const tr = e.target.closest('tr');
+                const td = e.target;
+
+                tdComFoco = {
+                    linha: tr.getAttribute('name'),
+                    coluna: Array.from(tr.children).indexOf(td)
+                };
             }
         });
+
+        let ultimaPosicao = 0;
+        document.addEventListener('focusout', (e) => {
+            if (e.target.tagName === 'TD') {
+                ultimaPosicao = getCursorPosition(e.target);
+            }
+        });
+
+        function getCursorPosition(td) {
+            const sel = window.getSelection();
+            if (!sel.rangeCount) return 0;
+
+            const range = sel.getRangeAt(0);
+
+            // Se o cursor não está dentro da TD, retorna null
+            if (!td.contains(range.startContainer)) return null;
+
+            let pos = range.startOffset;
+            let node = range.startContainer;
+
+            // Somar o texto dos nós anteriores dentro da TD
+            while (node !== td) {
+                while (node.previousSibling) {
+                    node = node.previousSibling;
+                    pos += (node.textContent || "").length;
+                }
+                node = node.parentNode;
+            }
+            return pos;
+        }
+
+        function setCursorInTd(td, posicao) {
+            const range = document.createRange();
+            const sel = window.getSelection();
+
+            // Garantir que o TD tenha um nó de texto
+            let node = td.firstChild;
+            if (!node) {
+                node = document.createTextNode("");
+                td.appendChild(node);
+            }
+
+            // Se a posição for maior que o texto atual, coloca no final
+            const comprimento = node.textContent.length;
+            const offset = Math.min(posicao, comprimento);
+
+            range.setStart(node, offset);
+            range.collapse(true);
+
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+
 
         let unsubscribeRotinasList = [];
         let unsubscribeChamadasList = [];
         let unsubscribeEquipesList = [];
+        let unsubscribeOSList = [];
 
         function filtrar_dados(aba) {
             let partes_inicial, data_inicial, partes_final, cad_norte, cad_sul, cad_centro, cad_especializadas, th;
@@ -2834,8 +3044,9 @@
                                 th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
                                 th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
                             });
-                            if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco}"] td`)[1]) {
-                                document.querySelectorAll(`tr[name="${tdComFoco}"] td`)[1].focus();
+                            if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
+                                document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
+                                setCursorInTd(document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']], ultimaPosicao);
                             }
                             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                         }
@@ -2921,6 +3132,9 @@
                             lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
                                 th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
                             });
+                            if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
+                                document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
+                            }
                             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                         }
                         const resumo_chamadas = document.querySelectorAll('#resumo_chamadas tbody td');
@@ -2954,6 +3168,92 @@
                     });
 
                     unsubscribeChamadasList.push(unsub); // salvar função para limpar depois
+                    current.setDate(current.getDate() + 1);
+                }
+            } else if (aba == 'os') {
+                let l_os = document.querySelectorAll('#os_table tbody tr');
+                for (let index = 0; index < l_os.length - 1; index++) {
+                    l_os[index].remove();
+
+                }
+                data_inicial = new Date(document.querySelector('#os_data_inicial').value);
+                data_inicial.setHours(0, 0, 0, 0);
+                data_final = new Date(document.querySelector('#os_data_final').value);
+                data_final.setHours(0, 0, 0, 0);
+                if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
+                    return;
+                }
+                guardar_filtro('os');
+
+                unsubscribeOSList.forEach(unsub => unsub());
+                unsubscribeOSList = [];
+                // lista de unsubscribers
+
+                // Suponha que você já tenha: data_inicial e data_final
+                let current = new Date(data_inicial);
+
+                while (current <= data_final) {
+                    const dataStr = current.toISOString();
+
+                    const unsub = db.collection('os').doc(dataStr).onSnapshot(doc => {
+                        if (!doc.exists) { return };
+                        const dados = doc.data();
+
+                        let linhas = '';
+                        document.querySelectorAll('#os_table tbody tr').forEach(linha => {
+                            let data_linha = new Date(linha.querySelectorAll('td')[6].innerText.split('/')[2]?.split(',')[0], linha.querySelectorAll('td')[6].innerText.split('/')[1] - 1, linha.querySelectorAll('td')[6].innerText.split('/')[0]);
+                            if (!isNaN(data_linha.getTime())) {
+                                data_linha = data_linha.toISOString();
+                            }
+                            if (!JSON.stringify(dados).includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[6].innerText !== '' && dataStr == data_linha) {
+                                linha.remove();
+                            }
+                        });
+
+                        dados.os.split('-++-').forEach(linha => {
+                            if (!linha) return;
+                            const celulas = linha.split('-()-'); //6
+
+                            const partes_datahora = celulas[6].split(/\/|, |:/);
+                            const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
+                            if (new Date(document.querySelector('#os_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#os_data_final').value)) {
+                                const l = criar_linha('os', celulas);
+                                if (document.querySelector(`#os_table tr[name='${celulas[0]}']`)) {
+                                    document.querySelector(`#os_table tr[name='${celulas[0]}']`).outerHTML = l;
+                                } else {
+                                    linhas += l;
+                                }
+                            }
+                        });
+
+
+
+                        document.querySelector('#os_table tbody').insertAdjacentHTML('afterbegin', linhas);
+                        filtro_os();
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        th = document.querySelector('#os_table th[asc],#os_table th[desc]');
+                        if (th) {
+                            const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
+                            let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
+                            lin_tab.pop();
+                            if (th.getAttribute('asc')) {
+                                lin_tab.sort().reverse();
+                            } else {
+                                lin_tab.sort();
+                            }
+                            th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
+                            lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
+                                th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+                            });
+                            if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
+                                document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
+                            }
+                            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        }
+
+                    });
+
+                    unsubscribeOSList.push(unsub); // salvar função para limpar depois
                     current.setDate(current.getDate() + 1);
                 }
             } else if (aba == 'setores') {
@@ -3394,6 +3694,7 @@ ${samu}`
         function selecionarAba(botao) {
             document.querySelector('#rotinas').style.display = 'none';
             document.querySelector('#chamadas').style.display = 'none';
+            document.querySelector('#os').style.display = 'none';
             document.querySelector('#setores').style.display = 'none';
             document.querySelector('#equipes').style.display = 'none';
             document.querySelector('#usuários').style.display = 'none';
@@ -3406,6 +3707,8 @@ ${samu}`
                 document.querySelector('#rotinas').style.display = 'block';
             } else if (botao.innerText == 'Chamadas') {
                 document.querySelector('#chamadas').style.display = 'block';
+            } else if (botao.innerText == 'OS') {
+                document.querySelector('#os').style.display = 'block';
             } else if (botao.innerText == 'Setores') {
                 document.querySelector('#setores').style.display = 'block';
             } else if (botao.innerText == 'Usuários') {
@@ -3450,6 +3753,8 @@ ${samu}`
                 return;
             } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
                 return;
+            } else if (aba == 'OS' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '')) {
+                return;
             } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
                 return;
             } else if (aba == 'Usuários' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '')) {
@@ -3483,6 +3788,11 @@ ${samu}`
                         data = new Date(data[2], data[1] - 1, data[0]);
 
                         newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
+                    } else if (aba == 'OS') {
+                        data = celulas[6].innerText.split(',')[0].split('/').map((d) => parseInt(d));
+                        data = new Date(data[2], data[1] - 1, data[0]);
+
+                        newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-++-`;
                     } else if (aba == 'Setores') {
                         data = new Date(new Date(parseInt(td.parentNode.getAttribute('name'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name'))).getDate());
                         newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[4].innerText.trim() || ''}-++-`;
@@ -3520,7 +3830,7 @@ ${samu}`
                     let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
                     if (!ja_enviado.includes(newData)) {
                         let docRef = '';
-                        if (aba == 'Rotinas' || (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == ''))) {
+                        if (aba == 'Rotinas' || (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) || aba == 'OS') {
                             docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
                         } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
                             docRef = db.collection('dados_fixos').doc('chamadas_pre_prontas');
@@ -3528,7 +3838,6 @@ ${samu}`
                             docRef = db.collection('dados_fixos').doc('qth');
                         }
                         docRef.get().then((docSnapshot) => {
-
                             if (docSnapshot.exists) {
                                 // Documento existe, vamos pegar os dados antigos
                                 let existingData = docSnapshot.data();
@@ -3537,6 +3846,8 @@ ${samu}`
                                         existingData[cad] += newData;
                                     } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
                                         existingData['chamadas'] += newData;
+                                    } else if (aba == 'OS') {
+                                        existingData['os'] += newData;
                                     } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
                                         existingData['chamadas_pre_prontas'] += newData;
                                     } else if (aba == 'Setores') {
@@ -3552,6 +3863,8 @@ ${samu}`
                                         existingData['chamadas'] += newData;
                                     } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
                                         existingData['chamadas_pre_prontas'] += newData;
+                                    } else if (aba == 'OS') {
+                                        existingData['os'] += newData;
                                     } else if (aba == 'Setores') {
                                         existingData['qth'] += newData;
                                     }
@@ -3582,6 +3895,8 @@ ${samu}`
                                     dados = { 'chamadas': newData };
                                 } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
                                     dados = { 'chamadas_pre_prontas': newData };
+                                } else if (aba == 'OS') {
+                                    dados = { 'os': newData };
                                 }
                                 sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dados));
                                 // Documento não existe, apenas cria com os novos dados
@@ -3649,6 +3964,9 @@ ${samu}`
                 if (localStorage.getItem('ordem_tabelas').split('-()-')[2].includes('copiar_selecionados')) {
                     document.querySelector('#equipes_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[2];
                 }
+                if (localStorage.getItem('ordem_tabelas').split('-()-')[3] && localStorage.getItem('ordem_tabelas').split('-()-')[3].includes('copiar_selecionados')) {
+                    document.querySelector('#os_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[3];
+                }
             }
 
             toggle.addEventListener("click", () => {
@@ -3677,6 +3995,12 @@ ${samu}`
                 document.querySelector('#chamadas_data_final').value = filtro_chamadas.split('-()-')[1];
 
             }
+            const filtro_os = localStorage.getItem('filtro_os');
+            if (filtro_os) {
+                document.querySelector('#os_data_inicial').value = filtro_os.split('-()-')[0];
+                document.querySelector('#os_data_final').value = filtro_os.split('-()-')[1];
+
+            }
             const filtro_equipes = localStorage.getItem('filtro_equipes');
             if (filtro_equipes) {
                 const inputs = document.querySelectorAll('#filtro_equipes input');
@@ -3697,7 +4021,7 @@ ${samu}`
                     if (JSON.parse(sessionStorage.getItem('usuario_logado')).credencial == '3') {
                         document.querySelector('#aba_usuários').style.display = '';
                     }
-                    document.querySelectorAll("#rotinas_table tbody tr,#chamadas_pre_prontas_table tbody tr,#chamadas_table tbody tr,#setores_table tbody tr").forEach(tr => {
+                    document.querySelectorAll("#rotinas_table tbody tr,#chamadas_pre_prontas_table tbody tr,#chamadas_table tbody tr,#os_table tbody tr,#setores_table tbody tr").forEach(tr => {
                         tr.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
                     });
                     clearInterval(interval_logado);
@@ -3708,6 +4032,7 @@ ${samu}`
                     filtrar_dados('rotinas');
                     filtrar_dados('chamadas');
                     filtrar_dados('equipes');
+                    filtrar_dados('os');
                     baixa_banco();
                     if (localStorage.getItem('config_abas')) {
                         Array.from(document.querySelectorAll('button[class*="tab-button"]')).filter(button => button.innerText == localStorage.getItem('config_abas'))[0].click();
@@ -3826,7 +4151,7 @@ ${samu}`
                         });
                     }
 
-                    localStorage.setItem('ordem_tabelas', document.querySelector('#rotinas_table thead').innerHTML + '-()-' + document.querySelector('#chamadas_table thead').innerHTML + '-()-' + document.querySelector('#equipes_table thead').innerHTML);
+                    localStorage.setItem('ordem_tabelas', document.querySelector('#rotinas_table thead').innerHTML + '-()-' + document.querySelector('#chamadas_table thead').innerHTML + '-()-' + document.querySelector('#equipes_table thead').innerHTML + '-()-' + document.querySelector('#os_table thead').innerHTML);
                 });
 
             });
@@ -4026,6 +4351,8 @@ ${samu}`
                 localStorage.setItem('filtro_rotinas', `${document.querySelector('#rotina_data_inicial').value}-()-${document.querySelector('#rotina_data_final').value}-()-${document.querySelector('#num_periodo_relativo').value}-()-${document.querySelector('#select_tipo_periodo').value}-()-${document.querySelector('#rotina_checkbox_norte').checked}-()-${document.querySelector('#rotina_checkbox_sul').checked}-()-${document.querySelector('#rotina_checkbox_centro').checked}-()-${document.querySelector('#rotina_checkbox_especializadas').checked}-()-${document.querySelector('#filtro input:not([type=radio]):not([readonly])').parentNode.parentNode.getAttribute('id')}-()-${document.querySelector('#num_pregistros_rotinas').value}`);
             } else if (filtro == 'chamadas') {
                 localStorage.setItem('filtro_chamadas', `${document.querySelector('#chamadas_data_inicial').value}-()-${document.querySelector('#chamadas_data_final').value}`);
+            } else if (filtro == 'os') {
+                localStorage.setItem('filtro_os', `${document.querySelector('#os_data_inicial').value}-()-${document.querySelector('#os_data_final').value}`);
             } else {
                 let valores = [];
                 document.querySelectorAll('#filtro_equipes input').forEach(input => {
@@ -4158,7 +4485,7 @@ ${samu}`
                 const ano = anoRaw.split(',')[0];
                 const data = new Date(ano, parseInt(mes) - 1, parseInt(dia));
                 await atualizarFirestore(aba.toLowerCase(), data.toISOString());
-            } else if (aba === 'Chamadas') {
+            } else if (aba === 'Chamadas' || aba === 'OS') {
                 const timestamp = parseInt(id.split('-**-')[1]);
                 const data = new Date(new Date(timestamp).toDateString()); // normaliza para YYYY-MM-DD
                 await atualizarFirestore(aba.toLowerCase(), data.toISOString());
@@ -4334,6 +4661,31 @@ ${samu}`
             }
             celulas[1].focus();
             celulas[1].dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        function duplicar(botao) {
+            const duplicada = botao.closest('tr').cloneNode(true);
+            duplicada.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
+            botao.closest('tr').after(duplicada);
+        }
+
+        function duplicar_selecionados() {
+            const selecionadas = document.querySelectorAll('#os_table tbody [type="checkbox"]:checked');
+            selecionadas.forEach(botao => {
+                botao.checked = false;
+                duplicar(botao);
+            })
+        }
+
+        function filtro_os() {
+            const filtro = document.querySelector('#filtro_os [type=text]').value.toLowerCase();
+            const linhas = document.querySelectorAll('#os_table tbody tr');
+            for (let index = 0; index < linhas.length - 1; index++) {
+                linhas[index].style.display = 'none';
+                if (linhas[index].innerText.toLowerCase().includes(filtro)) {
+                    linhas[index].style.display = '';
+                }
+            }
         }
     </script>
 </body>
