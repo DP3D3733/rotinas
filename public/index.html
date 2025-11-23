@@ -4428,7 +4428,7 @@ ${samu}`
             } else if (aba == 'OS') {
                 endereco = dados[5].innerText.trim();
                 tipo_local = 'Via urbana';
-                qth = dados[4].innerText.trim();
+                qth = 'OS ' + dados[4].innerText.trim();
                 narrativa = dados[1].innerText + '\n' + dados[2].innerText;
                 natureza = dados[3].innerText;
                 telefone = '';
@@ -4436,7 +4436,7 @@ ${samu}`
             }
             let dados_demanda = `${qth}-()-${tipo_local}-()-${narrativa}-()-${endereco}-()-${natureza}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${telefone}-()-${solicitante}-++-`;
             document.querySelector('button[class="tab-button"]').click();
-            let linha = criar_linha('rotinas', [id, 'OS ' + qth, tipo_local, narrativa, endereco, natureza, '', new Date().toLocaleString('pt-BR', {
+            let linha = criar_linha('rotinas', [id, qth, tipo_local, narrativa, endereco, natureza, '', new Date().toLocaleString('pt-BR', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric',
