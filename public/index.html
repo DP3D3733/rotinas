@@ -1577,6 +1577,9 @@
                         <tr>
                             <th>
                                 <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
+                                    <button onclick="copiar_outro_dia()">→</button>
+                                    <input type="date" id="outro_dia_data" oninput="outro_dia_selecionar_data()"
+                                        style="display:none;">
                                     <label class="checkbox-wrapper">
                                         <input type="checkbox" class="custom-checkbox" onchange="selecionar_tudo(this)">
                                         <span class="checkmark"></span>
@@ -1597,12 +1600,14 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                     </svg>
+
                                 </span>
                             </th>
                             <th class="sortable">DEMANDA</th>
                             <th class="sortable">FINALIDADE</th>
                             <th class="sortable">NATUREZA</th>
-                            <th class="sortable">LOCAL</th>
+                            <th class="sortable">QTH/P REF</th>
+                            <th class="sortable">ENDEREÇO</th>
                             <th class="sortable">RECURSO</th>
                             <th class="sortable">INÍCIO</th>
                             <th class="sortable">TÉRMINO</th>
@@ -1617,6 +1622,14 @@
                                         <input type="checkbox" class="custom-checkbox">
                                         <span class="checkmark"></span>
                                     </label>
+                                    <svg class="empenhar" onclick="empenhar_gu(this)" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                        viewBox="0 0 20 20" version="1.1">
+                                        <g id="surface1">
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 4.765625 1.308594 C 4.167969 1.441406 3.535156 1.882812 3.210938 2.394531 C 3.003906 2.71875 2.96875 2.832031 2.1875 5.4375 L 1.511719 7.691406 L 1.253906 7.839844 C 0.738281 8.136719 0.289062 8.699219 0.105469 9.277344 C 0.0195312 9.550781 0.0195312 9.5625 0.0195312 12.441406 L 0.0195312 15.332031 L 0.109375 15.507812 C 0.15625 15.605469 0.246094 15.75 0.308594 15.824219 C 0.453125 15.996094 0.820312 16.195312 1.0625 16.230469 L 1.242188 16.257812 L 1.257812 17.046875 C 1.269531 17.761719 1.277344 17.847656 1.359375 18.007812 C 1.496094 18.285156 1.652344 18.453125 1.921875 18.597656 L 2.167969 18.730469 L 4.082031 18.730469 L 4.328125 18.597656 C 4.601562 18.449219 4.71875 18.328125 4.875 18.03125 C 4.976562 17.835938 4.980469 17.808594 4.992188 17.039062 L 5.007812 16.25 L 15 16.25 L 15 16.96875 C 15 17.523438 15.015625 17.730469 15.0625 17.882812 C 15.160156 18.179688 15.371094 18.429688 15.664062 18.589844 L 15.917969 18.730469 L 17.832031 18.730469 L 18.078125 18.597656 C 18.351562 18.449219 18.46875 18.328125 18.625 18.03125 C 18.726562 17.835938 18.730469 17.808594 18.742188 17.046875 L 18.757812 16.257812 L 18.9375 16.230469 C 19.167969 16.195312 19.542969 16 19.671875 15.847656 C 19.726562 15.785156 19.816406 15.640625 19.875 15.53125 L 19.980469 15.332031 L 19.980469 12.441406 C 19.980469 9.5625 19.980469 9.550781 19.894531 9.277344 C 19.710938 8.699219 19.261719 8.136719 18.746094 7.839844 L 18.488281 7.691406 L 17.8125 5.4375 C 17.441406 4.199219 17.09375 3.058594 17.039062 2.910156 C 16.785156 2.191406 16.222656 1.640625 15.484375 1.378906 L 15.175781 1.269531 L 10.097656 1.261719 C 5.859375 1.257812 4.976562 1.265625 4.765625 1.308594 Z M 15.257812 5.625 C 15.566406 6.644531 15.816406 7.484375 15.820312 7.488281 C 15.820312 7.496094 13.199219 7.5 9.996094 7.5 C 5.199219 7.5 4.175781 7.492188 4.191406 7.449219 C 4.203125 7.421875 4.453125 6.589844 4.746094 5.601562 C 5.042969 4.617188 5.292969 3.796875 5.300781 3.777344 C 5.308594 3.761719 7.429688 3.753906 10.007812 3.757812 L 14.699219 3.769531 Z M 5.511719 10.738281 C 5.78125 10.867188 5.949219 11.027344 6.097656 11.296875 C 6.21875 11.523438 6.230469 11.570312 6.230469 11.875 C 6.230469 12.179688 6.21875 12.226562 6.097656 12.453125 C 5.949219 12.726562 5.824219 12.84375 5.53125 13 C 5.363281 13.085938 5.28125 13.101562 5 13.101562 C 4.695312 13.105469 4.648438 13.09375 4.421875 12.972656 C 4.152344 12.828125 3.996094 12.660156 3.859375 12.382812 C 3.734375 12.125 3.738281 11.617188 3.867188 11.347656 C 4.03125 11.011719 4.347656 10.753906 4.707031 10.660156 C 4.898438 10.609375 5.324219 10.652344 5.511719 10.738281 Z M 15.511719 10.738281 C 15.78125 10.867188 15.949219 11.027344 16.097656 11.296875 C 16.21875 11.523438 16.230469 11.570312 16.230469 11.875 C 16.230469 12.179688 16.21875 12.226562 16.097656 12.453125 C 15.949219 12.726562 15.824219 12.84375 15.53125 13 C 15.363281 13.085938 15.28125 13.101562 15 13.101562 C 14.695312 13.105469 14.648438 13.09375 14.421875 12.972656 C 14.152344 12.828125 13.996094 12.660156 13.859375 12.382812 C 13.734375 12.125 13.738281 11.617188 13.867188 11.347656 C 14.03125 11.011719 14.347656 10.753906 14.707031 10.660156 C 14.898438 10.609375 15.324219 10.652344 15.511719 10.738281 Z M 15.511719 10.738281 " />
+                                        </g>
+                                    </svg>
                                     <svg class="borracha" onclick="excluir_linha(this,false)"
                                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
@@ -1650,6 +1663,9 @@
                             </td>
                             <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
                                 contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+
+                            </td>
+                            <td onblur="enviar_dados(this)" contenteditable="true">
 
                             </td>
                             <td oninput="filterOptions(this,0)" contenteditable="true"
@@ -2731,6 +2747,14 @@
                                         <input type="checkbox" class="custom-checkbox">
                                         <span class="checkmark"></span>
                                     </label>
+                                    <svg class="empenhar" onclick="empenhar_gu(this)" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                        viewBox="0 0 20 20" version="1.1">
+                                        <g id="surface1">
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 4.765625 1.308594 C 4.167969 1.441406 3.535156 1.882812 3.210938 2.394531 C 3.003906 2.71875 2.96875 2.832031 2.1875 5.4375 L 1.511719 7.691406 L 1.253906 7.839844 C 0.738281 8.136719 0.289062 8.699219 0.105469 9.277344 C 0.0195312 9.550781 0.0195312 9.5625 0.0195312 12.441406 L 0.0195312 15.332031 L 0.109375 15.507812 C 0.15625 15.605469 0.246094 15.75 0.308594 15.824219 C 0.453125 15.996094 0.820312 16.195312 1.0625 16.230469 L 1.242188 16.257812 L 1.257812 17.046875 C 1.269531 17.761719 1.277344 17.847656 1.359375 18.007812 C 1.496094 18.285156 1.652344 18.453125 1.921875 18.597656 L 2.167969 18.730469 L 4.082031 18.730469 L 4.328125 18.597656 C 4.601562 18.449219 4.71875 18.328125 4.875 18.03125 C 4.976562 17.835938 4.980469 17.808594 4.992188 17.039062 L 5.007812 16.25 L 15 16.25 L 15 16.96875 C 15 17.523438 15.015625 17.730469 15.0625 17.882812 C 15.160156 18.179688 15.371094 18.429688 15.664062 18.589844 L 15.917969 18.730469 L 17.832031 18.730469 L 18.078125 18.597656 C 18.351562 18.449219 18.46875 18.328125 18.625 18.03125 C 18.726562 17.835938 18.730469 17.808594 18.742188 17.046875 L 18.757812 16.257812 L 18.9375 16.230469 C 19.167969 16.195312 19.542969 16 19.671875 15.847656 C 19.726562 15.785156 19.816406 15.640625 19.875 15.53125 L 19.980469 15.332031 L 19.980469 12.441406 C 19.980469 9.5625 19.980469 9.550781 19.894531 9.277344 C 19.710938 8.699219 19.261719 8.136719 18.746094 7.839844 L 18.488281 7.691406 L 17.8125 5.4375 C 17.441406 4.199219 17.09375 3.058594 17.039062 2.910156 C 16.785156 2.191406 16.222656 1.640625 15.484375 1.378906 L 15.175781 1.269531 L 10.097656 1.261719 C 5.859375 1.257812 4.976562 1.265625 4.765625 1.308594 Z M 15.257812 5.625 C 15.566406 6.644531 15.816406 7.484375 15.820312 7.488281 C 15.820312 7.496094 13.199219 7.5 9.996094 7.5 C 5.199219 7.5 4.175781 7.492188 4.191406 7.449219 C 4.203125 7.421875 4.453125 6.589844 4.746094 5.601562 C 5.042969 4.617188 5.292969 3.796875 5.300781 3.777344 C 5.308594 3.761719 7.429688 3.753906 10.007812 3.757812 L 14.699219 3.769531 Z M 5.511719 10.738281 C 5.78125 10.867188 5.949219 11.027344 6.097656 11.296875 C 6.21875 11.523438 6.230469 11.570312 6.230469 11.875 C 6.230469 12.179688 6.21875 12.226562 6.097656 12.453125 C 5.949219 12.726562 5.824219 12.84375 5.53125 13 C 5.363281 13.085938 5.28125 13.101562 5 13.101562 C 4.695312 13.105469 4.648438 13.09375 4.421875 12.972656 C 4.152344 12.828125 3.996094 12.660156 3.859375 12.382812 C 3.734375 12.125 3.738281 11.617188 3.867188 11.347656 C 4.03125 11.011719 4.347656 10.753906 4.707031 10.660156 C 4.898438 10.609375 5.324219 10.652344 5.511719 10.738281 Z M 15.511719 10.738281 C 15.78125 10.867188 15.949219 11.027344 16.097656 11.296875 C 16.21875 11.523438 16.230469 11.570312 16.230469 11.875 C 16.230469 12.179688 16.21875 12.226562 16.097656 12.453125 C 15.949219 12.726562 15.824219 12.84375 15.53125 13 C 15.363281 13.085938 15.28125 13.101562 15 13.101562 C 14.695312 13.105469 14.648438 13.09375 14.421875 12.972656 C 14.152344 12.828125 13.996094 12.660156 13.859375 12.382812 C 13.734375 12.125 13.738281 11.617188 13.867188 11.347656 C 14.03125 11.011719 14.347656 10.753906 14.707031 10.660156 C 14.898438 10.609375 15.324219 10.652344 15.511719 10.738281 Z M 15.511719 10.738281 " />
+                                        </g>
+                                    </svg>
                                     <svg class="borracha" onclick="excluir_linha(this,false)"
                                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
@@ -2763,14 +2787,17 @@
                                 contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
                                 ${dados[4]}
                             </td>
-                            <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)">
+                            <td onblur="enviar_dados(this)" contenteditable="true">
                                 ${dados[5]}
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)">
                                 ${dados[6]}
                             </td>
                             <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
                                 ${dados[7]}
+                            </td>
+                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                                ${dados[8]}
                             </td>
                         </tr>`;
             } else if (aba == 'setores') {
@@ -3214,7 +3241,7 @@
                             if (!linha) return;
                             const celulas = linha.split('-()-'); //6
 
-                            const partes_datahora = celulas[6].split(/\/|, |:/);
+                            const partes_datahora = celulas[7].split(/\/|, |:/);
                             const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
                             if (new Date(document.querySelector('#os_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#os_data_final').value)) {
                                 const l = criar_linha('os', celulas);
@@ -3484,7 +3511,6 @@
                     } else {
                         table.insertAdjacentHTML('beforeend', criar_linha(aba, ['', '', '', '', '']));
                     }
-
                     td.focus();
                     vazia = '';
                 }
@@ -3520,7 +3546,7 @@
                 JSON.parse(localStorage.getItem('qth')).qth.split('-++-').forEach(function (item) {
                     if (item != '' && item.split('-()-')[1].replaceAll('"', '').trim() != '') {
                         options.push(item.split('-()-')[1].replaceAll('"', '').trim());
-                        if (item.split('-()-')[1].replaceAll('"', '').trim().toLowerCase() == filter && document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas') {
+                        if (item.split('-()-')[1].replaceAll('"', '').trim().toLowerCase() == filter && (document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas' || document.querySelector('button[class="tab-button ativo"]').innerText == 'OS')) {
                             td.nextElementSibling.innerText = item.split('-()-')[4].replaceAll('"', '').trim();
                             td.parentNode.querySelector('td').setAttribute('dados', item.replace(item.substring(0, item.indexOf('-()-') + 4), '').replaceAll('"', '').trim());
                         }
@@ -3566,7 +3592,9 @@
                     minute: '2-digit',
                     hour12: false, // usa o formato 24h
                 });
-                celula.closest('tbody').querySelectorAll("tr:last-child td")[1].focus();
+                if (document.querySelector('[class="tab-button ativo"]').innerText != 'OS') {
+                    celula.closest('tbody').querySelectorAll("tr:last-child td")[1].focus();
+                }
             }
         }
 
@@ -3584,10 +3612,7 @@
             if (aba == 'Rotinas' && celulas[0].getAttribute('dados')) {
                 if (celulas[0].getAttribute('dados').includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
                     let qth = celulas[0].getAttribute('dados').split('-()-')[0];
-                    let qth_certo = qth.replace('DEM ', '');
-                    if (!localStorage.getItem('qth').includes(qth_certo)) {
-                        qth_certo = '';
-                    }
+                    let qth_certo = qth.replace('DEM ', '').replace('OS ', '');
                     texto = `${celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim().replace(',', '')).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim().replace(',', '')).replace(qth, qth_certo)}`;
                 } else {
                     texto = `${celulas[0].getAttribute('dados')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()-`;
@@ -3753,7 +3778,7 @@ ${samu}`
                 return;
             } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
                 return;
-            } else if (aba == 'OS' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '')) {
+            } else if (aba == 'OS' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '')) {
                 return;
             } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
                 return;
@@ -3789,10 +3814,10 @@ ${samu}`
 
                         newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
                     } else if (aba == 'OS') {
-                        data = celulas[6].innerText.split(',')[0].split('/').map((d) => parseInt(d));
+                        data = celulas[7].innerText.split(',')[0].split('/').map((d) => parseInt(d));
                         data = new Date(data[2], data[1] - 1, data[0]);
 
-                        newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-++-`;
+                        newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-++-`;
                     } else if (aba == 'Setores') {
                         data = new Date(new Date(parseInt(td.parentNode.getAttribute('name'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name'))).getDate());
                         newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[4].innerText.trim() || ''}-++-`;
@@ -4377,29 +4402,41 @@ ${samu}`
         }
 
         function empenhar_gu(demanda) {
+            const aba = document.querySelector('[class="tab-button ativo"]').innerText;
             let dados = demanda.closest('tr').querySelectorAll('td');
             let id = JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime();
-            let endereco = dados[5].innerText.trim();
-            let qths = localStorage.getItem('qth').split('-++-')
-            let qth = 'DEM ';
-            let tipo_local = 'Residência';
-            qths.forEach(item => {
-                if (endereco == item.split('-()-')[1]?.trim()) {
-                    qth += item.split('-()-')[1].trim();
-                    endereco = item.split('-()-')[4].trim();
-                    tipo_local = item.split('-()-')[2].trim();
+            let endereco, tipo_local, qth, narrativa, natureza, telefone, solicitante;
+            if (aba == 'Chamadas') {
+                endereco = dados[5].innerText.trim();
+                tipo_local = 'Residência';
+                qth = 'DEM ';
+                narrativa = dados[3].innerText;
+                natureza = dados[4].innerText;
+                telefone = dados[2].innerText;
+                solicitante = dados[1].innerText;
+                let qths = localStorage.getItem('qth').split('-++-')
+                qths.forEach(item => {
+                    if (endereco == item.split('-()-')[1]?.trim()) {
+                        qth += item.split('-()-')[1].trim();
+                        endereco = item.split('-()-')[4].trim();
+                        tipo_local = item.split('-()-')[2].trim();
+                    }
+                });
+                if (qth == 'DEM ') {
+                    qth += natureza;
                 }
-            });
-            let narrativa = dados[3].innerText;
-            let natureza = dados[4].innerText;
-            let telefone = dados[2].innerText;
-            let solicitante = dados[1].innerText;
-            if (qth == 'DEM ') {
-                qth += natureza;
+            } else if (aba == 'OS') {
+                endereco = dados[5].innerText.trim();
+                tipo_local = 'Via urbana';
+                qth = dados[4].innerText.trim();
+                narrativa = dados[1].innerText + '\n' + dados[2].innerText;
+                natureza = dados[3].innerText;
+                telefone = '';
+                solicitante = '';
             }
             let dados_demanda = `${qth}-()-${tipo_local}-()-${narrativa}-()-${endereco}-()-${natureza}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${telefone}-()-${solicitante}-++-`;
             document.querySelector('button[class="tab-button"]').click();
-            let linha = criar_linha('rotinas', [id, qth, tipo_local, narrativa, endereco, natureza, '', new Date().toLocaleString('pt-BR', {
+            let linha = criar_linha('rotinas', [id, 'OS ' + qth, tipo_local, narrativa, endereco, natureza, '', new Date().toLocaleString('pt-BR', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric',
@@ -4686,6 +4723,54 @@ ${samu}`
                     linhas[index].style.display = '';
                 }
             }
+        }
+
+        function copiar_outro_dia() {
+            const input = document.getElementById("outro_dia_data");
+            input.style.display = "inline-block";
+            input.showPicker?.(); // abre o seletor de data (suportado em Chrome/Edge)
+        }
+
+        function outro_dia_selecionar_data() {
+            const input = document.getElementById("outro_dia_data");
+            let dia = input.value.split('-');
+            dia = `${dia[2]}/${dia[1]}/${dia[0]}`;
+            input.style.display = 'none';
+            input.value = "";
+            const selecionadas = document.querySelectorAll('#os_table tbody [type="checkbox"]:checked');
+            let atraso = 0;
+            selecionadas.forEach(botao => {
+                setTimeout(() => {
+                    const duplicada = botao.closest('tr').cloneNode(true);
+                    duplicada.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
+                    const inicio = duplicada.querySelectorAll('td')[7];
+                    const fim = duplicada.querySelectorAll('td')[8];
+                    const data_inicio = toDate(inicio.innerText.replaceAll(' ', ''));
+                    const data_fim = toDate(fim.innerText.replaceAll(' ', ''));
+                    const diferenca = data_fim - data_inicio;
+                    inicio.innerText = `${dia}, ${inicio.innerText.replaceAll(' ', '').split(',')[1]}`;
+                    fim.innerText = formatarData(new Date(toDate(inicio.innerText).getTime() + diferenca));
+                    enviar_dados(duplicada.querySelectorAll('td')[3]);
+                }, atraso);
+                atraso = atraso + 500;
+            })
+        }
+
+        function toDate(dataStr) {
+            const [dia, mes, resto] = dataStr.split("/");
+            const [ano, horaMin] = resto.split(",");
+            const [hora, minuto] = horaMin.split(":");
+
+            // criar objeto Date
+            const data = new Date(ano, mes - 1, dia, hora, minuto);
+            return data;
+        }
+
+        function formatarData(data) {
+            const resultado =
+                data.toLocaleDateString("pt-BR") + ", " +
+                data.toTimeString().slice(0, 5);
+            return resultado;
         }
     </script>
 </body>
