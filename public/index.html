@@ -182,7 +182,7 @@
             background-color: #ffffff;
         }
 
-        .tabela_filtros div {
+        .tabela_filtros div:not([class="dropdown-content"]) {
             display: flex;
             flex-direction: row;
             margin-left: auto;
@@ -226,6 +226,7 @@
             margin-top: 4px;
             min-width: 160px;
             z-index: 999;
+            top: 25px;
         }
 
         .dropdown-content label {
@@ -1197,10 +1198,10 @@
                             <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" contenteditable="true" onblur="enviar_dados(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
                                 onblur="enviar_dados(this)">
 
                             </td>
@@ -1347,7 +1348,7 @@
                                 contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
                                 onblur="enviar_dados(this)">
 
                             </td>
@@ -1672,11 +1673,11 @@
                                 onkeydown="teclas_atalho(this,event.key)" onblur="enviar_dados(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
                                 onblur="enviar_dados(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
                                 onblur="enviar_dados(this)">
 
                             </td>
@@ -2356,7 +2357,7 @@
                             contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
 
                         </td>
-                        <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true"
+                        <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
                             onblur="enviar_dados(this)">
 
                         </td>
@@ -2651,10 +2652,10 @@
                 <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
                     ${dados[4]}
                 </td>
-                <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                <td oninput="filterOptions(this,9)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
                     ${dados[7]}
                 </td>
-                <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
                     ${dados[9]}
                 </td>
                 <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
@@ -2734,7 +2735,7 @@
                         onkeydown="teclas_atalho(this,event.key)">
                         ${dados[8]}
                     </td>
-                    <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="${content_editable}"
+                    <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="${content_editable}"
                         onblur="enviar_dados(this)">
                         ${dados[9]}
                     </td>
@@ -2793,10 +2794,10 @@
                             <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)">
                                 ${dados[6]}
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
                                 ${dados[7]}
                             </td>
-                            <td oninput="filterOptions(this,3)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
                                 ${dados[8]}
                             </td>
                         </tr>`;
@@ -3370,9 +3371,6 @@
                                         linhas += l;
                                     })
                                 }
-
-
-
                             }
                         }
                         document.querySelector('#equipes_table tbody').insertAdjacentHTML('afterbegin', linhas);
@@ -3527,6 +3525,22 @@
                 let dados = td.parentNode.querySelectorAll('td')[0].getAttribute('dados').split('-()-');
                 dados[3] = td.innerText.trim();
                 td.parentNode.querySelectorAll('td')[0].setAttribute('dados', dados.join('-()-'));
+            }
+            if (list == 9 && text.length == 4 && /^\d+$/.test(text) || text.replace(':', '').length == 4 && /^\d+$/.test(text.replace(':', ''))) {
+                td.innerText = new Date().toLocaleString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                }) + ', ' + text.replace(':','').substring(0, 2) + ':' + text.replace(':','').substring(2, 4);
+
+                const range = document.createRange();
+                const sel = window.getSelection();
+
+                range.selectNodeContents(td);
+                range.collapse(false); // false = final do conteúdo
+
+                sel.removeAllRanges();
+                sel.addRange(range);
             }
             updateOptions(td, text, list);
             showOptions(td, list);
