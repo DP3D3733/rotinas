@@ -3526,12 +3526,12 @@
                 dados[3] = td.innerText.trim();
                 td.parentNode.querySelectorAll('td')[0].setAttribute('dados', dados.join('-()-'));
             }
-            if (list == 9 && text.length == 4 && /^\d+$/.test(text) || text.replace(':', '').length == 4 && /^\d+$/.test(text.replace(':', ''))) {
+            if (list == 9 && text.length == 4 && (/^\d+$/.test(text) || (text.replace(':', '').length == 4 && /^\d+$/.test(text.replace(':', ''))))) {
                 td.innerText = new Date().toLocaleString('pt-BR', {
                     day: '2-digit',
                     month: '2-digit',
                     year: 'numeric',
-                }) + ', ' + text.replace(':','').substring(0, 2) + ':' + text.replace(':','').substring(2, 4);
+                }) + ', ' + text.replace(':', '').substring(0, 2) + ':' + text.replace(':', '').substring(2, 4);
 
                 const range = document.createRange();
                 const sel = window.getSelection();
@@ -4442,7 +4442,11 @@ ${samu}`
             } else if (aba == 'OS') {
                 endereco = dados[5].innerText.trim();
                 tipo_local = 'Via urbana';
-                qth = 'OS ' + dados[4].innerText.trim();
+                if (dados[4].innerText.trim() == '') {
+                    qth = 'OS ' + dados[1].innerText.trim();
+                } else {
+                    qth = 'OS ' + dados[4].innerText.trim();
+                }
                 narrativa = dados[1].innerText + '\n' + dados[2].innerText;
                 natureza = dados[3].innerText;
                 telefone = '';
