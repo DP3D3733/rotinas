@@ -15,13 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 🔥 Novo passo: gerar o version.json com hash do commit
-      - name: Generate version.json
-        run: |
-          VERSION=$(git rev-parse --short HEAD)
-          echo "{ \"version\": \"$VERSION\" }" > public/version.json
-          echo "Generated version.json: $VERSION"
-
       # Deploy padrão criado pelo Firebase CLI
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
