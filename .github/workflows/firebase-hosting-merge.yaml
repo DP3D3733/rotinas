@@ -15,17 +15,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 🔥 Novo passo: gerar o version.json com hash do commit
+      # Criar o version.json dentro da pasta public
       - name: Generate version.json
         run: |
           VERSION=$(git rev-parse --short HEAD)
           echo "{ \"version\": \"$VERSION\" }" > public/version.json
-          echo "Generated version.json: $VERSION"
+          echo "Version generated: $VERSION"
 
-      # Deploy padrão criado pelo Firebase CLI
+      # Criar artifact com a pasta public completa
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public
+
+      # Deploy usando o artifact
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ROTINAS_8498D }}
           channelId: live
           projectId: rotinas-8498d
+          entryPoint: public
