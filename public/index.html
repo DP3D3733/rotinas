@@ -1248,7 +1248,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr onclick="copiar_resumo_chamadas()">
                             <td></td>
                             <td></td>
                             <td></td>
@@ -4789,6 +4789,21 @@ ${samu}`
                 data.toLocaleDateString("pt-BR") + ", " +
                 data.toTimeString().slice(0, 5);
             return resultado;
+        }
+
+        function copiar_resumo_chamadas() {
+            /*Denúncias 153 - 1
+            Denúncias WhatsApp - 1
+            Total de Ligações - 1
+            Apoio ao Samu - 1
+            */
+           let text = '';
+           const th = document.querySelectorAll('#resumo_chamadas th');
+           const td = document.querySelectorAll('#resumo_chamadas td');
+           for (let index = 0; index < th.length; index++) {
+            text += th[index].innerText + ' - ' + td[index].innerText + '\n';
+           }
+           navigator.clipboard.writeText(text);
         }
     </script>
 </body>
