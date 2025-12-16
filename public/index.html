@@ -3626,7 +3626,14 @@
             if (aba == 'Rotinas' && celulas[0].getAttribute('dados')) {
                 if (celulas[0].getAttribute('dados').includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
                     let qth = celulas[0].getAttribute('dados').split('-()-')[0];
-                    let qth_certo = qth.replace('DEM ', '').replace('OS ', '');
+                    let qth_certo;
+                    if(qth.startsWith('DEM ')) {
+                        qth_certo = qth.replace('DEM ','');
+                    } else if (qth.startsWith('OS ')) {
+                        qth_certo = qth.replace('OS ','');
+                    } else {
+                        qth_certo = qth;
+                    }
                     texto = `${celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim().replace(',', '')).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim().replace(',', '')).replace(qth, qth_certo)}`;
                 } else {
                     texto = `${celulas[0].getAttribute('dados')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()-`;
