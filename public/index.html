@@ -3634,6 +3634,9 @@
                     } else {
                         qth_certo = qth;
                     }
+                    if(!localStorage.getItem('qth').includes(qth_certo.trim())) {
+                        qth_certo = '';
+                    }
                     texto = `${celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim().replace(',', '')).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim().replace(',', '')).replace(qth, qth_certo)}`;
                 } else {
                     texto = `${celulas[0].getAttribute('dados')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()-`;
