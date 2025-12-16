@@ -4446,7 +4446,12 @@ ${samu}`
                     tipo_local = 'Via urbana';
                 } else {
                     let qths = localStorage.getItem('qth').split('-++-');
-                    tipo_local = qths.find(item => item.split('-()-')[1]?.trim() == dados[4].innerText.trim()).split('-()-')[2].trim();
+                    tipo_local = qths.find(item => item.split('-()-')[1]?.trim() == dados[4].innerText.trim());
+                    if(tipo_local) {
+                        tipo_local = tipo_local.split('-()-')[2].trim();
+                    } else {
+                        tipo_local = 'Via urbana';
+                    }
                     qth = 'OS ' + dados[4].innerText.trim();
                 }
                 narrativa = dados[1].innerText + '\n' + dados[2].innerText;
