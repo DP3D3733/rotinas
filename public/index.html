@@ -1585,6 +1585,16 @@
                                         <input type="checkbox" class="custom-checkbox" onchange="selecionar_tudo(this)">
                                         <span class="checkmark"></span>
                                     </label>
+                                    <svg class="borracha" onclick="excluir_selecionados()"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
+                                        <g id="surface1">
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
+                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
+                                                d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
+                                        </g>
+                                    </svg>
                                     <svg class="duplicar" onclick="duplicar_selecionados()" version="1.0"
                                         xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"
                                         viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
@@ -3627,14 +3637,14 @@
                 if (celulas[0].getAttribute('dados').includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
                     let qth = celulas[0].getAttribute('dados').split('-()-')[0];
                     let qth_certo;
-                    if(qth.startsWith('DEM ')) {
-                        qth_certo = qth.replace('DEM ','');
+                    if (qth.startsWith('DEM ')) {
+                        qth_certo = qth.replace('DEM ', '');
                     } else if (qth.startsWith('OS ')) {
-                        qth_certo = qth.replace('OS ','');
+                        qth_certo = qth.replace('OS ', '');
                     } else {
                         qth_certo = qth;
                     }
-                    if(!localStorage.getItem('qth').includes(qth_certo.trim())) {
+                    if (!localStorage.getItem('qth').includes(qth_certo.trim()) && !qth.startsWith('OS ')) {
                         qth_certo = '';
                     }
                     texto = `${celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim().replace(',', '')).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim().replace(',', '')).replace(qth, qth_certo)}`;
@@ -4013,7 +4023,7 @@ ${samu}`
                 if (localStorage.getItem('ordem_tabelas').split('-()-')[2].includes('copiar_selecionados')) {
                     document.querySelector('#equipes_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[2];
                 }
-                if (localStorage.getItem('ordem_tabelas').split('-()-')[3] && localStorage.getItem('ordem_tabelas').split('-()-')[3].includes('QTH/P REF')) {
+                if (localStorage.getItem('ordem_tabelas').split('-()-')[3] && localStorage.getItem('ordem_tabelas').split('-()-')[3].includes('excluir_selecionados')) {
                     document.querySelector('#os_table thead').innerHTML = localStorage.getItem('ordem_tabelas').split('-()-')[3];
                 }
             }
@@ -4457,7 +4467,7 @@ ${samu}`
                 } else {
                     let qths = localStorage.getItem('qth').split('-++-');
                     tipo_local = qths.find(item => item.split('-()-')[1]?.trim() == dados[4].innerText.trim());
-                    if(tipo_local) {
+                    if (tipo_local) {
                         tipo_local = tipo_local.split('-()-')[2].trim();
                     } else {
                         tipo_local = 'Via urbana';
@@ -4517,10 +4527,6 @@ ${samu}`
             let confirmacao = todos || confirm(`Você realmente deseja excluir o registro:\n${celulas[1]?.innerText} - ${celulas[2]?.innerText} - ${celulas[3]?.innerText} - ${celulas[4]?.innerText}?`);
             if (!confirmacao) return;
 
-            const removerLinhaVisual = () => {
-                row.remove();
-            }
-
             const atualizarFirestore = async (colecao, docId) => {
                 let docRef;
                 if (document.getElementById('modal_msg_rapida').style.display == 'block') {
@@ -4529,12 +4535,12 @@ ${samu}`
                     docRef = db.collection(colecao).doc(docId);
                 }
                 const snapshot = await docRef.get();
-                if (!snapshot.exists) return removerLinhaVisual();
+                if (!snapshot.exists) return true;
 
                 const dados = snapshot.data();
                 const dadosStr = JSON.stringify(dados);
 
-                if (!dadosStr.includes(id)) return removerLinhaVisual();
+                if (!dadosStr.includes(id)) return true;
 
                 const inicio = dadosStr.indexOf(id);
                 const fim = dadosStr.indexOf('-++-', inicio);
@@ -4546,7 +4552,7 @@ ${samu}`
                     await docRef.set(dadosAtualizados);
                     sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dadosAtualizados));
 
-                    removerLinhaVisual();
+                    return true;
                 } catch (e) {
                     console.error("Erro ao atualizar Firestore:", e);
                 }
@@ -4556,17 +4562,20 @@ ${samu}`
                 const [dia, mes, anoRaw] = celulas[5].innerText.split('/');
                 const ano = anoRaw.split(',')[0];
                 const data = new Date(ano, parseInt(mes) - 1, parseInt(dia));
-                await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+                const bancoAtualizado = await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+                if (bancoAtualizado) document.querySelector(`#${aba.toLowerCase()} [name="${id}"]`)?.remove();
             } else if (aba === 'Chamadas' || aba === 'OS') {
                 const timestamp = parseInt(id.split('-**-')[1]);
                 const data = new Date(new Date(timestamp).toDateString()); // normaliza para YYYY-MM-DD
-                await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+                const bancoAtualizado = await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+                if (bancoAtualizado) document.querySelector(`#${aba.toLowerCase()} [name="${id}"]`)?.remove();
             } else if (aba === 'Setores') {
-                await atualizarFirestore('dados_fixos', 'qth');
+                const bancoAtualizado = await atualizarFirestore('dados_fixos', 'qth');
+                if (bancoAtualizado) document.querySelector(`#${aba.toLowerCase()} [name="${id}"]`)?.remove();
             } else {
                 celulas[1]?.focus();
                 celulas[1]?.blur();
-                removerLinhaVisual();
+                document.querySelector(`#${aba.toLowerCase()} [name="${id}"]`)?.remove();
             }
         }
 
@@ -4636,11 +4645,13 @@ ${samu}`
                 } else if (aba === 'chamadas') {
                     const qtr = tr.querySelectorAll('td')[9].innerText;
                     return checkbox && checkbox.checked && qtr != '';
+                } else if (aba === 'os') {
+                    return checkbox && checkbox.checked;
                 }
 
 
             });
-
+            console.log(linhasSelecionadas);
             if (!linhasSelecionadas.length) return;
 
             // Agrupar por docId
@@ -4655,8 +4666,8 @@ ${samu}`
                     const [d, m, yRaw] = celulas[5].innerText.split('/');
                     const y = yRaw.split(',')[0];
                     docId = new Date(y, parseInt(m) - 1, parseInt(d)).toISOString();
-                } else if (aba === 'chamadas') {
-                    const timestamp = parseInt(id);
+                } else if (aba === 'chamadas' || aba == 'os') {
+                    const timestamp = parseInt(id.split('-**-')[1]);
                     docId = new Date(new Date(timestamp).toDateString()).toISOString();
                 } else {
                     tr.remove(); // Para 'setores' ou outros
@@ -4698,7 +4709,6 @@ ${samu}`
             });
 
             await Promise.all(promises);
-            document.querySelector(`#${aba}_table label[class="checkbox-wrapper"]`).click();
         }
 
         function abrir_legislacao_modal() {
