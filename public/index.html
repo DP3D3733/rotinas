@@ -3096,6 +3096,7 @@
 
 
             } else if (aba == 'chamadas') {
+                let registros = [];
                 let l_chamadas = document.querySelectorAll('#chamadas_table tbody tr');
                 for (let index = 0; index < l_chamadas.length - 1; index++) {
                     l_chamadas[index].remove();
@@ -3153,8 +3154,20 @@
                         });
 
 
-
                         document.querySelector('#chamadas_table tbody').insertAdjacentHTML('afterbegin', linhas);
+                        const rg = Array.from(document.querySelectorAll('#chamadas_table tbody tr')).map(r => r.getAttribute('name')).filter(r => !r.includes(JSON.parse(sessionStorage.getItem('usuario_logado')).nome));
+                        if (registros.length == 0) {
+                            registros.push(...rg);
+                        } else {
+                            const novosRg = rg.filter(r => !registros.includes(r));
+                            if (novosRg.length > 0) {
+                                const dados = document.querySelectorAll(`#chamadas ${novosRg[0]} td`)
+                                const mensagem = `Nova chamada: ${dados[4].innerText} - ${dados[5].innerText}`;
+                                notificar(mensagem);
+                                registros.push(...novosRg);
+                            }
+                        }
+
                         window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                         th = document.querySelector('#chamadas_table th[asc],#chamadas_table th[desc]');
                         if (th) {
@@ -4832,6 +4845,26 @@ ${samu}`
             }
             navigator.clipboard.writeText(text);
         }
+
+        async function notificar(mensagem) {
+
+            // Se o usuário ainda não decidiu
+            if (Notification.permission === "default") {
+                const permissao = await Notification.requestPermission();
+
+                if (permissao !== "granted") {
+                    return; // não insiste
+                }
+            }
+
+            // Se já estiver liberado
+            if (Notification.permission === "granted") {
+                new Notification("Rotinas / Chamadas", {
+                    body: mensagem,
+                });
+            }
+        }
+
     </script>
 </body>
 
