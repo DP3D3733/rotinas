@@ -3161,7 +3161,7 @@
                         } else {
                             const novosRg = rg.filter(r => !registros.includes(r));
                             if (novosRg.length > 0) {
-                                const dados = document.querySelectorAll(`#chamadas ${novosRg[0]} td`)
+                                const dados = document.querySelectorAll(`#chamadas [name="${novosRg[0]}"] td`)
                                 const mensagem = `Nova chamada: ${dados[4].innerText} - ${dados[5].innerText}`;
                                 notificar(mensagem);
                                 registros.push(...novosRg);
