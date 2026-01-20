@@ -1101,7 +1101,10 @@
                                 </span>
                             </td>
                             <td>
-
+                                <div>
+                                    <button id="codigos_button"
+                                        onclick="abrir_legislacao_modal('códigos')">Códigos</button>
+                                </div>
                             </td>
                             <td>
 
@@ -1234,7 +1237,8 @@
                     </tbody>
                 </table>
                 <div>
-                    <button id="legislacao_button" onclick="abrir_legislacao_modal()">Legislação Aplicada</button>
+                    <button id="legislacao_button" onclick="abrir_legislacao_modal('legislacao')">Legislação
+                        Aplicada</button>
                 </div>
             </div>
             <div id="resumo_chamadas" class="tabela_filtros">
@@ -1733,7 +1737,85 @@
         <ul id="options-list"></ul>
     </div>
     </div>
-    <!-- Estrutura do modal -->
+    <div id="modalCodigos" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fechar_modal()">&times;</span>
+            <h2>CÓDIGOS</h2>
+            <ul>
+                <li>001 Abastecimento (da Viatura)</li>
+                <li>004 Ato obsceno</li>
+                <li>005 Roubo</li>
+                <li>006 Teste</li>
+                <li>009 Acidente automobilístico com danos materiais</li>
+                <li>010 Acidente automobilístico com lesões</li>
+                <li>011 Pessoa embriagada</li>
+                <li>012 Desordem</li>
+                <li>017 Dano</li>
+                <li>018 Pessoa com problemas mentais</li>
+                <li>020 Averiguação</li>
+                <li>021 Vigilância Fixa (local)</li>
+                <li>023 Agressão</li>
+                <li>025 Incêndio</li>
+                <li>027 Furto de veículo</li>
+                <li>028 Furto simples</li>
+                <li>030 Encontro de cadáver</li>
+                <li>035 Encaminhamento / condução de menor</li>
+                <li>036 Alteração no plantão de serviço</li>
+                <li>040 Patrulhamento</li>
+                <li>044 Assistência</li>
+                <li>045 Composição e orientação de partes</li>
+                <li>046 Pessoa presa / pessoa com mandado de prisão em aberto</li>
+                <li>049 Furto qualificado</li>
+                <li>050 Inspeção no local</li>
+                <li>053 Tóxicos </li>
+                <li>055 Parada de base</li>
+                <li>060 Escolta</li>
+                <li>061 Atividade de planejamento de segurança</li>
+                <li>062 Atividades no local (evento, aulas, reuniões etc</li>
+                <li>063 Atendimento de ocorrência</li>
+                <li>064 Trânsito congestionado</li>
+                <li>066 Solicitação de apoio ou reforço</li>
+                <li>068 Porte ilegal de arma ou a própria arma de fogo)</li>
+                <li>072 Deslocamento de GM, deslocamento da guarnição</li>
+                <li>075 Convocação de Guarda Municipal</li>
+                <li>079 Abandono (por parte do GM) do local de serviço (setor)</li>
+                <li>081 Disparo com arma de fogo</li>
+                <li>083 Arrombamento</li>
+                <li>084 Pessoa ferida com arma de fogo</li>
+                <li>088 Substituição de senha máster</li>
+                <li>089 Cadastro de usuário no sistema de alarme</li>
+                <li>090 Solicitação de manutenção</li>
+                <li>091 Em manutenção</li>
+                <li>092 Manutenção concluída</li>
+                <li>093 Sem alteração</li>
+                <li>094 Término da inspeção ou patrulhamento</li>
+                <li>096 Sistema de alarme em falha de comunicação ou inoperante</li>
+                <li>097 Sistema de alarme desligado</li>
+                <li>098 Sistema de alarme ligado</li>
+                <li>099 Violação no sistema de alarme</li>
+                <li>101 Reunião</li>
+                <li>104 Pagamento de material</li>
+                <li>107 Falta de energia elétrica ou bateria</li>
+                <li>108 Denúncia</li>
+                <li>111 Invasão de área</li>
+                <li>112 Ameaça (morte ou agressão)</li>
+                <li>113 Manifestação pública</li>
+                <li>114 Falta de linha telefônica no local</li>
+                <li>116 Abordagem</li>
+                <li>117 Apoios de outros órgãos (PC, Bombeiros, BM, Defesa Civil)</li>
+                <li>119 Rendição (passagem de serviço)</li>
+                <li>148 Falta de energia elétrica</li>
+                <li>150 Falta de comunicação via rádio ou telefone</li>
+                <li>153 Pichação</li>
+                <li>201 GM em falta</li>
+                <li>203 GM em atraso</li>
+                <li>213 Animais no interior do local / instalações</li>
+                <li>220 Senha máster (sistema de alarme)</li>
+                <li>268 Guarnição fora da área de atuação</li>
+                <li>366 Ação Conjunta / Ação Integrada</li>
+            </ul>
+        </div>
+    </div>
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="fechar_modal()">&times;</span>
@@ -4724,15 +4806,15 @@ ${samu}`
             await Promise.all(promises);
         }
 
-        function abrir_legislacao_modal() {
-            const modal = document.querySelector('#modal');
-            modal.style.display = 'block';
-
+        function abrir_legislacao_modal(modal) {
+            if (modal == 'legislacao') { document.querySelector('#modal').style.display = 'block'; }
+            else { document.querySelector('#modalCodigos').style.display = 'block'; }
         }
 
         function fechar_modal() {
             document.querySelector('#modal').style.display = 'none';
             document.querySelector('#modal_msg_rapida').style.display = 'none';
+            document.querySelector('#modalCodigos').style.display = 'none';
         }
 
         function abrir_filtro_avancado(tabela) {
