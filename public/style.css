@@ -1,0 +1,966 @@
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 320px;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.login-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+/* Botões superiores */
+div>button {
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin-right: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Filtros */
+.tabela_filtros {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#resumo_chamadas table {
+    width: 100%;
+    table-layout: fixed;
+    /* 👈 força as colunas a se distribuírem igualmente */
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.tabela_filtros table td {
+    padding: 10px;
+}
+
+
+#seleciona_periodo_absoluto,
+#seleciona_periodo_relativo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#seleciona_periodo_absoluto:hover,
+#seleciona_periodo_relativo:hover {
+    background-color: #f0f0f0;
+}
+
+#seleciona_periodo_absoluto input[type="radio"],
+#seleciona_periodo_relativo input[type="radio"] {
+    cursor: pointer;
+}
+
+#seleciona_periodo_absoluto div,
+#seleciona_periodo_relativo div {
+    display: flex;
+    gap: 10px;
+}
+
+#seleciona_periodo_absoluto input[type="datetime-local"],
+#seleciona_periodo_relativo input,
+#seleciona_periodo_relativo select,
+#num_pregistros_rotinas {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#num_periodo_relativo,
+#num_pregistros_rotinas {
+    width: 35px;
+}
+
+.tabela_filtros input[type*="date"],
+.tabela_filtros button {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.tabela_filtros button {
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.32;
+    color: black;
+}
+
+.tabela_filtros button:hover {
+    background-color: #ffffff;
+}
+
+.tabela_filtros div:not([class="dropdown-content"]) {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.tabela_filtros input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.tabela_filtros input[readonly],
+.tabela_filtros select[readonly] {
+    background-color: #ebe9e9;
+    /* cor de fundo típica de disabled */
+    color: #b4b4b4;
+    /* cursor padrão de disabled */
+    pointer-events: none;
+}
+
+/* Tabela de rotinas */
+.tabela_dados {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 4px;
+    min-width: 160px;
+    z-index: 999;
+    top: 25px;
+}
+
+.dropdown-content label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.dropdown.show .dropdown-content {
+    display: block;
+}
+
+body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar,
+body:not(.dark-mode).modal-content::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-track,
+body:not(.dark-mode).modal-content::-webkit-scrollbar-track {
+    background: #b1b1b146;
+}
+
+body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-thumb,
+body:not(.dark-mode).modal-content::-webkit-scrollbar-thumb {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+}
+
+body:not(.dark-mode) .div_tabela_registros::-webkit-scrollbar-thumb:hover,
+body:not(.dark-mode).modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+/* Fundo escuro semi-transparente */
+.modal {
+    display: none;
+    /* Escondido por padrão */
+    position: fixed;
+    /* Fica sobre toda a tela */
+    z-index: 1000;
+    /* Sobre outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Scroll se o conteúdo for grande */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fundo semi-transparente */
+}
+
+/* Caixa do conteúdo */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    /* 10% do topo, centralizado horizontalmente */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    /* Largura do modal */
+    max-width: 80%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    max-height: 60%;
+}
+
+/* Botão de fechar (X) */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Container de botões no rodapé */
+.botoes_rodape {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Botão Cancelar */
+.botoes_rodape_cancelar {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.botoes_rodape_cancelar:hover {
+    background-color: #e0e0e0;
+}
+
+/* Botão Confirmar */
+.botoes_rodape_confirmar {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.botoes_rodape_confirmar:hover {
+    background-color: #0056b3;
+}
+
+details {
+    background: #fff;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+details[open] {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+summary {
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding-left: 28px;
+    user-select: none;
+    list-style: none;
+}
+
+/* Custom arrow */
+summary::before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    color: #0078d4;
+}
+
+details[open]>summary::before {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+body:not(.dark-mode) .tabela_dados {
+    background: white;
+}
+
+body:not(.dark-mode) .tabela_dados tr:nth-child(even) {
+    background-color: #fffafa;
+}
+
+body:not(.dark-mode) .tabela_dados tr:hover {
+    background-color: #eceaea;
+}
+
+.tabela_dados th,
+.tabela_dados td {
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+body:not(.dark-mode) .tabela_dados th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-top: 5px;
+    /* ou maior se tiver sombras */
+    background-color: #f0f0f0;
+    font-weight: bold;
+
+}
+
+body.dark-mode .tabela_dados th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-top: 5px;
+    /* ou maior se tiver sombras */
+    font-weight: bold;
+
+}
+
+body:not(.dark-mode) .tabela_dados td[contenteditable="true"]:focus {
+    background-color: #ffffcc;
+    outline: 2px solid #ffc107;
+}
+
+th.sortable {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+}
+
+th.sortable::after {
+    content: '⇅';
+    font-size: 0.8em;
+    position: absolute;
+    right: 8px;
+    color: #999;
+}
+
+th.sortable:hover::after {
+    color: #333;
+}
+
+th.sorted-asc::after {
+    content: '↑';
+    color: #000;
+}
+
+th.sorted-desc::after {
+    content: '↓';
+    color: #000;
+}
+
+th.sortable:hover::after {
+    color: #d4d4d4;
+}
+
+th.sorted-asc::after {
+    content: '↑';
+    color: #d4d4d4;
+}
+
+th.sorted-desc::after {
+    content: '↓';
+    color: #d4d4d4;
+}
+
+#options-list {
+    display: none;
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto
+}
+
+
+body.dark-mode #options-list {
+    border: 1px solid #ccc;
+    background: #000;
+}
+
+.selecionado {
+    background-color: rgb(224, 223, 223);
+}
+
+body.dark-mode .selecionado {
+    background-color: rgb(43, 42, 42);
+}
+
+#options-list li:hover {
+    background-color: rgb(194, 194, 194);
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.tab-button {
+    background-color: #f4f4f4;
+    border: none;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 10px 16px;
+    margin-right: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    transition: background-color 0.3s, color 0.3s;
+    color: black;
+}
+
+.tab-button:hover {
+    background-color: #e0e0e0;
+}
+
+.tab-button.ativo {
+    background-color: white;
+    color: #007bff;
+    border-bottom: 2px solid white;
+}
+
+svg:hover {
+    cursor: pointer;
+}
+
+body.dark-mode svg.copiar {
+    stroke: white;
+}
+
+.copiar:hover path,
+.copiar:hover rect,
+.copiar_clicado:hover path,
+.copiar_clicado:hover rect {
+    fill: #ffc107;
+}
+
+.copiar_clicado path,
+.copiar_clicado rect {
+    fill: #21e232;
+}
+
+body.dark-mode .copiar_clicado path,
+body.dark-mode .copiar_clicado rect {
+    fill: #21e232;
+    stroke: white
+}
+
+.borracha:hover path,
+body.dark-mode .borracha:hover path {
+    fill: red;
+}
+
+body.dark-mode .borracha path {
+    fill: white;
+}
+
+body.dark-mode .empenhar path {
+    fill: rgb(248, 248, 248);
+}
+
+.empenhar:hover path {
+    fill: rgb(33, 16, 133) !important;
+}
+
+.msg_rapida:hover path {
+    fill: yellow;
+}
+
+body.dark-mode .msg_rapida path {
+    fill: rgb(255, 255, 255);
+}
+
+.copiado-msg {
+    position: absolute;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    animation: fadeOut 2s forwards;
+    top: -30px;
+    left: 90%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    opacity: 0;
+}
+
+@keyframes fadeOut {
+    0% {
+opacity: 1;
+    }
+
+    80% {
+opacity: 1;
+    }
+
+    100% {
+opacity: 0;
+    }
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Esconde o checkbox nativo */
+.custom-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Container */
+.checkbox-wrapper {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Caixa customizada */
+.checkmark {
+    margin-top: 2px;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #4d4c4c;
+    /* ← Aqui você controla a grossura */
+    border-radius: 3px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: white;
+}
+
+/* Check (✓) mais grosso */
+.custom-checkbox:checked+.checkmark::after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: -1px;
+    width: 3px;
+    height: 7px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    /* ← Traço do check */
+    transform: rotate(45deg);
+}
+
+.custom-checkbox:checked+.checkmark {
+    background-color: #007bff;
+    /* azul */
+    border-color: #007bff;
+}
+
+.div_tabela_registros {
+    max-height: 70vh;
+    overflow: auto;
+}
+
+#chamadas .div_tabela_registros {
+    max-height: 62vh;
+}
+
+body.dark-mode {
+    background-color: #181818;
+    color: #e0e0e0;
+}
+
+/* Botões superiores */
+body.dark-mode div>button {
+    background-color: #1f6feb;
+    color: white;
+}
+
+body.dark-mode div>button:hover {
+    background-color: #104bb3;
+}
+
+/* Filtros */
+body.dark-mode .tabela_filtros {
+    background: #2c2c2c;
+    box-shadow: none;
+}
+
+body.dark-mode .tabela_filtros input[type*="date"],
+body.dark-mode .tabela_filtros button,
+body.dark-mode #seleciona_periodo_absoluto,
+body.dark-mode #seleciona_periodo_relativo,
+body.dark-mode #seleciona_periodo_relativo input,
+body.dark-mode #seleciona_periodo_relativo select,
+body.dark-mode #num_pregistros_rotinas {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode .tabela_filtros input[readonly],
+body.dark-mode .tabela_filtros select[readonly] {
+    background-color: #363636;
+    /* cor de fundo típica de disabled */
+    color: #504f4f;
+    /* cursor padrão de disabled */
+    pointer-events: none;
+}
+
+body.dark-mode .tabela_filtros button:hover {
+    background-color: #333;
+}
+
+/* Tabelas */
+body.dark-mode table {
+    background: #252525;
+    color: #ddd;
+    border-color: #444;
+}
+
+body.dark-mode table td,
+body.dark-mode table th {
+    border-color: #444;
+}
+
+body.dark-mode tr:nth-child(even) {
+    background-color: #1f1f1f;
+}
+
+body.dark-mode tr:hover {
+    background-color: #333;
+}
+
+body.dark-mode th {
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+body.dark-mode .dropdown-content {
+    background: #2c2c2c;
+    border: 1px solid #444;
+}
+
+body.dark-mode .div_tabela_registros::-webkit-scrollbar,
+body.dark-mode .modal-content::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body.dark-mode .div_tabela_registros::-webkit-scrollbar-track,
+body.dark-mode .modal-content::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+body.dark-mode .div_tabela_registros::-webkit-scrollbar-thumb,
+body.dark-mode .modal-content::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    border: 2px solid #1a1a1a;
+}
+
+body.dark-mode .div_tabela_registros::-webkit-scrollbar-thumb:hover,
+body.dark-mode .modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+
+
+/* Tabs */
+body.dark-mode .tab-button {
+    background-color: #222;
+    color: #ccc;
+    border-color: #444;
+}
+
+body.dark-mode .tab-button:hover {
+    background-color: #2d2d2d;
+}
+
+body.dark-mode .tab-button.ativo {
+    background-color: #333;
+    color: #4ea5ff;
+    border-color: #444;
+}
+
+/* Inputs */
+body.dark-mode input[type="text"] {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode input[type="text"]:focus {
+    border-color: #4ea5ff;
+    box-shadow: 0 0 0 3px rgba(78, 165, 255, 0.3);
+}
+
+/* Checkbox customizado */
+body.dark-mode .checkmark {
+    border-color: #888;
+    background-color: #1a1a1a;
+}
+
+body.dark-mode .custom-checkbox:checked+.checkmark {
+    background-color: #4ea5ff;
+    border-color: #4ea5ff;
+}
+
+/* Copiado msg */
+body.dark-mode .copiado-msg {
+    background-color: #4ea5ff;
+}
+
+/* SVGs (ícones) */
+body.dark-mode svg:hover path,
+body.dark-mode svg:hover rect {
+    fill: #ffc107;
+}
+
+/* Selecao e hover */
+body.dark-mode .selecionado {
+    background-color: #303030;
+}
+
+body.dark-mode #options-list li:hover {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    box-shadow: none;
+}
+
+body.dark-mode .login-container h2,
+body.dark-mode .form-group label {
+    color: #e0e0e0;
+}
+
+body.dark-mode .form-group input {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode .form-group input:focus {
+    border-color: #4ea5ff;
+    box-shadow: 0 0 0 3px rgba(78, 165, 255, 0.3);
+}
+
+body.dark-mode .login-button {
+    background-color: #1f6feb;
+    color: white;
+}
+
+body.dark-mode .login-button:hover {
+    background-color: #104bb3;
+}
+
+body.dark-mode .selecionar path {
+    fill: white;
+}
+
+body.dark-mode .login-footer {
+    color: #aaa;
+}
+
+body.dark-mode .login-footer a {
+    color: #4ea5ff;
+}
+
+body.dark-mode .login-footer a:hover {
+    color: #73b4ff;
+}
+
+#toggle-dark-mode {
+    background-color: #00000000;
+    position: fixed;
+    right: 15px;
+    border: 0;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 5px
+}
+
+#toggle-dark-mode:hover {
+    cursor: pointer;
+    background-color: #6e6e6e7e;
+}
+
+#logout {
+    background-color: #00000000;
+    position: fixed;
+    right: 55px;
+    margin-top: 5px;
+    border: 0;
+    font-size: 20px;
+    color: #d80909;
+    border-radius: 50%;
+    padding: 5px
+}
+
+#logout:hover {
+    cursor: pointer;
+    background-color: #6e6e6e7e;
+}
+
+#saudacoes {
+    position: fixed;
+    right: 85px;
+    margin-top: 6px;
+    border: 0;
+    font-size: 15px;
+    color: #000000;
+    border-radius: 50%;
+    padding: 5px
+}
+
+
+
+/* Caixa do conteúdo */
+body.dark-mode .modal-content {
+    background-color: #252525;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode details {
+    background: #1e1e1e;
+    border: 1, 5px solid #555;
+}
+
+body.dark-mode #saudacoes {
+    color: #ffffff;
+}
+
+details[open] {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.selection-box {
+    position: absolute;
+    border: 2px #007bff;
+    background: rgba(0, 123, 255, 0.2);
+    pointer-events: none;
+}
+
+.selected {
+    background: #007bff;
+}
+
