@@ -2475,7 +2475,6 @@ function copiar_resumo_chamadas() {
 }
 
 async function notificar(mensagem) {
-    alert('a');
     // Se o usuário ainda não decidiu
     if (Notification.permission === "default") {
         const permissao = await Notification.requestPermission();
