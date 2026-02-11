@@ -1264,7 +1264,7 @@ function horario_final(celula) {
 
 function atendente(celula) {
     if (celula.innerText == '' || celula.innerText == '\n') {
-        celula.innerText = `GM ${JSON.parse(sessionStorage.getItem('usuario_logado')).nome.toUpperCase()}`;
+        celula.innerText = `GCM ${JSON.parse(sessionStorage.getItem('usuario_logado')).nome.toUpperCase()}`;
     }
 }
 
