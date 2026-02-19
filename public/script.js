@@ -1216,6 +1216,11 @@ function updateOptions(td, filter, list) {
                 }
             }
         });
+        if (document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas') {
+            const chamadas = buscarChamadas();
+            const os = buscarOS();
+            options = options.concat(chamadas, os);
+        }
     } else if (list == 4) {
         options = JSON.parse(localStorage.getItem('naturezas')).naturezas.split('-()-').sort();
     } else if (list == 5) {
@@ -1229,21 +1234,91 @@ function updateOptions(td, filter, list) {
     }
     options = options.sort();
     optionsList.innerHTML = "";
-    options.filter(opt => opt.toLowerCase().includes(filter)).forEach(opt => {
+    options = options.filter(opt => filter.split(' ').every(f => opt.toLowerCase().includes(f)));
+    ordenarPorRelevancia(options, filter).forEach(opt => {
         const li = document.createElement("li");
         li.textContent = opt;
         li.style.padding = "5px";
         li.style.cursor = "pointer";
         li.onclick = () => {
-            optionsList.targetTd.innerText = opt;
-            optionsList.targetTd.focus();
-            optionsList.targetTd.dispatchEvent(new Event('input', { bubbles: true }));
-
-            optionsList.style.display = "none";
+            if (opt.startsWith('DEM ') || opt.startsWith('OS ')) {
+                const campos = opt.split(' - ');
+                const id = campos.pop();
+                const qualAba = opt.startsWith('DEM ') ? 'Chamadas' : 'OS';
+                const demanda = Array.from(document.querySelectorAll(`#${qualAba.toLowerCase()}_table tr`)).find(tr => tr.getAttribute('name') == id).querySelector('td');
+                const dados = empenhar_gu(demanda, qualAba);
+                if (opt.startsWith('DEM ')) {
+                    optionsList.targetTd.innerText = localStorage.getItem('qth').includes(campos[1]) ? `DEM ${campos[1]}` : `${campos[0]}`;
+                    optionsList.targetTd.nextElementSibling.innerText = campos[1];
+                } else {
+                    optionsList.targetTd.innerText = campos[2] != '' ? `OS ${campos[2]}` : `${campos[0]}`;
+                    optionsList.targetTd.nextElementSibling.innerText = campos[3];
+                }
+                const linha = Array.from(document.querySelectorAll('#rotinas_table tbody tr')).find(tr => tr.getAttribute('name') == optionsList.targetTd.parentNode.getAttribute('name')).querySelector('td');
+                linha.setAttribute('dados', dados);
+            } else {
+                optionsList.targetTd.innerText = opt;
+                optionsList.targetTd.focus();
+                optionsList.targetTd.dispatchEvent(new Event('input', { bubbles: true }));
+                optionsList.style.display = "none";
+            }
         };
         optionsList.appendChild(li);
     });
+
+
     optionsList.querySelector('li')?.classList.add('selecionado');
+}
+
+function ordenarPorRelevancia(array, termo) {
+    const t = termo.toLowerCase();
+
+    return array
+        .slice() // não altera o original
+        .sort((a, b) => {
+            const aLower = a.toLowerCase();
+            const bLower = b.toLowerCase();
+
+            const score = (str) => {
+                if (str === t) return 0;           // igual
+                if (str.startsWith(t)) return 1;   // começa com
+                return 2;                          // resto
+            };
+
+            const diff = score(aLower) - score(bLower);
+            if (diff !== 0) return diff;
+
+            // desempate alfabético
+            return aLower.localeCompare(bLower);
+        });
+}
+
+function buscarChamadas() {
+    const chamadas = Array.from(document.querySelectorAll('#chamadas_table tbody tr')).map(chamada => {
+        const id = chamada.getAttribute('name');
+        const natureza = chamada.querySelectorAll('td')[4].innerText;
+        const endereco = chamada.querySelectorAll('td')[5].innerText;
+        const area = chamada.querySelectorAll('td')[7].innerText;
+        const horario = chamada.querySelectorAll('td')[9].innerText;
+
+        return `DEM ${escaparHTML(natureza).replaceAll('\n', '')} - ${escaparHTML(endereco).replaceAll('\n', '')} - ${escaparHTML(area).replaceAll('\n', '')} - ${escaparHTML(horario).replaceAll('\n', '')} - ${escaparHTML(id).replaceAll('\n', '')}`;
+    });
+    return chamadas;
+}
+
+function buscarOS() {
+    const demandasOS = Array.from(document.querySelectorAll('#os_table tbody tr')).map(item => {
+        const id = item.getAttribute('name');
+        const demanda = item.querySelectorAll('td')[1].innerText;
+        const natureza = item.querySelectorAll('td')[3].innerText;
+        const qth = item.querySelectorAll('td')[4].innerText;
+        const endereco = item.querySelectorAll('td')[5].innerText;
+        const gu = item.querySelectorAll('td')[6].innerText;
+        const horario = item.querySelectorAll('td')[7].innerText;
+
+        return `OS ${escaparHTML(demanda).replaceAll('\n', '')} - ${escaparHTML(natureza).replaceAll('\n', '')} - ${escaparHTML(qth).replaceAll('\n', '')} - ${escaparHTML(endereco).replaceAll('\n', '')} - ${escaparHTML(gu).replaceAll('\n', '')} - ${escaparHTML(horario).replaceAll('\n', '')} - ${escaparHTML(id).replaceAll('\n', '')}`;
+    });
+    return demandasOS;
 }
 
 function horario_final(celula) {
@@ -2076,8 +2151,8 @@ function seleciona_periodo(tipo_periodo) {
     tipo_periodo.parentNode.querySelector('input:not([type=radio])').dispatchEvent(new Event('input', { bubbles: true }));
 }
 
-function empenhar_gu(demanda) {
-    const aba = document.querySelector('[class="tab-button ativo"]').innerText;
+function empenhar_gu(demanda, qualAba) {
+    const aba = qualAba || document.querySelector('[class="tab-button ativo"]').innerText;
     let dados = demanda.closest('tr').querySelectorAll('td');
     let id = JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime();
     let endereco, tipo_local, qth, narrativa, natureza, telefone, solicitante;
@@ -2115,12 +2190,13 @@ function empenhar_gu(demanda) {
             }
             qth = 'OS ' + dados[4].innerText.trim();
         }
-        narrativa = dados[1].innerText + '\n' + dados[2].innerText;
+        narrativa = dados[1].innerText.trim() + '\n' + dados[2].innerText.trim();
         natureza = dados[3].innerText;
         telefone = '';
         solicitante = '';
     }
-    let dados_demanda = `${qth}-()-${tipo_local}-()-${narrativa}-()-${endereco}-()-${natureza}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${telefone}-()-${solicitante}-++-`;
+    let dados_demanda = `${qth.trim()}-()-${tipo_local.trim()}-()-${escaparHTML(narrativa.trim())}-()-${endereco.trim()}-()-${natureza.trim()}-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-${telefone.trim()}-()-${solicitante.trim()}`;
+    if (qualAba) return dados_demanda;
     document.querySelector('button[class="tab-button"]').click();
     let linha = criar_linha('rotinas', [id, qth, tipo_local, narrativa, endereco, natureza, '', new Date().toLocaleString('pt-BR', {
         day: '2-digit',
