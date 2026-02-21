@@ -1234,7 +1234,7 @@ function updateOptions(td, filter, list) {
     }
     options = options.sort();
     optionsList.innerHTML = "";
-    options = options.filter(opt => filter.split(' ').every(f => opt.toLowerCase().includes(f)));
+    options = options.filter(opt => filter.split(' ').every(f => opt.toLowerCase().split('-**-')[0].includes(f)));
     ordenarPorRelevancia(options, filter).forEach(opt => {
         const li = document.createElement("li");
         li.textContent = opt;
@@ -1297,11 +1297,12 @@ function buscarChamadas() {
     const chamadas = Array.from(document.querySelectorAll('#chamadas_table tbody tr')).map(chamada => {
         const id = chamada.getAttribute('name');
         const natureza = chamada.querySelectorAll('td')[4].innerText;
-        const endereco = chamada.querySelectorAll('td')[5].innerText;
+        const enderecoCru = chamada.querySelectorAll('td')[5].innerText;
+        const enderecoPronto = enderecoCru.includes('Porto Alegre') ? enderecoCru.slice(0, enderecoCru.indexOf('Porto Alegre')) : enderecoCru;
         const area = chamada.querySelectorAll('td')[7].innerText;
         const horario = chamada.querySelectorAll('td')[9].innerText;
 
-        return `DEM ${escaparHTML(natureza).replaceAll('\n', '')} - ${escaparHTML(endereco).replaceAll('\n', '')} - ${escaparHTML(area).replaceAll('\n', '')} - ${escaparHTML(horario).replaceAll('\n', '')} - ${escaparHTML(id).replaceAll('\n', '')}`;
+        return `DEM ${escaparHTML(natureza).replaceAll('\n', '')} - ${escaparHTML(enderecoPronto).replaceAll('\n', '')} - ${escaparHTML(area).replaceAll('\n', '')} - ${escaparHTML(horario).replaceAll('\n', '')} - ${escaparHTML(id).replaceAll('\n', '')}`;
     });
     return chamadas;
 }
@@ -1312,11 +1313,12 @@ function buscarOS() {
         const demanda = item.querySelectorAll('td')[1].innerText;
         const natureza = item.querySelectorAll('td')[3].innerText;
         const qth = item.querySelectorAll('td')[4].innerText;
-        const endereco = item.querySelectorAll('td')[5].innerText;
+        const enderecoCru = item.querySelectorAll('td')[5].innerText;
+        const enderecoPronto = enderecoCru.includes('Porto Alegre') ? enderecoCru.slice(0, enderecoCru.indexOf('Porto Alegre')) : enderecoCru;
         const gu = item.querySelectorAll('td')[6].innerText;
         const horario = item.querySelectorAll('td')[7].innerText;
 
-        return `OS ${escaparHTML(demanda).replaceAll('\n', '')} - ${escaparHTML(natureza).replaceAll('\n', '')} - ${escaparHTML(qth).replaceAll('\n', '')} - ${escaparHTML(endereco).replaceAll('\n', '')} - ${escaparHTML(gu).replaceAll('\n', '')} - ${escaparHTML(horario).replaceAll('\n', '')} - ${escaparHTML(id).replaceAll('\n', '')}`;
+        return `OS ${escaparHTML(demanda).replaceAll('\n', '')} - ${escaparHTML(natureza).replaceAll('\n', '')} - ${escaparHTML(qth).replaceAll('\n', '')} - ${escaparHTML(enderecoPronto).replaceAll('\n', '')} - ${escaparHTML(gu).replaceAll('\n', '')} - ${escaparHTML(horario).replaceAll('\n', '')} - ${escaparHTML(id).replaceAll('\n', '')}`;
     });
     return demandasOS;
 }
