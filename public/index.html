@@ -496,7 +496,7 @@
                                     name="equipes_data_final" id="equipes_data_final">
                             </td>
                             <td>
-                                <div class="dropdown" id="filtro_areas">
+                                <div class="dropdown" id="filtro_areas_equipes">
                                     <button class="dropdown-button">Áreas</button>
                                     <div class="dropdown-content">
                                         <label><input type="checkbox" oninput="filtro_equipes_todas(this)" checked
@@ -603,6 +603,41 @@
                             <td>
                                 <input oninput="filtrar_dados('os')" type="datetime-local" name="os_data_final"
                                     id="os_data_final">
+                            </td>
+                            <td>
+                                <div class="dropdown" id="filtro_areas_os">
+                                    <button class="dropdown-button">Áreas</button>
+                                    <div class="dropdown-content">
+                                        <label><input type="checkbox" oninput="filtro_equipes_todas(this)" checked
+                                                value="Todas">Todas</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="200 Cruzeiro">200 Cruzeiro</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="300 Partenon">300 Partenon</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="400 Leste">400 Leste</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="500 Restinga">500 Restinga</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="600 Norte">600 Norte</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="700 Eixo Baltazar">700 Eixo Baltazar</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="800 Pinheiro">800 Pinheiro</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="900 Sul">900 Sul</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="1000 Romu">1000 Romu</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="1100 Patam">1100 Patam</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="1200 Centro">1200 Centro</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="Comando">Comando</label>
+                                        <label><input type="checkbox" oninput="filtro_equipes()" checked
+                                                value="cogm">COGM</label>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <label><input type="text" oninput="filtro_os()" value=""

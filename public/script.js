@@ -2032,25 +2032,28 @@ function filtro_equipes_todas(checkbox) {
 }
 
 function filtro_equipes() {
-    if (document.querySelector('#filtro_areas input:not([value=Todas]):not(:checked)')) {
-        document.querySelector('#filtro_areas input').checked = false;
+    const aba = document.querySelector('[class="tab-button ativo"]').innerText.toLowerCase();
+    if (document.querySelector(`#filtro_areas_${aba} input:not([value=Todas]):not(:checked)`)) {
+        document.querySelector(`#filtro_areas_${aba} input`).checked = false;
     } else {
-        document.querySelector('#filtro_areas input').checked = true;
+        document.querySelector(`#filtro_areas_${aba} input`).checked = true;
     }
-    if (document.querySelector('#filtro_tipo input:not([value=Todas]):not(:checked)')) {
-        document.querySelector('#filtro_tipo input').checked = false;
-    } else {
-        document.querySelector('#filtro_tipo input').checked = true;
+    if (aba == 'os') {
+        if (document.querySelector('#filtro_tipo input:not([value=Todas]):not(:checked)')) {
+            document.querySelector('#filtro_tipo input').checked = false;
+        } else {
+            document.querySelector('#filtro_tipo input').checked = true;
+        }
     }
-    const linhas = document.querySelectorAll('#equipes_table tbody tr');
+    const linhas = aba == 'equipes' ? document.querySelectorAll('#equipes_table tbody tr') : document.querySelectorAll('#os_table tbody tr');
     const areas = ['200 Cruzeiro', '300 Partenon', '400 Leste', '500 Restinga', '600 Norte', '700 Eixo Baltazar', '800 Pinheiro', '900 Sul', '1000 Romu', '1100 Patam', '1200 Centro', 'Comando', 'cogm'];
     const primeiro_char = ['2', '3', '4', '5', '6', '7', '8', '9', 'R', 'P', 'C', 'A', 'S'];
     let ultimo_registro = {};
     linhas.forEach(linha => {
         const id = linha.getAttribute('name');
-        const gu = linha.querySelectorAll('td')[2].innerText.trim();
+        const gu = aba == 'equipes' ? linha.querySelectorAll('td')[2].innerText.trim() : linha.querySelectorAll('td')[6].innerText.trim();
         const horario = linha.querySelectorAll('td')[1].innerText.trim().split(/[/,: ]+/);
-        if (!ultimo_registro[gu] || ultimo_registro[gu].time < new Date(horario[2], horario[1], horario[0], horario[3], horario[4]).getTime()) {
+        if (aba == 'equipes' && (!ultimo_registro[gu] || ultimo_registro[gu].time < new Date(horario[2], horario[1], horario[0], horario[3], horario[4]).getTime())) {
             ultimo_registro[gu] = {
                 'guarnicao': gu,
                 'time': new Date(horario[2], horario[1], horario[0], horario[3], horario[4]).getTime(),
@@ -2068,15 +2071,18 @@ function filtro_equipes() {
 
 
         //análise de área
-        const gu = linha.querySelectorAll('td')[2].innerText;
+        const gu = aba == 'equipes' ? linha.querySelectorAll('td')[2].innerText.trim() : linha.querySelectorAll('td')[6].innerText.trim();
         if (gu.includes('Dia') || gu.includes('Noite')) {
-            if (Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])[0]) {
-                areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])[0].checked;
+            if (Array.from(document.querySelectorAll(`#filtro_areas_${aba} input`)).find(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))])) {
+                areas_ativo = Array.from(document.querySelectorAll(`#filtro_areas_${aba} input`)).find(input => input.value == areas[primeiro_char.indexOf(gu.trim().substring(0, 1))]).checked;
+                if (aba == 'os' && areas_ativo) {
+                    linha.style.display = '';
+                }
             }
         } else {
-            areas_ativo = Array.from(document.querySelectorAll('#filtro_areas input')).filter(input => input.value == areas[primeiro_char.indexOf(gu.split('- ')[1].trim().substring(0, 1))])[0].checked;
+            areas_ativo = Array.from(document.querySelectorAll(`#filtro_areas_${aba} input`)).find(input => input.value == areas[primeiro_char.indexOf(gu.split('- ')[1]?.trim()?.substring(0, 1))])?.checked;
         }
-
+        if (aba == 'os') return;
 
         //análise do tipo
         const func_modelo = linha.querySelectorAll('td')[4].innerText;
