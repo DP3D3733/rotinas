@@ -874,12 +874,12 @@ function filtrar_dados(aba) {
                 const dados = doc.data();
 
                 let linhas = '';
-                document.querySelectorAll('#os_table tbody tr').forEach(linha => {
+                document.querySelectorAll('#os_table tbody tr:not(:last-child)').forEach(linha => {
                     let data_linha = new Date(linha.querySelectorAll('td')[6].innerText.split('/')[2]?.split(',')[0], linha.querySelectorAll('td')[6].innerText.split('/')[1] - 1, linha.querySelectorAll('td')[6].innerText.split('/')[0]);
                     if (!isNaN(data_linha.getTime())) {
                         data_linha = data_linha.toISOString();
                     }
-                    if (!JSON.stringify(dados).includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[6].innerText !== '' && dataStr == data_linha) {
+                    if (!JSON.stringify(dados).includes(linha.getAttribute('name'))) {
                         linha.remove();
                     }
                 });
@@ -1493,11 +1493,12 @@ function selecionarAba(botao) {
 
 function enviar_dados(td) {
     setTimeout(() => {
+        const aba = document.querySelector('button[class="tab-button ativo"]').innerText;
         const elementoFocado = document.activeElement;
         if (td.parentNode.contains(elementoFocado)) {
             return;
         }
-        const aba = document.querySelector('button[class="tab-button ativo"]').innerText;
+
         let celulas = td.parentNode.querySelectorAll('td');
         let hora = new Date().toLocaleString('pt-BR', {
             day: '2-digit',
@@ -1525,15 +1526,15 @@ function enviar_dados(td) {
             celulas[5].innerText = hora;
         }
 
-        if (aba == 'Rotinas' && (celulas[1].innerText == '' || celulas[2].innerText == '')) {
+        if (aba == 'Rotinas' && (celulas[1].innerText.trim() == '' || celulas[2].innerText.trim() == '')) {
             return;
-        } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
+        } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText.trim() == '' || celulas[3].innerText.trim() == '' || celulas[4].innerText.trim() == '' || celulas[5].innerText.trim() == '' || celulas[6].innerText.trim() == '' || celulas[7].innerText.trim() == '' || celulas[8].innerText.trim() == '' || celulas[9].innerText.trim() == '')) {
             return;
-        } else if (aba == 'OS' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '')) {
+        } else if (aba == 'OS' && (celulas[1].innerText.trim() == '' || celulas[2].innerText.trim() == '' || celulas[3].innerText.trim() == '' || celulas[5].innerText.trim() == '' || celulas[6].innerText.trim() == '' || celulas[7].innerText.trim() == '')) {
             return;
-        } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
+        } else if (aba == 'Setores' && (celulas[1].innerText.trim() == '' || celulas[2].innerText.trim() == '' || celulas[3].innerText.trim() == '' || celulas[4].innerText.trim() == '')) {
             return;
-        } else if (aba == 'Usuários' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '')) {
+        } else if (aba == 'Usuários' && (celulas[1].innerText.trim() == '' || celulas[2].innerText.trim() == '' || celulas[3].innerText.trim() == '')) {
             return;
         }
         let data = '';
@@ -2038,7 +2039,7 @@ function filtro_equipes_todas(checkbox) {
 
 function filtro_equipes() {
     const aba = document.querySelector('[class="tab-button ativo"]').innerText.toLowerCase();
-    if(!document.querySelector(`#filtro_areas_${aba}`)) return;
+    if (!document.querySelector(`#filtro_areas_${aba}`)) return;
     if (document.querySelector(`#filtro_areas_${aba} input:not([value=Todas]):not(:checked)`)) {
         document.querySelector(`#filtro_areas_${aba} input`).checked = false;
     } else {
