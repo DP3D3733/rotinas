@@ -7,10 +7,6 @@ function resetTimer() {
     timer = setTimeout(logout, tempoLimite);
 }
 
-
-
-
-
 // Configuração Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBag5uPzTK0sXx3nBzjGhmlmSCySO3u3_U",
@@ -403,7 +399,7 @@ function criar_linha(aba, dados) {
                                                 d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
                                         </g>
                                     </svg>
-                                    <svg class="duplicar" onclick="duplicar(this)" version="1.0" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                    <svg class="duplicar" onclick="duplicar(this, event)" version="1.0" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                                         <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                                             fill="#000000" stroke="none">
                                             <path d="M1852 4306 c-1179 -590 -1144 -570 -1157 -658 -3 -24 -5 -720 -3 -1548 3 -1490 3 -1505 23 -1540 24 -41 93 -80 142 -80 22 0 198 83 573 270 l540 270 0 -308 c0 -299 1 -309 23 -352 30 -60 76 -90 138 -90 44 0 149 50 1137 544 1179 590 1144 570 1157 658 3 24 5 720 3 1548 -3 1498 -3 1505 -24 1540 -25 43 -87 80 -136 80 -29 0 -159 -61 -578 -270 l-540 -270 0 308 c0 299 -1 309 -22 352 -31 60 -77 90 -139 90 -44 0 -149 -50 -1137 -544z m978 -121 l0 -245 -397 -199 c-219 -109 -406 -207 -415 -218 -49 -55 -48 -20 -48 -1120 l0 -1028 -475 -238 c-261 -130 -477 -237 -480 -237 -3 0 -5 591 -5 1313 l0 1312 902 452 c497 249 906 452 911 452 4 1 7 -109 7 -244z m1280 -1278 l0 -1312 -905 -453 c-498 -248 -907 -452 -910 -452 -3 0 -4 590 -3 1312 l3 1312 905 452 c498 249 906 453 908 453 1 1 2 -590 2 -1312z" />
@@ -2284,9 +2280,9 @@ async function excluir_linha(button, todos) {
         const bancoAtualizado = await atualizarFirestore(aba.toLowerCase(), data.toISOString());
         if (bancoAtualizado) document.querySelector(`#${aba.toLowerCase()} [name="${id}"]`)?.remove();
     } else if (aba === 'Chamadas' || aba === 'OS') {
-        const timestamp = parseInt(id.split('-**-')[1]);
-        const data = new Date(new Date(timestamp).toDateString()); // normaliza para YYYY-MM-DD
-        const bancoAtualizado = await atualizarFirestore(aba.toLowerCase(), data.toISOString());
+        const timestamp = aba == 'Chamadas' ? celulas[9].innerText.split(',')[0].split('/') : celulas[7].innerText.split(',')[0].split('/');
+        const data = `${timestamp[2]}-${timestamp[1]}-${timestamp[0]}T03:00:00.000Z` // normaliza para YYYY-MM-DD
+        const bancoAtualizado = await atualizarFirestore(aba.toLowerCase(), data);
         if (bancoAtualizado) document.querySelector(`#${aba.toLowerCase()} [name="${id}"]`)?.remove();
     } else if (aba === 'Setores') {
         const bancoAtualizado = await atualizarFirestore('dados_fixos', 'qth');
@@ -2386,8 +2382,8 @@ async function excluir_selecionados() {
             const y = yRaw.split(',')[0];
             docId = new Date(y, parseInt(m) - 1, parseInt(d)).toISOString();
         } else if (aba === 'chamadas' || aba == 'os') {
-            const timestamp = parseInt(id.split('-**-')[1]);
-            docId = new Date(new Date(timestamp).toDateString()).toISOString();
+            const timestamp = aba == 'Chamadas' ? celulas[9].innerText.split(',')[0].split('/') : celulas[7].innerText.split(',')[0].split('/');
+            docId = `${timestamp[2]}-${timestamp[1]}-${timestamp[0]}T03:00:00.000Z`;
         } else {
             tr.remove(); // Para 'setores' ou outros
             continue;
@@ -2464,17 +2460,27 @@ function seleciona_pre_pronta(but) {
     celulas[1].dispatchEvent(new Event('input', { bubbles: true }));
 }
 
-function duplicar(botao) {
+function duplicar(botao, event) {
     const duplicada = botao.closest('tr').cloneNode(true);
     duplicada.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
     botao.closest('tr').after(duplicada);
+
+    if (!event.ctrlKey) return;
+    const horaInicial = duplicada.querySelectorAll('td')[7];
+    const horaFinal = duplicada.querySelectorAll('td')[8];
+    if (horaInicial.innerText.replaceAll(' ', '') == '' || horaFinal.innerText.replaceAll(' ', '') == '') return;
+    const horaInicialDate = toDate(horaInicial.innerText.replaceAll(' ', ''));
+    const horaFinalDate = toDate(horaFinal.innerText.replaceAll(' ', ''));
+    const diferenca = horaFinalDate - horaInicialDate;
+    horaInicial.innerText = horaFinal.innerText;
+    horaFinal.innerText = formatarData(new Date(horaFinalDate.getTime() + diferenca));
 }
 
 function duplicar_selecionados() {
     const selecionadas = document.querySelectorAll('#os_table tbody [type="checkbox"]:checked');
     selecionadas.forEach(botao => {
         botao.checked = false;
-        duplicar(botao);
+        duplicar(botao, event);
     })
 }
 
@@ -2521,6 +2527,9 @@ function outro_dia_selecionar_data() {
 }
 
 function toDate(dataStr) {
+    const regex = /^\d{2}\/\d{2}\/\d{4}, \d{2}:\d{2}$/; //validação dd/MM/yyyy, HH:mm
+    if (!regex.test(dataStr)) return new Date();
+
     const [dia, mes, resto] = dataStr.split("/");
     const [ano, horaMin] = resto.split(",");
     const [hora, minuto] = horaMin.split(":");
@@ -2538,11 +2547,6 @@ function formatarData(data) {
 }
 
 function copiar_resumo_chamadas() {
-    /*Denúncias 153 - 1
-    Denúncias WhatsApp - 1
-    Total de Ligações - 1
-    Apoio ao Samu - 1
-    */
     let text = '';
     const th = document.querySelectorAll('#resumo_chamadas th');
     const td = document.querySelectorAll('#resumo_chamadas td');
@@ -2569,3 +2573,5 @@ async function notificar(mensagem) {
         });
     }
 }
+
+
