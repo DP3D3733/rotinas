@@ -1492,24 +1492,14 @@ function selecionarAba(botao) {
 }
 
 function enviar_dados(td) {
-    const aba = document.querySelector('button[class="tab-button ativo"]').innerText;
-    let celulas = td.parentNode.querySelectorAll('td');
-    let hora = new Date().toLocaleString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false, // usa o formato 24h
-    });
-    if (document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas' &&
-        celulas[1].innerText != '' &&
-        celulas[2].innerText != '' &&
-        celulas[5].innerText == '' &&
-        (celulas[3].innerText != '' || celulas[4].innerText != '')
-    ) {
-        // Preenche a célula 5 com a hora atual
-        const hora = new Date().toLocaleString('pt-BR', {
+    setTimeout(() => {
+        const elementoFocado = document.activeElement;
+        if (td.parentNode.contains(elementoFocado)) {
+            return;
+        }
+        const aba = document.querySelector('button[class="tab-button ativo"]').innerText;
+        let celulas = td.parentNode.querySelectorAll('td');
+        let hora = new Date().toLocaleString('pt-BR', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric',
@@ -1517,173 +1507,188 @@ function enviar_dados(td) {
             minute: '2-digit',
             hour12: false, // usa o formato 24h
         });
-        celulas[5].innerText = hora;
-    }
-
-    if (aba == 'Rotinas' && (celulas[1].innerText == '' || celulas[2].innerText == '')) {
-        return;
-    } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
-        return;
-    } else if (aba == 'OS' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '')) {
-        return;
-    } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
-        return;
-    } else if (aba == 'Usuários' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '')) {
-        return;
-    }
-    let data = '';
-    let newData = '';
-    let interval_envio = setInterval(() => {
-        if (document.getElementById('modal_msg_rapida').style.display == 'block' || (aba == 'Setores' && celulas[1].innerText != '' && celulas[2].innerText != '' && celulas[3].innerText != '' && celulas[4].innerText != '') || aba == 'Usuários' || (celulas[1].innerText != '' && celulas[2].innerText != '' && (celulas[3].innerText != '' || celulas[4].innerText != '') && celulas[5].innerText != '')) {
-            clearInterval(interval_envio);
-            const cads_gu = ['6734', '2958', 'C', 'PAR'];
-            const cads_tipo = ['norte', 'sul', 'centro', 'especializadas'];
-            let cad = '';
-            for (let index = 0; index < cads_gu.length; index++) {
-                if (cads_gu[index].includes(celulas[1].innerText.substring(0, 1))) {
-                    cad = cads_tipo[index];
-                }
-            }
-            if (aba == 'Rotinas') {
-                data = new Date(celulas[5].innerText.split(',')[0].split('/')[2], parseInt(celulas[5].innerText.split('/')[1]) - 1, celulas[5].innerText.split('/')[0]);
-
-                if (celulas[0].getAttribute('dados')?.includes('-()--()--()--()--()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()--()-')) {
-                    newData = `${celulas[0].parentNode.getAttribute('name')}-()-${celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-'}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
-                } else if (celulas[0].getAttribute('dados')?.includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
-                    newData = celulas[0].parentNode.getAttribute('name') + '-()-' + celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim()).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim()) + '-()-' + celulas[7].innerText.trim() + '-++-';
-                } else {
-                    newData = `${celulas[0].parentNode.getAttribute('name')}-()-${celulas[0].getAttribute('dados') || (celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
-                }
-            } else if (aba == 'Chamadas') {
-                data = celulas[9].innerText.split(',')[0].split('/').map((d) => parseInt(d));
-                data = new Date(data[2], data[1] - 1, data[0]);
-
-                newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
-            } else if (aba == 'OS') {
-                data = celulas[7].innerText.split(',')[0].split('/').map((d) => parseInt(d));
-                data = new Date(data[2], data[1] - 1, data[0]);
-
-                newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-++-`;
-            } else if (aba == 'Setores') {
-                data = new Date(new Date(parseInt(td.parentNode.getAttribute('name'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name'))).getDate());
-                newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[4].innerText.trim() || ''}-++-`;
-            } else if (aba == 'Usuários') {
-                data = celulas[1].innerText.trim();
-                let senha = '';
-                if (celulas[4].innerText != '' && celulas[4].innerText != '\n') {
-                    senha = celulas[4].innerText
-                } else {
-                    senha = CryptoJS.SHA256('12345').toString();
-                }
-                const userRef = db.collection('users').doc(data);
-
-                userRef.get().then((doc) => {
-                    const novoUsuario = {
-                        nome: celulas[2].innerText.trim(),
-                        criado_em: firebase.firestore.FieldValue.serverTimestamp(),
-                        credencial: celulas[3].innerText.trim()
-                    };
-
-                    // Só define a senha se o documento ainda não existir
-                    if (!doc.exists || celulas[4].innerText == '' || celulas[4].innerText == '\n') {
-                        novoUsuario.senha = senha;
-                    }
-
-                    userRef.set(novoUsuario, { merge: true }) // 'merge' evita sobrescrever campos não especificados
-                        .then(() => {
-                            console.log('Usuário salvo com sucesso.');
-                        })
-                        .catch((error) => {
-                            console.error('Erro ao salvar usuário:', error);
-                        });
-                });
-            }
-            let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
-            if (!ja_enviado.includes(newData)) {
-                let docRef = '';
-                if (aba == 'Rotinas' || (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) || aba == 'OS') {
-                    docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
-                } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
-                    docRef = db.collection('dados_fixos').doc('chamadas_pre_prontas');
-                } else {
-                    docRef = db.collection('dados_fixos').doc('qth');
-                }
-                docRef.get().then((docSnapshot) => {
-                    if (docSnapshot.exists) {
-                        // Documento existe, vamos pegar os dados antigos
-                        let existingData = docSnapshot.data();
-                        if (!JSON.stringify(existingData).includes(td.parentNode.getAttribute('name'))) {
-                            if (aba == 'Rotinas') {
-                                existingData[cad] += newData;
-                            } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
-                                existingData['chamadas'] += newData;
-                            } else if (aba == 'OS') {
-                                existingData['os'] += newData;
-                            } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
-                                existingData['chamadas_pre_prontas'] += newData;
-                            } else if (aba == 'Setores') {
-                                existingData['qth'] += newData;
-                            }
-                            sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(existingData));
-                        } else {
-                            let dado_antigo = JSON.stringify(existingData).substring(JSON.stringify(existingData).indexOf(td.parentNode.getAttribute('name'),)).substring(0, JSON.stringify(existingData).substring(JSON.stringify(existingData).indexOf(td.parentNode.getAttribute('name'),)).indexOf('-++-') + 4);
-                            existingData = JSON.parse(JSON.stringify(existingData).replaceAll(dado_antigo, ''));
-                            if (aba == 'Rotinas') {
-                                existingData[cad] += newData;
-                            } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
-                                existingData['chamadas'] += newData;
-                            } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
-                                existingData['chamadas_pre_prontas'] += newData;
-                            } else if (aba == 'OS') {
-                                existingData['os'] += newData;
-                            } else if (aba == 'Setores') {
-                                existingData['qth'] += newData;
-                            }
-                            sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(existingData));
-
-                        }
-                        docRef.set({ ...existingData })
-                            .then(() => {
-                                clearInterval(interval_envio);
-                                if (aba == 'Rotinas') {
-                                    fecha_ultimo_horario(celulas);
-                                }
-
-                            })
-                            .catch((error) => { console.error("Erro ao atualizar o documento:", error); clearInterval(interval_envio) });
-
-                    } else {
-                        let dados = '';
-                        if (aba == 'Rotinas') {
-                            dados = {
-                                'norte': '',
-                                'sul': '',
-                                'centro': '',
-                                'especializadas': ''
-                            }
-                            dados[cad] = newData;
-                        } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
-                            dados = { 'chamadas': newData };
-                        } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
-                            dados = { 'chamadas_pre_prontas': newData };
-                        } else if (aba == 'OS') {
-                            dados = { 'os': newData };
-                        }
-                        sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dados));
-                        // Documento não existe, apenas cria com os novos dados
-                        docRef.set(dados)
-                            .then(() => {
-                                clearInterval(interval_envio);
-                                fecha_ultimo_horario(celulas);
-
-                            })
-                            .catch((error) => { console.error("Erro ao criar o documento:", error); clearInterval(interval_envio) });
-                    }
-                });
-            }
+        if (document.querySelector('button[class="tab-button ativo"]').innerText == 'Rotinas' &&
+            celulas[1].innerText != '' &&
+            celulas[2].innerText != '' &&
+            celulas[5].innerText == '' &&
+            (celulas[3].innerText != '' || celulas[4].innerText != '')
+        ) {
+            // Preenche a célula 5 com a hora atual
+            const hora = new Date().toLocaleString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false, // usa o formato 24h
+            });
+            celulas[5].innerText = hora;
         }
-    }, 100);
 
+        if (aba == 'Rotinas' && (celulas[1].innerText == '' || celulas[2].innerText == '')) {
+            return;
+        } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display != 'block' && (celulas[1].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '' || celulas[8].innerText == '' || celulas[9].innerText == '')) {
+            return;
+        } else if (aba == 'OS' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[5].innerText == '' || celulas[6].innerText == '' || celulas[7].innerText == '')) {
+            return;
+        } else if (aba == 'Setores' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '' || celulas[4].innerText == '')) {
+            return;
+        } else if (aba == 'Usuários' && (celulas[1].innerText == '' || celulas[2].innerText == '' || celulas[3].innerText == '')) {
+            return;
+        }
+        let data = '';
+        let newData = '';
+        let interval_envio = setInterval(() => {
+            if (document.getElementById('modal_msg_rapida').style.display == 'block' || (aba == 'Setores' && celulas[1].innerText != '' && celulas[2].innerText != '' && celulas[3].innerText != '' && celulas[4].innerText != '') || aba == 'Usuários' || (celulas[1].innerText != '' && celulas[2].innerText != '' && (celulas[3].innerText != '' || celulas[4].innerText != '') && celulas[5].innerText != '')) {
+                clearInterval(interval_envio);
+                const cads_gu = ['6734', '2958', 'C', 'PAR'];
+                const cads_tipo = ['norte', 'sul', 'centro', 'especializadas'];
+                let cad = '';
+                for (let index = 0; index < cads_gu.length; index++) {
+                    if (cads_gu[index].includes(celulas[1].innerText.substring(0, 1))) {
+                        cad = cads_tipo[index];
+                    }
+                }
+                if (aba == 'Rotinas') {
+                    data = new Date(celulas[5].innerText.split(',')[0].split('/')[2], parseInt(celulas[5].innerText.split('/')[1]) - 1, celulas[5].innerText.split('/')[0]);
+
+                    if (celulas[0].getAttribute('dados')?.includes('-()--()--()--()--()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()--()-')) {
+                        newData = `${celulas[0].parentNode.getAttribute('name')}-()-${celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-'}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
+                    } else if (celulas[0].getAttribute('dados')?.includes('-()-_QRA_-()-_QTR_INICIAL_-()-_QRU_-()-_QTR_FINAL_-()-')) {
+                        newData = celulas[0].parentNode.getAttribute('name') + '-()-' + celulas[0].getAttribute('dados').replace('_QRA_', celulas[1].innerText.trim()).replace('_QTR_INICIAL_', celulas[5].innerText.trim()).replace('_QRU_', celulas[2].innerText.trim()).replace('_QTR_FINAL_', celulas[6].innerText.trim()) + '-()-' + celulas[7].innerText.trim() + '-++-';
+                    } else {
+                        newData = `${celulas[0].parentNode.getAttribute('name')}-()-${celulas[0].getAttribute('dados') || (celulas[3].innerText.trim() + '-()--()--()-' + celulas[4].innerText.trim() + '-()-')}-()-${celulas[1].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[6].innerText.trim()}-()--()--()-${celulas[7].innerText.trim()}-++-`;
+                    }
+                } else if (aba == 'Chamadas') {
+                    data = celulas[9].innerText.split(',')[0].split('/').map((d) => parseInt(d));
+                    data = new Date(data[2], data[1] - 1, data[0]);
+
+                    newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-()-${celulas[9].innerText.trim()}-++-`;
+                } else if (aba == 'OS') {
+                    data = celulas[7].innerText.split(',')[0].split('/').map((d) => parseInt(d));
+                    data = new Date(data[2], data[1] - 1, data[0]);
+
+                    newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[4].innerText.trim()}-()-${celulas[5].innerText.trim() || ''}-()-${celulas[6].innerText.trim() || ''}-()-${celulas[7].innerText.trim() || ''}-()-${celulas[8].innerText.trim() || ''}-++-`;
+                } else if (aba == 'Setores') {
+                    data = new Date(new Date(parseInt(td.parentNode.getAttribute('name'))).getFullYear(), new Date(parseInt(td.parentNode.getAttribute('name'))).getMonth(), new Date(parseInt(td.parentNode.getAttribute('name'))).getDate());
+                    newData = `${td.parentNode.getAttribute('name')}-()-${celulas[1].innerText.trim()}-()-${celulas[3].innerText.trim()}-()-${celulas[5].innerText.trim()}-()-${celulas[2].innerText.trim()}-()-${celulas[4].innerText.trim() || ''}-++-`;
+                } else if (aba == 'Usuários') {
+                    data = celulas[1].innerText.trim();
+                    let senha = '';
+                    if (celulas[4].innerText != '' && celulas[4].innerText != '\n') {
+                        senha = celulas[4].innerText
+                    } else {
+                        senha = CryptoJS.SHA256('12345').toString();
+                    }
+                    const userRef = db.collection('users').doc(data);
+
+                    userRef.get().then((doc) => {
+                        const novoUsuario = {
+                            nome: celulas[2].innerText.trim(),
+                            criado_em: firebase.firestore.FieldValue.serverTimestamp(),
+                            credencial: celulas[3].innerText.trim()
+                        };
+
+                        // Só define a senha se o documento ainda não existir
+                        if (!doc.exists || celulas[4].innerText == '' || celulas[4].innerText == '\n') {
+                            novoUsuario.senha = senha;
+                        }
+
+                        userRef.set(novoUsuario, { merge: true }) // 'merge' evita sobrescrever campos não especificados
+                            .then(() => {
+                                console.log('Usuário salvo com sucesso.');
+                            })
+                            .catch((error) => {
+                                console.error('Erro ao salvar usuário:', error);
+                            });
+                    });
+                }
+                let ja_enviado = sessionStorage.getItem('ja_enviado' + aba) || '';
+                if (!ja_enviado.includes(newData)) {
+                    let docRef = '';
+                    if (aba == 'Rotinas' || (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) || aba == 'OS') {
+                        docRef = db.collection(aba.toLowerCase()).doc(data.toISOString());
+                    } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                        docRef = db.collection('dados_fixos').doc('chamadas_pre_prontas');
+                    } else {
+                        docRef = db.collection('dados_fixos').doc('qth');
+                    }
+                    docRef.get().then((docSnapshot) => {
+                        if (docSnapshot.exists) {
+                            // Documento existe, vamos pegar os dados antigos
+                            let existingData = docSnapshot.data();
+                            if (!JSON.stringify(existingData).includes(td.parentNode.getAttribute('name'))) {
+                                if (aba == 'Rotinas') {
+                                    existingData[cad] += newData;
+                                } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
+                                    existingData['chamadas'] += newData;
+                                } else if (aba == 'OS') {
+                                    existingData['os'] += newData;
+                                } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                                    existingData['chamadas_pre_prontas'] += newData;
+                                } else if (aba == 'Setores') {
+                                    existingData['qth'] += newData;
+                                }
+                                sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(existingData));
+                            } else {
+                                let dado_antigo = JSON.stringify(existingData).substring(JSON.stringify(existingData).indexOf(td.parentNode.getAttribute('name'),)).substring(0, JSON.stringify(existingData).substring(JSON.stringify(existingData).indexOf(td.parentNode.getAttribute('name'),)).indexOf('-++-') + 4);
+                                existingData = JSON.parse(JSON.stringify(existingData).replaceAll(dado_antigo, ''));
+                                if (aba == 'Rotinas') {
+                                    existingData[cad] += newData;
+                                } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
+                                    existingData['chamadas'] += newData;
+                                } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                                    existingData['chamadas_pre_prontas'] += newData;
+                                } else if (aba == 'OS') {
+                                    existingData['os'] += newData;
+                                } else if (aba == 'Setores') {
+                                    existingData['qth'] += newData;
+                                }
+                                sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(existingData));
+
+                            }
+                            docRef.set({ ...existingData })
+                                .then(() => {
+                                    clearInterval(interval_envio);
+                                    if (aba == 'Rotinas') {
+                                        fecha_ultimo_horario(celulas);
+                                    }
+
+                                })
+                                .catch((error) => { console.error("Erro ao atualizar o documento:", error); clearInterval(interval_envio) });
+
+                        } else {
+                            let dados = '';
+                            if (aba == 'Rotinas') {
+                                dados = {
+                                    'norte': '',
+                                    'sul': '',
+                                    'centro': '',
+                                    'especializadas': ''
+                                }
+                                dados[cad] = newData;
+                            } else if (aba == 'Chamadas' && (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '')) {
+                                dados = { 'chamadas': newData };
+                            } else if (aba == 'Chamadas' && document.getElementById('modal_msg_rapida').style.display == 'block') {
+                                dados = { 'chamadas_pre_prontas': newData };
+                            } else if (aba == 'OS') {
+                                dados = { 'os': newData };
+                            }
+                            sessionStorage.setItem('ja_enviado' + aba, JSON.stringify(dados));
+                            // Documento não existe, apenas cria com os novos dados
+                            docRef.set(dados)
+                                .then(() => {
+                                    clearInterval(interval_envio);
+                                    fecha_ultimo_horario(celulas);
+
+                                })
+                                .catch((error) => { console.error("Erro ao criar o documento:", error); clearInterval(interval_envio) });
+                        }
+                    });
+                }
+            }
+        }, 100);
+    }, 2000);
 }
 
 function fecha_ultimo_horario(celulas) {
@@ -2033,6 +2038,7 @@ function filtro_equipes_todas(checkbox) {
 
 function filtro_equipes() {
     const aba = document.querySelector('[class="tab-button ativo"]').innerText.toLowerCase();
+    if(!document.querySelector(`#filtro_areas_${aba}`)) return;
     if (document.querySelector(`#filtro_areas_${aba} input:not([value=Todas]):not(:checked)`)) {
         document.querySelector(`#filtro_areas_${aba} input`).checked = false;
     } else {
@@ -2045,7 +2051,7 @@ function filtro_equipes() {
             document.querySelector('#filtro_tipo input').checked = true;
         }
     }
-    const linhas = aba == 'equipes' ? document.querySelectorAll('#equipes_table tbody tr') : document.querySelectorAll('#os_table tbody tr');
+    const linhas = aba == 'equipes' ? document.querySelectorAll('#equipes_table tbody tr') : document.querySelectorAll('#os_table tbody tr:not(:last-child)');
     const areas = ['200 Cruzeiro', '300 Partenon', '400 Leste', '500 Restinga', '600 Norte', '700 Eixo Baltazar', '800 Pinheiro', '900 Sul', '1000 Romu', '1100 Patam', '1200 Centro', 'Comando', 'cogm'];
     const primeiro_char = ['2', '3', '4', '5', '6', '7', '8', '9', 'R', 'P', 'C', 'A', 'S'];
     let ultimo_registro = {};
@@ -2247,7 +2253,7 @@ async function excluir_linha(button, todos) {
 
     let confirmacao = todos || confirm(`Você realmente deseja excluir o registro:\n${celulas[1]?.innerText} - ${celulas[2]?.innerText} - ${celulas[3]?.innerText} - ${celulas[4]?.innerText}?`);
     if (!confirmacao) return;
-
+    document.body.focus();
     const atualizarFirestore = async (colecao, docId) => {
         let docRef;
         if (document.getElementById('modal_msg_rapida').style.display == 'block') {
@@ -2372,7 +2378,6 @@ async function excluir_selecionados() {
 
 
     });
-    console.log(linhasSelecionadas);
     if (!linhasSelecionadas.length) return;
 
     // Agrupar por docId
