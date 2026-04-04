@@ -557,6 +557,15 @@ body.dark-mode .borracha path {
     fill: white;
 }
 
+.duplicar:hover path,
+body.dark-mode .duplicar:hover path {
+    fill: #21e232;
+}
+
+body.dark-mode .duplicar path {
+    fill: white;
+}
+
 body.dark-mode .empenhar path {
     fill: rgb(248, 248, 248);
 }
