@@ -664,6 +664,21 @@ function filtrar_dados(aba) {
                         dados[setor].split('-++-').forEach(linha => {
                             if (!linha) return;
                             const celulas = linha.split('-()-');
+                            if (document.querySelector(`#rotinas_table tr[name='${celulas[0]}']`)) {
+                                const dadosAntigos = Array.from(document.querySelectorAll(`#rotinas_table tr[name='${celulas[0]}'] td`)).map(celulas => celulas.innerText);
+                                if (
+                                    dadosAntigos[1] == celulas[6] && //qra
+                                    dadosAntigos[2] == celulas[8] && //qru
+                                    dadosAntigos[3] == celulas[1] && //qth
+                                    dadosAntigos[4] == celulas[4] && //endereco
+                                    dadosAntigos[5] == celulas[7] && //qtrInicial
+                                    dadosAntigos[6] == celulas[9] && //qtrFinal
+                                    dadosAntigos[7] == celulas[12]) { //obs
+
+                                    console.log('tudo igual');
+                                    return; //se já existe e nada mudou, não atualiza
+                                }
+                            }
                             let datahorafinal_filtro, data_inicial_filtro, datahora_linha;
                             const partes_datahora = celulas[7].split(/\/|, |:/);
                             datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
@@ -763,7 +778,22 @@ function filtrar_dados(aba) {
                 dados.chamadas.split('-++-').forEach(linha => {
                     if (!linha) return;
                     const celulas = linha.split('-()-'); //9
+                    if (document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`)) {
+                        const possuiDiferencas = celulas.some(celula => { //verifica se a linha já está atualizada na tela do usuário
+                            const index = celulas.indexOf(celula);
+                            if (index == 0) {
+                                return false;
+                            }
+                            const textoAntigo = document.querySelectorAll(`#chamadas_table tr[name='${celulas[0]}'] td`)[index].innerText;
+                            if (textoAntigo == celula) return false;
+                            return true;
+                        });
 
+                        if (!possuiDiferencas) {
+                            console.log('já está atualizado');
+                            return;
+                        }
+                    }
                     const partes_datahora = celulas[9].split(/\/|, |:/);
                     const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
                     if (new Date(document.querySelector('#chamadas_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#chamadas_data_final').value)) {
@@ -887,6 +917,22 @@ function filtrar_dados(aba) {
                 dados.os.split('-++-').forEach(linha => {
                     if (!linha) return;
                     const celulas = linha.split('-()-'); //6
+                    if (document.querySelector(`#os_table tr[name='${celulas[0]}']`)) {
+                        const possuiDiferencas = celulas.some(celula => { //verifica se a linha já está atualizada na tela do usuário
+                            const index = celulas.indexOf(celula);
+                            if (index == 0) {
+                                return false;
+                            }
+                            const textoAntigo = document.querySelectorAll(`#os_table tr[name='${celulas[0]}'] td`)[index].innerText;
+                            if (textoAntigo == celula) return false;
+                            return true;
+                        });
+
+                        if (!possuiDiferencas) {
+                            return;
+                        }
+                    }
+
 
                     const partes_datahora = celulas[7].split(/\/|, |:/);
                     const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
@@ -905,6 +951,7 @@ function filtrar_dados(aba) {
                 document.querySelector('#os_table tbody').insertAdjacentHTML('afterbegin', linhas);
                 filtro_os();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
                 th = document.querySelector('#os_table th[asc],#os_table th[desc]');
                 if (th) {
                     const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
@@ -2527,8 +2574,8 @@ function outro_dia_selecionar_data() {
             duplicada.setAttribute('name', JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime());
             const inicio = duplicada.querySelectorAll('td')[7];
             const fim = duplicada.querySelectorAll('td')[8];
-            const data_inicio = toDate(inicio.innerText.replaceAll(' ', ''));
-            const data_fim = toDate(fim.innerText.replaceAll(' ', ''));
+            const data_inicio = toDate(inicio.innerText.trim());
+            const data_fim = toDate(fim.innerText.trim());
             const diferenca = data_fim - data_inicio;
             inicio.innerText = `${dia}, ${inicio.innerText.replaceAll(' ', '').split(',')[1]}`;
             fim.innerText = formatarData(new Date(toDate(inicio.innerText).getTime() + diferenca));
