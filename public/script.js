@@ -951,26 +951,7 @@ function filtrar_dados(aba) {
                 document.querySelector('#os_table tbody').insertAdjacentHTML('afterbegin', linhas);
                 filtro_os();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-
-                th = document.querySelector('#os_table th[asc],#os_table th[desc]');
-                if (th) {
-                    const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-                    let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
-                    lin_tab.pop();
-                    if (th.getAttribute('asc')) {
-                        lin_tab.sort().reverse();
-                    } else {
-                        lin_tab.sort();
-                    }
-                    th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-                    lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
-                        th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
-                    });
-                    if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
-                        document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
-                    }
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-                }
+                document.querySelector('#os_table').setAttribute('ordenada', 'não');
 
             });
 
@@ -1050,9 +1031,7 @@ function filtrar_dados(aba) {
                         if (celulas[3].includes('-++-')) {
                             const pessoas = celulas[3].split(',');
                             pessoas.forEach((pessoa) => {
-                                const gms = JSON.parse(localStorage.getItem('gms')).gms.split('-');
-
-                                let l = [celulas[0], celulas[1], 'Agente', gms.find(item => item.toUpperCase().startsWith(pessoa.split('-++-')[0].toUpperCase())), pessoa.split('-++-')[1], celulas[2]];
+                                let l = [celulas[0], celulas[1], 'Agente', pessoa.split('-++-')[0], pessoa.split('-++-')[1], celulas[2]];
                                 l = criar_linha('equipes', l);
                                 linhas += l;
                             })
@@ -1097,6 +1076,29 @@ function filtrar_dados(aba) {
     }
 
     return true;
+}
+
+function ordenarTabela(celula) {
+    const table = celula.closest('table');
+    if (!table.getAttribute('ordenada') || table.getAttribute('ordenada') == 'sim') return;
+    const th = table.querySelector('th[asc],#os_table th[desc]');
+    const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
+    let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
+    lin_tab.pop();
+    if (th.getAttribute('asc')) {
+        lin_tab.sort().reverse();
+    } else {
+        lin_tab.sort();
+    }
+    th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
+    lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
+        th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+    });
+    if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
+        document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
+    }
+    table.setAttribute('ordenada', 'sim')
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 }
 
 function debounce(func, delay) {
@@ -1199,6 +1201,7 @@ function filterOptions(td, list) {
         if (cel.innerText != '' && vazia == 'nao') {
             if (aba != 'usuários') {
                 table.insertAdjacentHTML('beforeend', criar_linha(aba, [JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime(), '', '', '', '', '', '', '', '', '', '', '']));
+                table.querySelector('tr:last-child td:nth-child(2)').addEventListener('focus', () => ordenarTabela(table.querySelector('tr:last-child td:nth-child(2)')));
             } else {
                 table.insertAdjacentHTML('beforeend', criar_linha(aba, ['', '', '', '', '']));
             }
