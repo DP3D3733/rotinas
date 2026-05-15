@@ -271,27 +271,27 @@ function criar_linha(aba, dados) {
                         ${borracha}
                     </span>
                 </td>
-                <td oninput="filterOptions(this,0)"  onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}" onkeydown="teclas_atalho(this,event.key)">
+                <td oninput="filterOptions(this,0)"  onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                     ${dados[6]}
                 </td>
                 <td oninput="filterOptions(this,1)"  onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
-                    onkeydown="teclas_atalho(this,event.key)">
+                    onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                     ${dados[8]}
                 </td>
                 <td oninput="filterOptions(this,2)"  onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
-                    onkeydown="teclas_atalho(this,event.key)">
+                    onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                     ${dados[1]}
                 </td>
-                <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                     ${dados[4]}
                 </td>
-                <td oninput="filterOptions(this,9)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                <td oninput="filterOptions(this,9)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                     ${dados[7]}
                 </td>
-                <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                     ${dados[9]}
                 </td>
-                <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                     ${dados[12] || ''}
                 </td>
             </tr>`;
@@ -334,42 +334,42 @@ function criar_linha(aba, dados) {
                             ${rapido}
                         </span>
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[1]}
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[2]}
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[3]}
                     </td>
                     <td oninput="filterOptions(this,4)" 
                         onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
-                        onkeydown="teclas_atalho(this,event.key)">
+                        onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[4]}
                     </td>
                    <td oninput="filterOptions(this,2)" 
                         onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
-                        onkeydown="teclas_atalho(this,event.key)">
+                        onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[5]}
                     </td>
                     <td oninput="filterOptions(this,5)" 
                         onblur="enviar_dados(this),hideOptions(event, this)" onfocus="atendente(this)" contenteditable="${content_editable}"
-                        onkeydown="teclas_atalho(this,event.key)">
+                        onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[6]}
                     </td>
                     <td oninput="filterOptions(this,6)" 
                         onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
-                        onkeydown="teclas_atalho(this,event.key)">
+                        onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[7]}
                     </td>
                     <td oninput="filterOptions(this,7)" 
                         onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
-                        onkeydown="teclas_atalho(this,event.key)">
+                        onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[8]}
                     </td>
                     <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="${content_editable}"
-                        onblur="enviar_dados(this)">
+                        onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[9]}
                     </td>
                 </tr>`
@@ -407,30 +407,30 @@ function criar_linha(aba, dados) {
                                     </svg>
                                 </span>
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                                 ${dados[1]}
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                                 ${dados[2]}
                             </td>
                             <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                                 ${dados[3]}
                             </td>
                             <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                                 ${dados[4]}
                             </td>
-                            <td onblur="enviar_dados(this)" contenteditable="true">
+                            <td onblur="enviar_dados(this)" contenteditable="true" onfocus="sinalizarEditando(this)">
                                 ${dados[5]}
                             </td>
-                            <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)">
+                            <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                                 ${dados[6]}
                             </td>
-                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this), sinalizarEditando(this)" contenteditable="true" onblur="enviar_dados(this)">
                                 ${dados[7]}
                             </td>
-                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this), sinalizarEditando(this)" contenteditable="true" onblur="enviar_dados(this)">
                                 ${dados[8]}
                             </td>
                         </tr>`;
@@ -599,6 +599,17 @@ let unsubscribeRotinasList = [];
 let unsubscribeChamadasList = [];
 let unsubscribeEquipesList = [];
 let unsubscribeOSList = [];
+let linhaSendoEditada = false;
+let ultimaLinhaEditada = false;
+
+function sinalizarEditando(celula) {
+    if (linhaSendoEditada == celula.closest('tr')) return;
+    linhaSendoEditada = false;
+    ultimaLinhaEditada = celula.closest('tr');
+    ordenarTabela(celula);
+    linhaSendoEditada = celula.closest('tr');
+    celula.focus();
+}
 
 function filtrar_dados(aba) {
     let partes_inicial, data_inicial, partes_final, cad_norte, cad_sul, cad_centro, cad_especializadas, th;
@@ -703,29 +714,9 @@ function filtrar_dados(aba) {
                         });
                     }
                 });
-
                 document.querySelector('#rotinas_table tbody').insertAdjacentHTML('afterbegin', linhas);
-                th = document.querySelector('#rotinas_table th[asc],#rotinas_table th[desc]');
-                if (th) {
-                    const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-                    let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML + '-&&-' + l.querySelector('input[type=checkbox]').checked);
-                    lin_tab.pop();
-                    if (th.getAttribute('asc')) {
-                        lin_tab.sort().reverse();
-                    } else {
-                        lin_tab.sort();
-                    }
-                    th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-                    lin_tab.forEach(l => {
-                        th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l.split('-&&-')[1]);
-                        th.closest('table').querySelector('tbody tr:last-child').previousElementSibling.querySelector('input[type=checkbox]').checked = l.split('-&&-')[2] == 'true';
-                    });
-                    if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
-                        document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
-                        setCursorInTd(document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']], ultimaPosicao);
-                    }
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-                }
+                ordenarTabela(document.querySelector('#rotinas_table tbody tr:last-child td:nth-child(2)'));
+                filtro_rotinas();
             });
 
             unsubscribeRotinasList.push(unsub); // salvar função para limpar depois
@@ -822,25 +813,7 @@ function filtrar_dados(aba) {
                 }
 
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-                th = document.querySelector('#chamadas_table th[asc],#chamadas_table th[desc]');
-                if (th) {
-                    const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-                    let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
-                    lin_tab.pop();
-                    if (th.getAttribute('asc')) {
-                        lin_tab.sort().reverse();
-                    } else {
-                        lin_tab.sort();
-                    }
-                    th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-                    lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
-                        th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
-                    });
-                    if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
-                        document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
-                    }
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-                }
+                ordenarTabela(document.querySelector('#chamadas_table tbody tr:last-child td:nth-child(2)'));
                 const resumo_chamadas = document.querySelectorAll('#resumo_chamadas tbody td');
                 let denuncias_153 = 0;
                 let denuncias_wats = 0;
@@ -949,9 +922,8 @@ function filtrar_dados(aba) {
 
 
                 document.querySelector('#os_table tbody').insertAdjacentHTML('afterbegin', linhas);
-                filtro_os();
+                ordenarTabela(document.querySelector('#os_table tbody tr:last-child td:nth-child(2)'));
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-                document.querySelector('#os_table').setAttribute('ordenada', 'não');
 
             });
 
@@ -1079,26 +1051,69 @@ function filtrar_dados(aba) {
 }
 
 function ordenarTabela(celula) {
-    const table = celula.closest('table');
-    if (!table.getAttribute('ordenada') || table.getAttribute('ordenada') == 'sim') return;
-    const th = table.querySelector('th[asc],#os_table th[desc]');
-    const index = Array.from(th.closest('thead').querySelectorAll('th')).indexOf(th);
-    let lin_tab = Array.from(th.closest('table').querySelectorAll('tbody tr')).map((l) => l.querySelectorAll('td')[index].innerText + '-&&-' + l.outerHTML);
-    lin_tab.pop();
-    if (th.getAttribute('asc')) {
-        lin_tab.sort().reverse();
-    } else {
-        lin_tab.sort();
-    }
-    th.closest('table').querySelector('tbody').innerHTML = th.closest('table').querySelector('tbody tr:last-child').outerHTML;
-    lin_tab = lin_tab.map((l) => l.split('-&&-')[1]).forEach(l => {
-        th.closest('table').querySelector('tbody tr:last-child').insertAdjacentHTML('beforebegin', l);
+
+    if (linhaSendoEditada) return;
+
+    const tabela = celula.closest("table");
+
+    const th = tabela.querySelector("th[asc], th[desc]");
+
+    if (!th) return;
+
+    const index = Array
+        .from(th.parentElement.children)
+        .indexOf(th);
+
+    const tbody = tabela.querySelector("tbody");
+
+    const todasLinhas = Array.from(
+        tbody.querySelectorAll("tr")
+    );
+
+    // última linha fixa
+    const ultima = todasLinhas.pop();
+
+    // linhas offline
+    const offline = todasLinhas.filter(
+        l => l.getAttribute("linhaOffline") === "true"
+    );
+
+    // linhas online
+    const online = todasLinhas.filter(
+        l => l.getAttribute("linhaOffline") !== "true"
+    );
+
+    online.sort((a, b) => {
+
+        const va = a.children[index].innerText.trim();
+        const vb = b.children[index].innerText.trim();
+
+        const na = Number(va);
+        const nb = Number(vb);
+
+        if (!isNaN(na) && !isNaN(nb)) {
+
+            return th.hasAttribute("asc")
+                ? nb - na
+                : na - nb;
+        }
+
+        return th.hasAttribute("asc")
+            ? vb.localeCompare(va)
+            : va.localeCompare(vb);
     });
-    if (tdComFoco && document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']]) {
-        document.querySelectorAll(`tr[name="${tdComFoco['linha']}"] td`)[tdComFoco['coluna']].focus();
-    }
-    table.setAttribute('ordenada', 'sim')
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
+    // limpa apenas ordem visual
+    tbody.replaceChildren();
+
+    // linhas ordenadas
+    online.forEach(l => tbody.appendChild(l));
+
+    // offline ficam no final
+    offline.forEach(l => tbody.appendChild(l));
+
+    // última linha fixa
+    tbody.appendChild(ultima);
 }
 
 function debounce(func, delay) {
@@ -1182,6 +1197,7 @@ function hideOptions(event, td) {
 
 function filterOptions(td, list) {
     let aba;
+    td.parentNode.setAttribute('linhaOffline', 'true');
     if (document.getElementById('modal_msg_rapida').style.display == 'none' || document.getElementById('modal_msg_rapida').style.display == '') {
         aba = document.querySelector('button[class="tab-button ativo"]').innerText.toLowerCase();
     } else {
@@ -1201,7 +1217,6 @@ function filterOptions(td, list) {
         if (cel.innerText != '' && vazia == 'nao') {
             if (aba != 'usuários') {
                 table.insertAdjacentHTML('beforeend', criar_linha(aba, [JSON.parse(sessionStorage.getItem('usuario_logado')).nome + '-**-' + new Date().getTime(), '', '', '', '', '', '', '', '', '', '', '']));
-                table.querySelector('tr:last-child td:nth-child(2)').addEventListener('focus', () => ordenarTabela(table.querySelector('tr:last-child td:nth-child(2)')));
             } else {
                 table.insertAdjacentHTML('beforeend', criar_linha(aba, ['', '', '', '', '']));
             }
@@ -1587,6 +1602,7 @@ function enviar_dados(td) {
         } else if (aba == 'Usuários' && (celulas[1].innerText.trim() == '' || celulas[2].innerText.trim() == '' || celulas[3].innerText.trim() == '')) {
             return;
         }
+        td.parentNode.removeAttribute('linhaOffline');
         let data = '';
         let newData = '';
         let interval_envio = setInterval(() => {
@@ -2180,6 +2196,18 @@ function filtro_equipes() {
 
     });
     guardar_filtro('equipes');
+}
+
+function filtro_rotinas() {
+    const linhas = document.querySelectorAll('#rotinas_table tbody tr:not(:last-child)');
+    const texto_procurado = document.querySelector('#filtro_text_rotinas').value.toLowerCase();
+    linhas.forEach(linha => {
+        if (linha.innerText.toLowerCase().includes(texto_procurado)) {
+            linha.style.display = '';
+        } else {
+            linha.style.display = 'none';
+        }
+    });
 }
 
 function guardar_filtro(filtro) {

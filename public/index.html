@@ -143,7 +143,7 @@
                                 </div>
                             </td>
                             <td>
-
+                                <label><input id="filtro_text_rotinas" type="text" oninput="filtro_rotinas()" value="" placeholder="Digite..." /></label>
                             </td>
                             <td>
 
@@ -223,28 +223,28 @@
                             </td>
 
                             <td oninput="filterOptions(this,0)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="ordenarTabela(this)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,1)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,9)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
-                                onblur="enviar_dados(this)">
+                                onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                         </tr>
@@ -358,38 +358,38 @@
 
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="ordenarTabela(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,5)" onblur="enviar_dados(this),hideOptions(event, this)"
                                 contenteditable="true" onfocus="atendente(this)"
-                                onkeydown="teclas_atalho(this,event.key)">
+                                onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,6)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,7)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
-                                onblur="enviar_dados(this)">
+                                onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                         </tr>
@@ -737,33 +737,33 @@
                                     </svg>
                                 </span>
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="ordenarTabela(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)">
+                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
 
                             </td>
-                            <td onblur="enviar_dados(this)" contenteditable="true">
+                            <td onblur="enviar_dados(this)" contenteditable="true" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,0)" contenteditable="true"
-                                onkeydown="teclas_atalho(this,event.key)" onblur="enviar_dados(this)">
+                                onkeydown="teclas_atalho(this,event.key)" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
-                                onblur="enviar_dados(this)">
+                                onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                             <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="true"
-                                onblur="enviar_dados(this)">
+                                onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
 
                             </td>
                         </tr>
