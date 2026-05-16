@@ -923,6 +923,7 @@ function filtrar_dados(aba) {
 
                 document.querySelector('#os_table tbody').insertAdjacentHTML('afterbegin', linhas);
                 ordenarTabela(document.querySelector('#os_table tbody tr:last-child td:nth-child(2)'));
+                filtro_os();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
             });
