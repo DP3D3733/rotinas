@@ -1609,7 +1609,7 @@ function enviar_dados(td) {
         let interval_envio = setInterval(() => {
             if (document.getElementById('modal_msg_rapida').style.display == 'block' || (aba == 'Setores' && celulas[1].innerText != '' && celulas[2].innerText != '' && celulas[3].innerText != '' && celulas[4].innerText != '') || aba == 'Usuários' || (celulas[1].innerText != '' && celulas[2].innerText != '' && (celulas[3].innerText != '' || celulas[4].innerText != '') && celulas[5].innerText != '')) {
                 clearInterval(interval_envio);
-                const cads_gu = ['6734', '2958', 'C', 'PAR'];
+                const cads_gu = ['6734', '2958', 'C', 'PARD'];
                 const cads_tipo = ['norte', 'sul', 'centro', 'especializadas'];
                 let cad = '';
                 for (let index = 0; index < cads_gu.length; index++) {
