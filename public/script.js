@@ -330,45 +330,43 @@ function criar_linha(aba, dados) {
                             `
         }
         linha += `
-                            ${borracha}
-                            ${rapido}
                         </span>
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
+                    <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[1]}
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
+                    <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[2]}
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
+                    <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[3]}
                     </td>
                     <td oninput="filterOptions(this,4)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)"
                         onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[4]}
                     </td>
                    <td oninput="filterOptions(this,2)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)"
                         onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[5]}
                     </td>
                     <td oninput="filterOptions(this,5)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" onfocus="atendente(this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)" onfocus="atendente(this)"
                         onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[6]}
                     </td>
                     <td oninput="filterOptions(this,6)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)"
                         onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[7]}
                     </td>
                     <td oninput="filterOptions(this,7)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)"
                         onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                         ${dados[8]}
                     </td>
-                    <td oninput="filterOptions(this,9)" onfocus="horario_final(this)" contenteditable="${content_editable}"
+                    <td oninput="filterOptions(this,9)" onfocus="horario_final(this)"
                         onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                         ${dados[9]}
                     </td>
@@ -377,10 +375,6 @@ function criar_linha(aba, dados) {
         linha = `<tr name="${dados[0]}">
                             <td style="width: 10px;">
                                 <span class="icon-wrapper" style="display: inline-flex; gap: 4px; align-items: center;">
-                                    <label class="checkbox-wrapper">
-                                        <input type="checkbox" class="custom-checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
                                     <svg class="empenhar" onclick="empenhar_gu(this)" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
                                         viewBox="0 0 20 20" version="1.1">
@@ -389,48 +383,32 @@ function criar_linha(aba, dados) {
                                                 d="M 4.765625 1.308594 C 4.167969 1.441406 3.535156 1.882812 3.210938 2.394531 C 3.003906 2.71875 2.96875 2.832031 2.1875 5.4375 L 1.511719 7.691406 L 1.253906 7.839844 C 0.738281 8.136719 0.289062 8.699219 0.105469 9.277344 C 0.0195312 9.550781 0.0195312 9.5625 0.0195312 12.441406 L 0.0195312 15.332031 L 0.109375 15.507812 C 0.15625 15.605469 0.246094 15.75 0.308594 15.824219 C 0.453125 15.996094 0.820312 16.195312 1.0625 16.230469 L 1.242188 16.257812 L 1.257812 17.046875 C 1.269531 17.761719 1.277344 17.847656 1.359375 18.007812 C 1.496094 18.285156 1.652344 18.453125 1.921875 18.597656 L 2.167969 18.730469 L 4.082031 18.730469 L 4.328125 18.597656 C 4.601562 18.449219 4.71875 18.328125 4.875 18.03125 C 4.976562 17.835938 4.980469 17.808594 4.992188 17.039062 L 5.007812 16.25 L 15 16.25 L 15 16.96875 C 15 17.523438 15.015625 17.730469 15.0625 17.882812 C 15.160156 18.179688 15.371094 18.429688 15.664062 18.589844 L 15.917969 18.730469 L 17.832031 18.730469 L 18.078125 18.597656 C 18.351562 18.449219 18.46875 18.328125 18.625 18.03125 C 18.726562 17.835938 18.730469 17.808594 18.742188 17.046875 L 18.757812 16.257812 L 18.9375 16.230469 C 19.167969 16.195312 19.542969 16 19.671875 15.847656 C 19.726562 15.785156 19.816406 15.640625 19.875 15.53125 L 19.980469 15.332031 L 19.980469 12.441406 C 19.980469 9.5625 19.980469 9.550781 19.894531 9.277344 C 19.710938 8.699219 19.261719 8.136719 18.746094 7.839844 L 18.488281 7.691406 L 17.8125 5.4375 C 17.441406 4.199219 17.09375 3.058594 17.039062 2.910156 C 16.785156 2.191406 16.222656 1.640625 15.484375 1.378906 L 15.175781 1.269531 L 10.097656 1.261719 C 5.859375 1.257812 4.976562 1.265625 4.765625 1.308594 Z M 15.257812 5.625 C 15.566406 6.644531 15.816406 7.484375 15.820312 7.488281 C 15.820312 7.496094 13.199219 7.5 9.996094 7.5 C 5.199219 7.5 4.175781 7.492188 4.191406 7.449219 C 4.203125 7.421875 4.453125 6.589844 4.746094 5.601562 C 5.042969 4.617188 5.292969 3.796875 5.300781 3.777344 C 5.308594 3.761719 7.429688 3.753906 10.007812 3.757812 L 14.699219 3.769531 Z M 5.511719 10.738281 C 5.78125 10.867188 5.949219 11.027344 6.097656 11.296875 C 6.21875 11.523438 6.230469 11.570312 6.230469 11.875 C 6.230469 12.179688 6.21875 12.226562 6.097656 12.453125 C 5.949219 12.726562 5.824219 12.84375 5.53125 13 C 5.363281 13.085938 5.28125 13.101562 5 13.101562 C 4.695312 13.105469 4.648438 13.09375 4.421875 12.972656 C 4.152344 12.828125 3.996094 12.660156 3.859375 12.382812 C 3.734375 12.125 3.738281 11.617188 3.867188 11.347656 C 4.03125 11.011719 4.347656 10.753906 4.707031 10.660156 C 4.898438 10.609375 5.324219 10.652344 5.511719 10.738281 Z M 15.511719 10.738281 C 15.78125 10.867188 15.949219 11.027344 16.097656 11.296875 C 16.21875 11.523438 16.230469 11.570312 16.230469 11.875 C 16.230469 12.179688 16.21875 12.226562 16.097656 12.453125 C 15.949219 12.726562 15.824219 12.84375 15.53125 13 C 15.363281 13.085938 15.28125 13.101562 15 13.101562 C 14.695312 13.105469 14.648438 13.09375 14.421875 12.972656 C 14.152344 12.828125 13.996094 12.660156 13.859375 12.382812 C 13.734375 12.125 13.738281 11.617188 13.867188 11.347656 C 14.03125 11.011719 14.347656 10.753906 14.707031 10.660156 C 14.898438 10.609375 15.324219 10.652344 15.511719 10.738281 Z M 15.511719 10.738281 " />
                                         </g>
                                     </svg>
-                                    <svg class="borracha" onclick="excluir_linha(this,false)"
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="17px" height="17px" viewBox="0 0 15 15" version="1.1">
-                                        <g id="surface1">
-                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
-                                                d="M 3.28125 12.65625 L 14.0625 12.65625 L 14.0625 13.59375 L 3.28125 13.59375 Z M 3.28125 12.65625 " />
-                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;"
-                                                d="M 12.835938 4.925781 L 9.117188 1.214844 C 8.941406 1.039062 8.703125 0.9375 8.453125 0.9375 C 8.207031 0.9375 7.964844 1.039062 7.789062 1.214844 L 1.226562 7.777344 C 1.050781 7.953125 0.953125 8.191406 0.953125 8.441406 C 0.953125 8.6875 1.050781 8.925781 1.226562 9.101562 L 3.34375 11.25 L 7.835938 11.25 L 12.835938 6.253906 C 13.011719 6.078125 13.109375 5.839844 13.109375 5.589844 C 13.109375 5.339844 13.011719 5.101562 12.835938 4.925781 Z M 7.449219 10.3125 L 3.75 10.3125 L 1.875 8.4375 L 4.832031 5.480469 L 8.550781 9.191406 Z M 9.210938 8.550781 L 5.5 4.832031 L 8.4375 1.875 L 12.1875 5.59375 Z M 9.210938 8.550781 " />
-                                        </g>
-                                    </svg>
-                                    <svg class="duplicar" onclick="duplicar(this, event)" version="1.0" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
-                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                                            fill="#000000" stroke="none">
-                                            <path d="M1852 4306 c-1179 -590 -1144 -570 -1157 -658 -3 -24 -5 -720 -3 -1548 3 -1490 3 -1505 23 -1540 24 -41 93 -80 142 -80 22 0 198 83 573 270 l540 270 0 -308 c0 -299 1 -309 23 -352 30 -60 76 -90 138 -90 44 0 149 50 1137 544 1179 590 1144 570 1157 658 3 24 5 720 3 1548 -3 1498 -3 1505 -24 1540 -25 43 -87 80 -136 80 -29 0 -159 -61 -578 -270 l-540 -270 0 308 c0 299 -1 309 -22 352 -31 60 -77 90 -139 90 -44 0 -149 -50 -1137 -544z m978 -121 l0 -245 -397 -199 c-219 -109 -406 -207 -415 -218 -49 -55 -48 -20 -48 -1120 l0 -1028 -475 -238 c-261 -130 -477 -237 -480 -237 -3 0 -5 591 -5 1313 l0 1312 902 452 c497 249 906 452 911 452 4 1 7 -109 7 -244z m1280 -1278 l0 -1312 -905 -453 c-498 -248 -907 -452 -910 -452 -3 0 -4 590 -3 1312 l3 1312 905 452 c498 249 906 453 908 453 1 1 2 -590 2 -1312z" />
-                                        </g>
-                                    </svg>
                                 </span>
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
+                            <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                                 ${dados[1]}
                             </td>
-                            <td oninput="filterOptions(this,3)" contenteditable="true" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
+                            <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                                 ${dados[2]}
                             </td>
                             <td oninput="filterOptions(this,4)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
+                                onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                                 ${dados[3]}
                             </td>
                             <td oninput="filterOptions(this,2)" onblur="enviar_dados(this),hideOptions(event, this)"
-                                contenteditable="true" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
+                                onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                                 ${dados[4]}
                             </td>
-                            <td onblur="enviar_dados(this)" contenteditable="true" onfocus="sinalizarEditando(this)">
+                            <td onblur="enviar_dados(this)" onfocus="sinalizarEditando(this)">
                                 ${dados[5]}
                             </td>
-                            <td oninput="filterOptions(this,0)" contenteditable="true" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
+                            <td oninput="filterOptions(this,0)" onblur="enviar_dados(this)" onkeydown="teclas_atalho(this,event.key)" onfocus="sinalizarEditando(this)">
                                 ${dados[6]}
                             </td>
-                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this), sinalizarEditando(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this), sinalizarEditando(this)" onblur="enviar_dados(this)">
                                 ${dados[7]}
                             </td>
-                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this), sinalizarEditando(this)" contenteditable="true" onblur="enviar_dados(this)">
+                            <td oninput="filterOptions(this,9)" onfocus="horario_final(this), sinalizarEditando(this)" onblur="enviar_dados(this)">
                                 ${dados[8]}
                             </td>
                         </tr>`;
@@ -441,23 +419,23 @@ function criar_linha(aba, dados) {
                             ${borracha}
                         </span>
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                    <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)">
                         ${dados[1]}
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                    <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)">
                         ${dados[4]}
                     </td>
                     <td oninput="filterOptions(this,8)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)"
                         onkeydown="teclas_atalho(this,event.key)">
                         ${dados[2]}
                     </td>
                     <td oninput="filterOptions(this,4)" 
-                        onblur="enviar_dados(this),hideOptions(event, this)" contenteditable="${content_editable}"
+                        onblur="enviar_dados(this),hideOptions(event, this)"
                         onkeydown="teclas_atalho(this,event.key)">
                         ${dados[5]}
                     </td>
-                    <td oninput="filterOptions(this,3)" contenteditable="${content_editable}" onblur="enviar_dados(this)">
+                    <td oninput="filterOptions(this,3)" onblur="enviar_dados(this)">
                         ${dados[3] || ''}
                     </td>
                 </tr>`;
@@ -725,128 +703,40 @@ function filtrar_dados(aba) {
 
 
     } else if (aba == 'chamadas') {
-        let registros = [];
         let l_chamadas = document.querySelectorAll('#chamadas_table tbody tr');
         for (let index = 0; index < l_chamadas.length - 1; index++) {
             l_chamadas[index].remove();
 
         }
         data_inicial = new Date(document.querySelector('#chamadas_data_inicial').value);
-        data_inicial.setHours(0, 0, 0, 0);
         data_final = new Date(document.querySelector('#chamadas_data_final').value);
-        data_final.setHours(0, 0, 0, 0);
         if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
             return;
         }
         guardar_filtro('chamadas');
 
-
         unsubscribeChamadasList.forEach(unsub => unsub());
         unsubscribeChamadasList = [];
-        // lista de unsubscribers
-
-        // Suponha que você já tenha: data_inicial e data_final
-        let current = new Date(data_inicial);
-
-        while (current <= data_final) {
-            const dataStr = current.toISOString();
-
-            const unsub = db.collection('chamadas').doc(dataStr).onSnapshot(doc => {
-                if (!doc.exists) { return };
-                const dados = doc.data();
-
+        const unsub = db.collection("chamadas")
+            .where("data", ">=", data_inicial.toISOString())
+            .where("data", "<=", data_final.toISOString())
+            .onSnapshot((snapshot) => {
                 let linhas = '';
-                document.querySelectorAll('#chamadas_table tbody tr').forEach(linha => {
-                    let data_linha = new Date(linha.querySelectorAll('td')[9].innerText.split('/')[2]?.split(',')[0], linha.querySelectorAll('td')[9].innerText.split('/')[1] - 1, linha.querySelectorAll('td')[9].innerText.split('/')[0]);
-                    if (!isNaN(data_linha.getTime())) {
-                        data_linha = data_linha.toISOString();
-                    }
-                    if (!JSON.stringify(dados).includes(linha.getAttribute('name')) && linha.querySelectorAll('td')[9].innerText !== '' && dataStr == data_linha) {
-                        linha.remove();
-                    }
+                snapshot.docs.map(doc => {
+                    const dados = doc.data();
+
+                    const celulas = [doc.id, dados.solicitante, dados.numero, dados.situacao, dados.natureza, dados.endereco, dados.atendente, dados.setor, dados.canal, formatarData(new Date(dados.data))];
+                    const l = criar_linha('chamadas', celulas);
+
+                    linhas += l;
                 });
-
-                dados.chamadas.split('-++-').forEach(linha => {
-                    if (!linha) return;
-                    const celulas = linha.split('-()-'); //9
-                    if (document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`)) {
-                        const possuiDiferencas = celulas.some(celula => { //verifica se a linha já está atualizada na tela do usuário
-                            const index = celulas.indexOf(celula);
-                            if (index == 0) {
-                                return false;
-                            }
-                            const textoAntigo = document.querySelectorAll(`#chamadas_table tr[name='${celulas[0]}'] td`)[index].innerText;
-                            if (textoAntigo == celula) return false;
-                            return true;
-                        });
-
-                        if (!possuiDiferencas) {
-                            console.log('já está atualizado');
-                            return;
-                        }
-                    }
-                    const partes_datahora = celulas[9].split(/\/|, |:/);
-                    const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
-                    if (new Date(document.querySelector('#chamadas_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#chamadas_data_final').value)) {
-                        const l = criar_linha('chamadas', celulas);
-                        if (document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`)) {
-                            document.querySelector(`#chamadas_table tr[name='${celulas[0]}']`).outerHTML = l;
-                        } else {
-                            linhas += l;
-                        }
-                    }
-                });
-
-
-                document.querySelector('#chamadas_table tbody').insertAdjacentHTML('afterbegin', linhas);
-                const rg = Array.from(document.querySelectorAll('#chamadas_table tbody tr')).map(r => r.getAttribute('name')).filter(r => !r.includes(JSON.parse(sessionStorage.getItem('usuario_logado')).nome));
-                if (registros.length == 0) {
-                    registros.push(...rg);
-                } else {
-                    const novosRg = rg.filter(r => !registros.includes(r));
-                    if (novosRg.length > 0) {
-                        const dados = document.querySelectorAll(`#chamadas [name="${novosRg[0]}"] td`)
-                        const mensagem = `Nova chamada: ${dados[4].innerText} - ${dados[5].innerText}`;
-                        notificar(mensagem);
-                        registros.push(...novosRg);
-                    }
-                }
-
-                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                document.querySelector('#chamadas_table tbody').innerHTML = linhas;
                 ordenarTabela(document.querySelector('#chamadas_table tbody tr:last-child td:nth-child(2)'));
-                const resumo_chamadas = document.querySelectorAll('#resumo_chamadas tbody td');
-                let denuncias_153 = 0;
-                let denuncias_wats = 0;
-                let total_ligacoes = 0;
-                let apoio_ao_samu = 0;
-
-                document.querySelectorAll('#chamadas_table tbody tr').forEach(tr => {
-                    let celulas = tr.querySelectorAll('td');
-                    if ((celulas[8].innerText.includes('153') || celulas[8].innerText.includes('156')) && !celulas[8].innerText.includes('WhatsApp')) {
-                        denuncias_153++;
-                        total_ligacoes++;
-                    }
-                    if (celulas[8].innerText.includes('WhatsApp 153')) {
-                        denuncias_wats++;
-                    }
-                    if (celulas[8].innerText.includes('5161')) {
-                        total_ligacoes++;
-                    }
-                    if (celulas[4].innerText.toLowerCase().includes('samu')) {
-                        apoio_ao_samu++;
-                    }
-                    resumo_chamadas[0].innerText = denuncias_153;
-                    resumo_chamadas[1].innerText = denuncias_wats;
-                    resumo_chamadas[2].innerText = total_ligacoes;
-                    resumo_chamadas[3].innerText = apoio_ao_samu;
-
-                })
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
             });
 
-            unsubscribeChamadasList.push(unsub); // salvar função para limpar depois
-            current.setDate(current.getDate() + 1);
-        }
+        unsubscribeChamadasList.push(unsub); // salvar função para limpar depois
     } else if (aba == 'os') {
         let l_os = document.querySelectorAll('#os_table tbody tr');
         for (let index = 0; index < l_os.length - 1; index++) {
@@ -854,9 +744,7 @@ function filtrar_dados(aba) {
 
         }
         data_inicial = new Date(document.querySelector('#os_data_inicial').value);
-        data_inicial.setHours(0, 0, 0, 0);
         data_final = new Date(document.querySelector('#os_data_final').value);
-        data_final.setHours(0, 0, 0, 0);
         if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
             return;
         }
@@ -864,73 +752,32 @@ function filtrar_dados(aba) {
 
         unsubscribeOSList.forEach(unsub => unsub());
         unsubscribeOSList = [];
-        // lista de unsubscribers
-
-        // Suponha que você já tenha: data_inicial e data_final
-        let current = new Date(data_inicial);
-
-        while (current <= data_final) {
-            const dataStr = current.toISOString();
-
-            const unsub = db.collection('os').doc(dataStr).onSnapshot(doc => {
-                if (!doc.exists) { return };
-                const dados = doc.data();
-
+        const unsub = db.collection("os")
+            .where("dataHoraInicial", ">=", data_inicial.toISOString())
+            .where("dataHoraInicial", "<=", data_final.toISOString())
+            .onSnapshot((snapshot) => {
                 let linhas = '';
-                document.querySelectorAll('#os_table tbody tr:not(:last-child)').forEach(linha => {
-                    let data_linha = new Date(linha.querySelectorAll('td')[6].innerText.split('/')[2]?.split(',')[0], linha.querySelectorAll('td')[6].innerText.split('/')[1] - 1, linha.querySelectorAll('td')[6].innerText.split('/')[0]);
-                    if (!isNaN(data_linha.getTime())) {
-                        data_linha = data_linha.toISOString();
-                    }
-                    if (!JSON.stringify(dados).includes(linha.getAttribute('name'))) {
-                        linha.remove();
-                    }
-                });
+                snapshot.docs.map(doc => {
+                    const dados = doc.data();
 
-                dados.os.split('-++-').forEach(linha => {
-                    if (!linha) return;
-                    const celulas = linha.split('-()-'); //6
+                    const celulas = [doc.id, dados.nomeDemanda, dados.finalidade, dados.natureza, dados.qth, dados.endereco, dados.area, formatarData(new Date(dados.dataHoraInicial)), formatarData(new Date(dados.dataHoraFinal))];
+                    const l = criar_linha('os', celulas);
+
                     if (document.querySelector(`#os_table tr[name='${celulas[0]}']`)) {
-                        const possuiDiferencas = celulas.some(celula => { //verifica se a linha já está atualizada na tela do usuário
-                            const index = celulas.indexOf(celula);
-                            if (index == 0) {
-                                return false;
-                            }
-                            const textoAntigo = document.querySelectorAll(`#os_table tr[name='${celulas[0]}'] td`)[index].innerText;
-                            if (textoAntigo == celula) return false;
-                            return true;
-                        });
-
-                        if (!possuiDiferencas) {
-                            return;
-                        }
+                        document.querySelector(`#os_table tr[name='${celulas[0]}']`).outerHTML = l;
+                    } else {
+                        linhas += l;
                     }
-
-
-                    const partes_datahora = celulas[7].split(/\/|, |:/);
-                    const datahora_linha = new Date(parseInt(partes_datahora[2]), parseInt(partes_datahora[1]) - 1, parseInt(partes_datahora[0]), parseInt(partes_datahora[3]), parseInt(partes_datahora[4]));
-                    if (new Date(document.querySelector('#os_data_inicial').value) <= datahora_linha && datahora_linha <= new Date(document.querySelector('#os_data_final').value)) {
-                        const l = criar_linha('os', celulas);
-                        if (document.querySelector(`#os_table tr[name='${celulas[0]}']`)) {
-                            document.querySelector(`#os_table tr[name='${celulas[0]}']`).outerHTML = l;
-                        } else {
-                            linhas += l;
-                        }
-                    }
+                    document.querySelector('#os_table tbody').innerHTML = linhas;
                 });
 
-
-
-                document.querySelector('#os_table tbody').insertAdjacentHTML('afterbegin', linhas);
                 ordenarTabela(document.querySelector('#os_table tbody tr:last-child td:nth-child(2)'));
                 filtro_os();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
             });
 
-            unsubscribeOSList.push(unsub); // salvar função para limpar depois
-            current.setDate(current.getDate() + 1);
-        }
+        unsubscribeOSList.push(unsub); // salvar função para limpar depois
     } else if (aba == 'setores') {
         const filtros = Array.from(document.querySelectorAll('#filtro_setores input'));
         const linhas = document.querySelectorAll('#setores_table tbody tr');
