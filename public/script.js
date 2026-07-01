@@ -710,7 +710,7 @@ function filtrar_dados(aba) {
         }
         data_inicial = new Date(document.querySelector('#chamadas_data_inicial').value);
         data_final = new Date(document.querySelector('#chamadas_data_final').value);
-        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
+        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || isNaN(data_inicial.getTime()) || isNaN(data_final.getTime())) {
             return;
         }
         guardar_filtro('chamadas');
@@ -731,6 +731,7 @@ function filtrar_dados(aba) {
                     linhas += l;
                 });
                 document.querySelector('#chamadas_table tbody').innerHTML = linhas;
+                if (!document.querySelector('#chamadas_table tbody tr:last-child td:nth-child(2)')) return;
                 ordenarTabela(document.querySelector('#chamadas_table tbody tr:last-child td:nth-child(2)'));
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
