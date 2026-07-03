@@ -616,7 +616,7 @@ function filtrar_dados(aba) {
         cad_sul = document.querySelector('#rotina_checkbox_sul');
         cad_centro = document.querySelector('#rotina_checkbox_centro');
         cad_especializadas = document.querySelector('#rotina_checkbox_especializadas');
-        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || (cad_norte.checked == false && cad_sul.checked == false && cad_centro.checked == false && cad_especializadas.checked == false)) {
+        if (isNaN(data_inicial.getTime()) || isNaN(data_final.getTime()) || data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || (cad_norte.checked == false && cad_sul.checked == false && cad_centro.checked == false && cad_especializadas.checked == false)) {
             return;
         }
         guardar_filtro('rotinas');
@@ -746,7 +746,7 @@ function filtrar_dados(aba) {
         }
         data_inicial = new Date(document.querySelector('#os_data_inicial').value);
         data_final = new Date(document.querySelector('#os_data_final').value);
-        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
+        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || isNaN(data_inicial.getTime()) || isNaN(data_final.getTime())) {
             return;
         }
         guardar_filtro('os');
@@ -818,7 +818,7 @@ function filtrar_dados(aba) {
         data_inicial.setHours(0, 0, 0, 0);
         data_final = new Date(document.querySelector('#equipes_data_final').value);
         data_final.setHours(0, 0, 0, 0);
-        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3) {
+        if (data_inicial == '' || data_final == '' || 0 <= data_final - data_inicial >= 3 || isNaN(data_inicial.getTime()) || isNaN(data_final.getTime())) {
             return;
         }
         guardar_filtro('equipes');
